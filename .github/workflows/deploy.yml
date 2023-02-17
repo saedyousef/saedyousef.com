@@ -1,0 +1,20 @@
+name: Deploy to DigitalOcean
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y php7.4 php7.4-mysql php7.4-mbstring composer
+          composer install --no-dev
+      - name: Deploy code
+        run: |
+          rsync -avz --delete --exclude-from='.gitignore' . <your-digitalocean-server-ip>:/var/www/html
+          ssh <your-digitalocean-server-ip> "sudo chown -R www-data:www-data /var/www/html"
