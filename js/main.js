@@ -17,6 +17,22 @@ toggle.addEventListener('change', () => {
 });
 
 // Timeline scroll animation
+const timeline = document.querySelector('.timeline');
+const cards = document.querySelectorAll('.timeline .card');
+
+const updateLineProgress = () => {
+    const active = Array.from(cards).filter(c => c.classList.contains('active'));
+    if (!active.length) {
+        timeline.style.setProperty('--line-progress', '0%');
+        return;
+    }
+    const last = active[active.length - 1];
+    const rect = last.getBoundingClientRect();
+    const lineRect = timeline.getBoundingClientRect();
+    const progress = ((rect.top + rect.height / 2) - lineRect.top) / lineRect.height * 100;
+    timeline.style.setProperty('--line-progress', `${Math.min(progress, 100)}%`);
+};
+
 const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -25,6 +41,8 @@ const observer = new IntersectionObserver(entries => {
             entry.target.classList.remove('active');
         }
     });
+    updateLineProgress();
 }, { threshold: 0.3 });
 
-document.querySelectorAll('.timeline .card').forEach(card => observer.observe(card));
+cards.forEach(card => observer.observe(card));
+window.addEventListener('load', updateLineProgress);
