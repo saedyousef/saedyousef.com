@@ -55,12 +55,12 @@
     min-height: 150px;
 }
 
-.terminal_promt {
+.terminal_prompt {
     display: flex;
     flex-wrap: wrap;
 }
 
-.terminal_promt span {
+.terminal_prompt span {
     margin-left: 4px;
 }
 
