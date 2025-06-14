@@ -134,7 +134,7 @@ h2 {
 .timeline .card::before {
     content: '';
     position: absolute;
-    left: 10px; /* center circle on the line */
+    left: -30px; /* center circle on the line */
     top: 1rem;
     width: 12px;
     height: 12px;
