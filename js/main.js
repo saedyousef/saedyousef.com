@@ -27,7 +27,7 @@ const animateLine = (target) => {
     if (progressAnimation) cancelAnimationFrame(progressAnimation);
     const start = currentProgress;
     const delta = target - start;
-    const duration = 500; // ms
+    const duration = 1000; // ms - slow down the line animation
     let startTime;
 
     const step = (timestamp) => {
@@ -49,7 +49,11 @@ const updateLineProgress = () => {
     const lineRect = timeline.getBoundingClientRect();
     const viewportBottom = window.scrollY + window.innerHeight;
     const progress = ((viewportBottom - lineRect.top) / lineRect.height) * 100;
-    animateLine(Math.max(0, Math.min(progress, 100)));
+    const target = Math.max(0, Math.min(progress, 100));
+    // Only animate when moving downwards to keep progress visible
+    if (target > currentProgress) {
+        animateLine(target);
+    }
 };
 
 const observer = new IntersectionObserver(entries => {
