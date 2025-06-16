@@ -149,3 +149,27 @@ h2 {
     background-color: var(--accent);
     border-color: var(--accent);
 }
+
+footer {
+    margin-top: 2rem;
+    padding: 1rem 0;
+    background-color: var(--accent);
+    color: #fff;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+footer a {
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+}
+
+.social-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: currentColor;
+}
