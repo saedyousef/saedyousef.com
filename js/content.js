@@ -63,6 +63,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
+            const skillsContainer = document.getElementById('skills');
+            if (skillsContainer && Array.isArray(data.skills)) {
+                data.skills.forEach(skill => {
+                    const span = document.createElement('span');
+                    span.className = 'skill-badge';
+                    span.textContent = skill;
+                    skillsContainer.appendChild(span);
+                });
+            }
+
             if (window.initTimeline) {
                 window.initTimeline();
             }

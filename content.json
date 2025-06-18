@@ -122,5 +122,22 @@
       "degree": "Bachelor of Science",
       "location": "Amman, Jordan"
     }
+  ],
+  "skills": [
+    "PHP",
+    "Laravel",
+    "Laravel Lumen",
+    "JavaScript",
+    "Docker",
+    "Kubernetes",
+    "AWS",
+    "Nginx",
+    "MySQL",
+    "Git",
+    "REST APIs",
+    "HTML",
+    "CSS",
+    "DevOps",
+    "Team Leadership"
   ]
 }

@@ -173,3 +173,28 @@ footer a {
     height: 24px;
     fill: currentColor;
 }
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-badge {
+    background-color: var(--accent);
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.skill-badge:hover {
+    transform: scale(1.1);
+}
+
+.dark .skill-badge {
+    background-color: #333;
+    border: 1px solid var(--accent);
+    color: var(--text-dark);
+}
