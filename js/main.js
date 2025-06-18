@@ -17,56 +17,59 @@ toggle.addEventListener('change', () => {
 });
 
 // Timeline scroll animation
-const timeline = document.querySelector('.timeline');
-const cards = document.querySelectorAll('.timeline .card');
+window.initTimeline = function () {
+    const timeline = document.querySelector('.timeline');
+    if (!timeline) return;
+    const cards = document.querySelectorAll('.timeline .card');
 
-let currentProgress = 0;
-let progressAnimation;
+    let currentProgress = 0;
+    let progressAnimation;
 
-const animateLine = (target) => {
-    if (progressAnimation) cancelAnimationFrame(progressAnimation);
-    const start = currentProgress;
-    const delta = target - start;
-    const duration = 1000; // ms - slow down the line animation
-    let startTime;
+    const animateLine = (target) => {
+        if (progressAnimation) cancelAnimationFrame(progressAnimation);
+        const start = currentProgress;
+        const delta = target - start;
+        const duration = 1000; // ms - slow down the line animation
+        let startTime;
 
-    const step = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const t = Math.min((timestamp - startTime) / duration, 1);
-        const value = start + delta * t;
-        timeline.style.setProperty('--line-progress', `${value}%`);
-        if (t < 1) {
-            progressAnimation = requestAnimationFrame(step);
-        } else {
-            currentProgress = target;
+        const step = (timestamp) => {
+            if (!startTime) startTime = timestamp;
+            const t = Math.min((timestamp - startTime) / duration, 1);
+            const value = start + delta * t;
+            timeline.style.setProperty('--line-progress', `${value}%`);
+            if (t < 1) {
+                progressAnimation = requestAnimationFrame(step);
+            } else {
+                currentProgress = target;
+            }
+        };
+
+        progressAnimation = requestAnimationFrame(step);
+    };
+
+    const updateLineProgress = () => {
+        const lineRect = timeline.getBoundingClientRect();
+        const viewportBottom = window.scrollY + window.innerHeight;
+        const progress = ((viewportBottom - lineRect.top) / lineRect.height) * 100;
+        const target = Math.max(0, Math.min(progress, 100));
+        // Only animate when moving downwards to keep progress visible
+        if (target > currentProgress) {
+            animateLine(target);
         }
     };
 
-    progressAnimation = requestAnimationFrame(step);
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            } else {
+                entry.target.classList.remove('active');
+            }
+        });
+        updateLineProgress();
+    }, { threshold: 0.3 });
+
+    cards.forEach(card => observer.observe(card));
+    window.addEventListener('load', updateLineProgress);
+    window.addEventListener('scroll', updateLineProgress);
 };
-
-const updateLineProgress = () => {
-    const lineRect = timeline.getBoundingClientRect();
-    const viewportBottom = window.scrollY + window.innerHeight;
-    const progress = ((viewportBottom - lineRect.top) / lineRect.height) * 100;
-    const target = Math.max(0, Math.min(progress, 100));
-    // Only animate when moving downwards to keep progress visible
-    if (target > currentProgress) {
-        animateLine(target);
-    }
-};
-
-const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-        } else {
-            entry.target.classList.remove('active');
-        }
-    });
-    updateLineProgress();
-}, { threshold: 0.3 });
-
-cards.forEach(card => observer.observe(card));
-window.addEventListener('load', updateLineProgress);
-window.addEventListener('scroll', updateLineProgress);

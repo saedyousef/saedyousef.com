@@ -1,0 +1,126 @@
+{
+  "about": {
+    "text": "As a Development Team Lead with over 7 years of experience, I specialize in backend technologies, primarily PHP. My expertise lies in building robust web applications, integrating third-party systems, and architecting RESTful APIs."
+  },
+  "experience": [
+    {
+      "company": "IPO Solutions",
+      "position": "Development Team Lead",
+      "start": "Feb 2024",
+      "end": "Present",
+      "location": "Bruchsal, Germany",
+      "workType": "Hybrid",
+      "description": "Leading the backend team, overseeing code reviews, architecture, and technical decision-making with a focus on clean and scalable PHP-based systems.",
+      "responsibilities": [
+        "Lead the backend team and oversee code reviews.",
+        "Define architecture and make technical decisions.",
+        "Build clean and scalable PHP systems."
+      ]
+    },
+    {
+      "company": "IPO Solutions",
+      "position": "Senior Software Engineer",
+      "start": "Feb 2022",
+      "end": "Feb 2024",
+      "location": "Weingarten, Germany",
+      "workType": "On-site",
+      "description": "Involved in advanced backend development, system design, and mentoring team members while ensuring high-quality delivery and system integrations.",
+      "responsibilities": [
+        "Develop advanced backend features and systems.",
+        "Design system architecture and integrations.",
+        "Mentor team members and ensure high-quality delivery."
+      ]
+    },
+    {
+      "company": "IPO Solutions",
+      "position": "Software Engineer",
+      "start": "Sep 2021",
+      "end": "Feb 2022",
+      "location": "Weingarten, Germany",
+      "workType": "On-site",
+      "description": "Worked on backend logic, infrastructure management, and implemented modern DevOps practices. Core skills: Laravel, Docker, Kubernetes, AWS, MVC, REST APIs.",
+      "responsibilities": [
+        "Implement backend logic and manage infrastructure.",
+        "Adopt modern DevOps practices.",
+        "Use Laravel, Docker, Kubernetes, AWS and REST APIs."
+      ]
+    },
+    {
+      "company": "IPO Solutions",
+      "position": "Software Engineer",
+      "start": "Aug 2021",
+      "end": "Sep 2021",
+      "location": "Weingarten, Germany",
+      "workType": "Remote",
+      "description": "Focused on refactoring and reviewing JSON-based APIs. Worked in an agile team with a remote-first approach.",
+      "responsibilities": [
+        "Refactor and review JSON-based APIs.",
+        "Collaborate in an agile, remote-first team."
+      ]
+    },
+    {
+      "company": "Freelance",
+      "position": "Backend Developer",
+      "start": "Jan 2021",
+      "end": "Jun 2021",
+      "location": "Remote",
+      "workType": "Remote",
+      "description": "Delivered backend solutions for clients, including API design and integration. Communicated project scope and delivered milestones independently.",
+      "responsibilities": [
+        "Design and integrate APIs for clients.",
+        "Communicate project scope and deliver milestones independently."
+      ]
+    },
+    {
+      "company": "Freelance",
+      "position": "Full Stack Developer",
+      "start": "May 2020",
+      "end": "Sep 2020",
+      "location": "Remote",
+      "workType": "Remote",
+      "description": "Developed full-stack applications and PHP/AWS integrations using design patterns and best practices.",
+      "responsibilities": [
+        "Build full-stack applications.",
+        "Integrate PHP applications with AWS using best practices."
+      ]
+    },
+    {
+      "company": "Plexable",
+      "position": "Senior Software Engineer",
+      "start": "Aug 2019",
+      "end": "Jan 2020",
+      "location": "Amman, Jordan",
+      "workType": "On-site",
+      "description": "Developed and maintained core systems and APIs. Built SDKs, deployed fixes, and handled client support and onboarding. Key tools: Laravel, Docker, AWS.",
+      "responsibilities": [
+        "Develop and maintain core systems and APIs.",
+        "Build SDKs and deploy fixes.",
+        "Provide client support and onboarding."
+      ]
+    },
+    {
+      "company": "Classera",
+      "position": "Software Engineer",
+      "start": "Jul 2016",
+      "end": "Jul 2019",
+      "location": "Amman, Jordan",
+      "workType": "On-site",
+      "description": "Led backend API development, system integration, and payment gateway setups. Coordinated projects and trained junior developers. Used PHP, CakePHP, Laravel.",
+      "responsibilities": [
+        "Lead backend API development and system integration.",
+        "Set up payment gateways.",
+        "Coordinate projects and train junior developers."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Jordan",
+      "start": "2011",
+      "end": "2015",
+      "field": "Computer Information Systems",
+      "degree": "Bachelor of Science",
+      "location": "Amman, Jordan"
+    }
+  ]
+}
