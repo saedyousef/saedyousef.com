@@ -3,8 +3,8 @@
  * Description: terminal
  */
 // Typing effect in terminal
-const typedTextEl = document.getElementById("typed-text");
-const aboutText = ` As a Development Team Lead with over 7 years of experience, I specialize in backend technologies, primarily PHP. My expertise lies in building robust web applications, integrating third-party systems, and architecting RESTful APIs.`;
+const typedTextEl = document.getElementById('typed-text');
+let aboutText = '';
 let index = 0;
 const delay = 30;
 
@@ -15,4 +15,9 @@ function typeText() {
     }
 }
 
-window.addEventListener('DOMContentLoaded', typeText);
+window.setAboutText = function(text) {
+    aboutText = text || '';
+    index = 0;
+    typedTextEl.textContent = '';
+    typeText();
+};
