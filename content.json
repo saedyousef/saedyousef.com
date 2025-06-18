@@ -1,6 +1,6 @@
 {
   "about": {
-    "text": "As a Development Team Lead with over 7 years of experience, I specialize in backend technologies, primarily PHP. My expertise lies in building robust web applications, integrating third-party systems, and architecting RESTful APIs."
+    "text": "As a Development Team Lead with over 7 years of experience, I specialize in backend technologies, primarily PHP. My expertise lies in building robust web applications, integrating third-party systems, and architecting RESTful APIs. I emphasize clean, maintainable code and best practices while guiding my team to deliver high-quality solutions. With a strong foundation in DevOps, I automate workflows, manage infrastructure, and ensure efficient deployments. I'm passionate about leveraging technology to create scalable solutions and always open to new challenges."
   },
   "experience": [
     {
@@ -10,11 +10,12 @@
       "end": "Present",
       "location": "Bruchsal, Germany",
       "workType": "Hybrid",
-      "description": "Leading the backend team, overseeing code reviews, architecture, and technical decision-making with a focus on clean and scalable PHP-based systems.",
+      "description": "Lead a team of engineers delivering scalable PHP services. Set architecture standards, perform code reviews, and coordinate DevOps automation to ensure smooth releases.",
       "responsibilities": [
-        "Lead the backend team and oversee code reviews.",
-        "Define architecture and make technical decisions.",
-        "Build clean and scalable PHP systems."
+        "Manage a team of developers and coordinate sprint planning.",
+        "Review code and enforce best practices for maintainable PHP.",
+        "Architect RESTful APIs and system integrations.",
+        "Drive automation and deployment processes."
       ]
     },
     {
@@ -24,11 +25,12 @@
       "end": "Feb 2024",
       "location": "Weingarten, Germany",
       "workType": "On-site",
-      "description": "Involved in advanced backend development, system design, and mentoring team members while ensuring high-quality delivery and system integrations.",
+      "description": "Designed and implemented complex backend features. Mentored teammates, contributed to infrastructure improvements, and collaborated on system design and integrations.",
       "responsibilities": [
-        "Develop advanced backend features and systems.",
-        "Design system architecture and integrations.",
-        "Mentor team members and ensure high-quality delivery."
+        "Build and optimize backend services.",
+        "Lead architecture discussions and integrations.",
+        "Mentor developers through code reviews and pair programming.",
+        "Ensure reliable deployments using Docker and Kubernetes."
       ]
     },
     {
@@ -38,11 +40,11 @@
       "end": "Feb 2022",
       "location": "Weingarten, Germany",
       "workType": "On-site",
-      "description": "Worked on backend logic, infrastructure management, and implemented modern DevOps practices. Core skills: Laravel, Docker, Kubernetes, AWS, MVC, REST APIs.",
+      "description": "Improved backend systems and adopted DevOps practices. Managed infrastructure using Docker and Kubernetes on AWS.",
       "responsibilities": [
         "Implement backend logic and manage infrastructure.",
-        "Adopt modern DevOps practices.",
-        "Use Laravel, Docker, Kubernetes, AWS and REST APIs."
+        "Establish CI/CD pipelines.",
+        "Utilize Laravel, Docker, Kubernetes, AWS, and REST APIs."
       ]
     },
     {
@@ -52,10 +54,11 @@
       "end": "Sep 2021",
       "location": "Weingarten, Germany",
       "workType": "Remote",
-      "description": "Focused on refactoring and reviewing JSON-based APIs. Worked in an agile team with a remote-first approach.",
+      "description": "Refactored existing APIs and improved JSON data structures while collaborating with an agile remote team.",
       "responsibilities": [
         "Refactor and review JSON-based APIs.",
-        "Collaborate in an agile, remote-first team."
+        "Collaborate in an agile, remote-first team.",
+        "Ensure documentation and test coverage."
       ]
     },
     {
@@ -65,10 +68,11 @@
       "end": "Jun 2021",
       "location": "Remote",
       "workType": "Remote",
-      "description": "Delivered backend solutions for clients, including API design and integration. Communicated project scope and delivered milestones independently.",
+      "description": "Delivered backend services for clients, focusing on API design, integrations, and independent project management.",
       "responsibilities": [
         "Design and integrate APIs for clients.",
-        "Communicate project scope and deliver milestones independently."
+        "Communicate project scope and deliver milestones.",
+        "Maintain reliability with automated testing."
       ]
     },
     {
@@ -78,10 +82,11 @@
       "end": "Sep 2020",
       "location": "Remote",
       "workType": "Remote",
-      "description": "Developed full-stack applications and PHP/AWS integrations using design patterns and best practices.",
+      "description": "Developed full-stack applications using PHP and AWS, managing the entire lifecycle from planning to deployment.",
       "responsibilities": [
         "Build full-stack applications.",
-        "Integrate PHP applications with AWS using best practices."
+        "Integrate PHP apps with AWS using best practices.",
+        "Implement design patterns and maintainable code."
       ]
     },
     {
@@ -91,11 +96,12 @@
       "end": "Jan 2020",
       "location": "Amman, Jordan",
       "workType": "On-site",
-      "description": "Developed and maintained core systems and APIs. Built SDKs, deployed fixes, and handled client support and onboarding. Key tools: Laravel, Docker, AWS.",
+      "description": "Developed and maintained core systems and APIs. Built SDKs for delivery integrations, deployed fixes, and provided client support and onboarding.",
       "responsibilities": [
         "Develop and maintain core systems and APIs.",
         "Build SDKs and deploy fixes.",
-        "Provide client support and onboarding."
+        "Provide client support and onboarding.",
+        "Train new team members."
       ]
     },
     {
@@ -105,11 +111,12 @@
       "end": "Jul 2019",
       "location": "Amman, Jordan",
       "workType": "On-site",
-      "description": "Led backend API development, system integration, and payment gateway setups. Coordinated projects and trained junior developers. Used PHP, CakePHP, Laravel.",
+      "description": "Led API development and integrations across multiple projects. Managed payment gateways and infrastructure while coordinating releases and mentoring junior developers.",
       "responsibilities": [
         "Lead backend API development and system integration.",
-        "Set up payment gateways.",
-        "Coordinate projects and train junior developers."
+        "Set up and maintain payment gateways.",
+        "Coordinate projects and train junior developers.",
+        "Manage servers and environments."
       ]
     }
   ],
