@@ -65,7 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const skillsContainer = document.getElementById('skills');
             if (skillsContainer && data.skills && typeof data.skills === 'object') {
-                Object.entries(data.skills).forEach(([section, skills]) => {
+                // Clear previous content in case the script runs more than once
+                skillsContainer.innerHTML = '';
+                const fragment = document.createDocumentFragment();
+                Object.entries(data.skills).forEach(([section, skillList]) => {
                     const sectionDiv = document.createElement('div');
                     sectionDiv.className = 'skill-section';
 
@@ -76,8 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const list = document.createElement('div');
                     list.className = 'skills-list';
 
-                    if (Array.isArray(skills)) {
-                        skills.forEach(skill => {
+                    if (Array.isArray(skillList)) {
+                        skillList.forEach(skill => {
                             const span = document.createElement('span');
                             span.className = 'skill-badge';
                             span.textContent = skill;
@@ -86,8 +89,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     sectionDiv.appendChild(list);
-                    skillsContainer.appendChild(sectionDiv);
+                    fragment.appendChild(sectionDiv);
                 });
+                skillsContainer.appendChild(fragment);
             }
 
             if (window.initTimeline) {
