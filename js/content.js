@@ -64,12 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const skillsContainer = document.getElementById('skills');
-            if (skillsContainer && Array.isArray(data.skills)) {
-                data.skills.forEach(skill => {
-                    const span = document.createElement('span');
-                    span.className = 'skill-badge';
-                    span.textContent = skill;
-                    skillsContainer.appendChild(span);
+            if (skillsContainer && data.skills && typeof data.skills === 'object') {
+                Object.entries(data.skills).forEach(([section, skills]) => {
+                    const sectionDiv = document.createElement('div');
+                    sectionDiv.className = 'skill-section';
+
+                    const h3 = document.createElement('h3');
+                    h3.textContent = section;
+                    sectionDiv.appendChild(h3);
+
+                    const list = document.createElement('div');
+                    list.className = 'skills-list';
+
+                    if (Array.isArray(skills)) {
+                        skills.forEach(skill => {
+                            const span = document.createElement('span');
+                            span.className = 'skill-badge';
+                            span.textContent = skill;
+                            list.appendChild(span);
+                        });
+                    }
+
+                    sectionDiv.appendChild(list);
+                    skillsContainer.appendChild(sectionDiv);
                 });
             }
 

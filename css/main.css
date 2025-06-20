@@ -180,6 +180,14 @@ footer a {
     gap: 0.5rem;
 }
 
+.skill-section {
+    margin-bottom: 1rem;
+}
+
+.skill-section h3 {
+    margin-bottom: 0.5rem;
+}
+
 .skill-badge {
     background-color: var(--accent);
     color: #fff;

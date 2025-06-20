@@ -130,62 +130,81 @@
       "location": "Amman, Jordan"
     }
   ],
-  "skills": [
-    "JSON",
-    "Code Review",
-    "ClickUp",
-    "Spoken English",
-    "Design Patterns",
-    "Analytical Skills",
-    "Laravel",
-    "Ubuntu",
-    "CakePHP",
-    "Object-Oriented Programming (OOP)",
-    "Composer",
-    "JavaScript",
-    "Unix",
-    "Docker",
-    "Git",
-    "RESTful Web Services",
-    "MySQL",
-    "Apache",
-    "Amazon Web Services (AWS)",
-    "Linux",
-    "Databases",
-    "PHP",
-    "jQuery",
-    "Nginx",
-    "Redis",
-    "MVC",
-    "Back-End Web Development",
-    "Indexing",
-    "Continuous Integration and Continuous Delivery (CI/CD)",
-    "Cascading Style Sheets (CSS)",
-    "SASS",
-    "SQLite",
-    "HTML",
-    "Algolia",
-    "Jira",
-    "Agile",
-    "Scrum",
-    "Full-Stack Development",
-    "API Development",
-    "Kubernetes",
-    "Rancher Kubernetes Management",
-    "Laravel Lumen",
-    "DigitalOcean",
-    "Workflow Automation",
-    "GitHub Actions",
-    "AWS CDK",
-    "AWS CloudFormation",
-    "AWS EventBridge",
-    "AWS CodeCommit",
-    "AWS ECS",
-    "AWS CodePipeline",
-    "AWS CodeBuild",
-    "Shell scripting",
-    "n8n",
-    "DevOps",
-    "Team Leadership"
-  ]
+  "skills": {
+    "Skills": [
+      "Object-Oriented Programming (OOP)",
+      "Design Patterns",
+      "RESTful Web Services",
+      "API Development",
+      "Back-End Web Development",
+      "Full-Stack Development",
+      "Databases",
+      "Indexing",
+      "Shell scripting",
+      "DevOps",
+      "Workflow Automation",
+      "Code Review",
+      "Analytical Skills",
+      "Team Leadership",
+      "Spoken English"
+    ],
+    "IDEs & Text Editors": [
+      "VS Code",
+      "PhpStorm",
+      "Sublime Text",
+      "Vim"
+    ],
+    "Software Methodologies": [
+      "Agile",
+      "Scrum",
+      "Continuous Integration and Continuous Delivery (CI/CD)"
+    ],
+    "Cloud Providers": [
+      "AWS ECS",
+      "AWS CDK",
+      "AWS CloudFormation",
+      "AWS EventBridge",
+      "AWS CodeCommit",
+      "AWS CodePipeline",
+      "AWS CodeBuild",
+      "DigitalOcean",
+      "Rancher Kubernetes Management"
+    ],
+    "Development Tools & Frameworks": [
+      "Laravel",
+      "Laravel Lumen",
+      "CakePHP",
+      "Composer",
+      "Docker",
+      "Git",
+      "GitHub Actions",
+      "Kubernetes",
+      "n8n"
+    ],
+    "Databases & Search": [
+      "MySQL",
+      "SQLite",
+      "Redis",
+      "Algolia"
+    ],
+    "Web & Front-End Technologies": [
+      "HTML",
+      "Cascading Style Sheets (CSS)",
+      "SASS",
+      "JavaScript",
+      "jQuery",
+      "MVC"
+    ],
+    "Operating Systems & Environments": [
+      "Linux",
+      "Ubuntu",
+      "Unix",
+      "Nginx",
+      "Apache"
+    ],
+    "Project & Task Management": [
+      "ClickUp",
+      "Jira"
+    ]
+  }
 }
