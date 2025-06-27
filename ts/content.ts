@@ -1,9 +1,16 @@
+interface SiteData {
+    about?: { text: string };
+    experience?: any[];
+    education?: any[];
+    skills?: Record<string, string[]>;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch('content.json')
         .then(res => res.json())
-        .then(data => {
-            if (data.about && window.setAboutText) {
-                window.setAboutText(data.about.text);
+        .then((data: SiteData) => {
+            if (data.about && (window as any).setAboutText) {
+                (window as any).setAboutText(data.about.text);
             }
 
             const expContainer = document.getElementById('experience');
@@ -94,8 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 skillsContainer.appendChild(fragment);
             }
 
-            if (window.initTimeline) {
-                window.initTimeline();
+            if ((window as any).initTimeline) {
+                (window as any).initTimeline();
             }
         })
         .catch(err => {

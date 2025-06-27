@@ -1,0 +1,22 @@
+{
+  "name": "saedyousef.com",
+  "version": "1.0.0",
+  "description": "This repository contains the source code for **saedyousef.com**, a simple static website built with HTML, CSS and JavaScript. The site showcases Saed Yousef's professional experience and includes a dark mode toggle.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.4",
+    "jest": "^30.0.3",
+    "jest-environment-jsdom": "^30.0.2",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3"
+  }
+}

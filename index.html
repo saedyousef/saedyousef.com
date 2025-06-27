@@ -96,8 +96,11 @@
 </footer>
 
 <!-- External JavaScript files -->
-<script src="js/terminal.js"></script>
-<script src="js/main.js"></script>
-<script src="js/content.js"></script>
+<script type="module">
+  import { initTheme } from './dist/main.js';
+  import './dist/terminal.js';
+  import './dist/content.js';
+  initTheme();
+</script>
 </body>
 </html>

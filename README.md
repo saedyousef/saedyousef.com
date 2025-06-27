@@ -1,10 +1,10 @@
 # Saed Yousef Personal Site
 
-This repository contains the source code for **saedyousef.com**, a simple static website built with HTML, CSS and JavaScript. The site showcases Saed Yousef's professional experience and includes a dark mode toggle.
+This repository contains the source code for **saedyousef.com**, a simple static website built with HTML, CSS and TypeScript. The site showcases Saed Yousef's professional experience and includes a dark mode toggle.
 
 ## Development
 
-No build step is required. Open `index.html` directly in your browser or serve the files using any static HTTP server.
+Install dependencies with `npm install` and run `npm run build` to compile the TypeScript sources. Tests can be executed with `npm test`. Once built, open `index.html` in your browser or serve the files using any static HTTP server.
 
 ## Deployment
 
