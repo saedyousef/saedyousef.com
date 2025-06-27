@@ -12,8 +12,8 @@
     position: relative;
     width: 100px;
     height: 50px;
-    --light: var(--toggle-light);
-    --dark: var(--toggle-dark);
+    --light: #d8dbe0;
+    --dark: #28292c;
 }
 
 .switch-label {

@@ -2,10 +2,10 @@
  * Created by yousef on 6/14/2025 at 3:01 PM.
  */
 .container {
-    background: var(--terminal-bg);
+    background: #000;
     border-radius: 6px;
     overflow: hidden;
-    color: var(--terminal-text);
+    color: #d5d0ce;
     font-family: monospace;
     font-size: 14px;
 }
@@ -15,7 +15,7 @@
     height: 30px;
     align-items: center;
     padding: 0 8px;
-    background: var(--terminal-toolbar-bg);
+    background: #212121;
     justify-content: space-between;
 }
 
@@ -30,23 +30,23 @@
     width: 12px;
     border: none;
     border-radius: 100%;
-    background: linear-gradient(var(--terminal-gradient-start) 0%, var(--terminal-gradient-end) 100%);
+    background: linear-gradient(#7d7871 0%, #595953 100%);
 }
 
 .btn-color {
-    background: var(--terminal-btn-color);
+    background: #ee411a;
 }
 
 .add_tab {
-    border: 1px solid var(--white);
+    border: 1px solid #fff;
     padding: 0 6px;
-    color: var(--white);
+    color: #fff;
     border-radius: 4px 4px 0 0;
 }
 
 .user {
     font-size: 13px;
-    color: var(--terminal-text);
+    color: #d5d0ce;
 }
 
 .terminal_body {
@@ -65,26 +65,26 @@
 }
 
 .terminal_user {
-    color: var(--terminal-user);
+    color: #1eff8e;
 }
 
 .terminal_location {
-    color: var(--terminal-location);
+    color: #4878c0;
 }
 
 .terminal_bling {
-    color: var(--terminal-bling);
+    color: #dddddd;
 }
 
 .terminal_cursor {
     display: inline-block;
     width: 5px;
     height: 14px;
-    background: var(--white);
+    background: #fff;
     animation: curbl 1.2s linear infinite;
 }
 
 @keyframes curbl {
-    0%, 49% { background: var(--white); }
+    0%, 49% { background: #ffffff; }
     50%, 100% { background: transparent; }
 }

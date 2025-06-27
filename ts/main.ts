@@ -8,20 +8,6 @@ export function setTheme(dark: boolean, toggleEl: HTMLInputElement): void {
     toggleEl.checked = dark;
 }
 
-export async function loadTheme(): Promise<void> {
-    try {
-        const res = await fetch('theme.json');
-        const theme = await res.json();
-        if (theme && typeof theme === 'object') {
-            Object.entries(theme).forEach(([key, value]) => {
-                document.documentElement.style.setProperty(`--${key}`, value as string);
-            });
-        }
-    } catch (err) {
-        console.error('Failed to load theme.json', err);
-    }
-}
-
 export function initTheme(): void {
     const toggle = document.getElementById('theme-toggle') as HTMLInputElement;
     const storedTheme = localStorage.getItem('theme');
@@ -112,5 +98,4 @@ export function initStarButton(): void {
 if (typeof window !== 'undefined') {
     (window as any).initTimeline = initTimeline;
     (window as any).initStarButton = initStarButton;
-    (window as any).loadTheme = loadTheme;
 }
