@@ -94,6 +94,28 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             skillsContainer.appendChild(fragment);
         }
+        if (data.terminal) {
+            const user = data.terminal.user || '';
+            const host = data.terminal.host || '';
+            const full = user && host ? `${user}@${host}` : user || host;
+            const toolbar = document.getElementById('terminal-toolbar');
+            if (toolbar)
+                toolbar.textContent = `${full}: ~`;
+            const span = document.getElementById('terminal-user');
+            if (span)
+                span.textContent = `${full}:`;
+        }
+        if (data.links) {
+            const gh = document.getElementById('github-link');
+            if (gh && data.links.github)
+                gh.href = data.links.github;
+            const li = document.getElementById('linkedin-link');
+            if (li && data.links.linkedin)
+                li.href = data.links.linkedin;
+            const designer = document.getElementById('designer-link');
+            if (designer && data.links.github)
+                designer.href = data.links.github;
+        }
         if (window.initTimeline) {
             window.initTimeline();
         }
