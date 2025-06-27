@@ -2,6 +2,23 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('content.json')
         .then(res => res.json())
         .then((data) => {
+        if (data.name) {
+            const nameEl = document.getElementById('name');
+            if (nameEl)
+                nameEl.textContent = data.name;
+        }
+        if (data.tagline) {
+            const taglineEl = document.getElementById('tagline');
+            if (taglineEl)
+                taglineEl.textContent = data.tagline;
+        }
+        if (data.headers && typeof data.headers === 'object') {
+            Object.entries(data.headers).forEach(([key, text]) => {
+                const el = document.getElementById(`${key}-header`);
+                if (el)
+                    el.textContent = text;
+            });
+        }
         if (data.about && window.setAboutText) {
             window.setAboutText(data.about.text);
         }

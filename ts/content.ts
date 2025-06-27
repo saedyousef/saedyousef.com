@@ -1,4 +1,7 @@
 interface SiteData {
+    name?: string;
+    tagline?: string;
+    headers?: Record<string, string>;
     about?: { text: string };
     experience?: any[];
     education?: any[];
@@ -9,6 +12,23 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('content.json')
         .then(res => res.json())
         .then((data: SiteData) => {
+            if (data.name) {
+                const nameEl = document.getElementById('name');
+                if (nameEl) nameEl.textContent = data.name;
+            }
+
+            if (data.tagline) {
+                const taglineEl = document.getElementById('tagline');
+                if (taglineEl) taglineEl.textContent = data.tagline;
+            }
+
+            if (data.headers && typeof data.headers === 'object') {
+                Object.entries(data.headers).forEach(([key, text]) => {
+                    const el = document.getElementById(`${key}-header`);
+                    if (el) el.textContent = text as string;
+                });
+            }
+
             if (data.about && (window as any).setAboutText) {
                 (window as any).setAboutText(data.about.text);
             }
