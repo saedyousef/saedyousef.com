@@ -1,12 +1,3 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 /**
  * Created by yousef on 6/14/2025 at 3:02 PM
  * Description: main
@@ -15,22 +6,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 export function setTheme(dark, toggleEl) {
     document.body.classList.toggle('dark', dark);
     toggleEl.checked = dark;
-}
-export function loadTheme() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const res = yield fetch('theme.json');
-            const theme = yield res.json();
-            if (theme && typeof theme === 'object') {
-                Object.entries(theme).forEach(([key, value]) => {
-                    document.documentElement.style.setProperty(`--${key}`, value);
-                });
-            }
-        }
-        catch (err) {
-            console.error('Failed to load theme.json', err);
-        }
-    });
 }
 export function initTheme() {
     const toggle = document.getElementById('theme-toggle');
@@ -115,5 +90,4 @@ export function initStarButton() {
 if (typeof window !== 'undefined') {
     window.initTimeline = initTimeline;
     window.initStarButton = initStarButton;
-    window.loadTheme = loadTheme;
 }
