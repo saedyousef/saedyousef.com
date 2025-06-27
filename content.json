@@ -214,5 +214,13 @@
       "ClickUp",
       "Jira"
     ]
+  },
+  "terminal": {
+    "user": "yousef",
+    "host": "admin"
+  },
+  "links": {
+    "github": "https://github.com/saedyousef",
+    "linkedin": "https://www.linkedin.com/in/saedyousef"
   }
 }
