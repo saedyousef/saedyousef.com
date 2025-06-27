@@ -7,7 +7,8 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
-    "rootDir": "ts"
+    "rootDir": "ts",
+    "lib": ["DOM", "ES2017"]
   },
   "include": [
     "ts/**/*"
