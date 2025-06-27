@@ -1,0 +1,7 @@
+# Include TypeScript and JavaScript in language statistics
+*.ts linguist-detectable=true
+*.js linguist-detectable=true
+
+# Exclude CSS files from language statistics
+*.css linguist-detectable=false
+*.html linguist-detectable=false
