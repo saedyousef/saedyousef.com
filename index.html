@@ -116,11 +116,13 @@
 
 <!-- External JavaScript files -->
 <script type="module">
-  import { initTheme, initStarButton } from './dist/main.js';
+  import { initTheme, initStarButton, loadTheme } from './dist/main.js';
   import './dist/terminal.js';
   import './dist/content.js';
-  initTheme();
-  initStarButton();
+  loadTheme().then(() => {
+    initTheme();
+    initStarButton();
+  });
 </script>
 </body>
 </html>
