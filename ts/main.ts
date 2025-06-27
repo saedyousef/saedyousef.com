@@ -80,6 +80,22 @@ export function initTimeline(): void {
     window.addEventListener('scroll', updateLineProgress);
 }
 
+export function initStarButton(): void {
+    const countEl = document.getElementById('star-count');
+    if (!countEl) return;
+    fetch('https://api.github.com/repos/saedyousef/saedyousef.com')
+        .then(res => res.json())
+        .then(data => {
+            if (data && typeof data.stargazers_count === 'number') {
+                countEl.textContent = data.stargazers_count.toString();
+            }
+        })
+        .catch(() => {
+            countEl.textContent = '';
+        });
+}
+
 if (typeof window !== 'undefined') {
     (window as any).initTimeline = initTimeline;
+    (window as any).initStarButton = initStarButton;
 }
