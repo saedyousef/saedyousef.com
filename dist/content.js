@@ -115,6 +115,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const designer = document.getElementById('designer-link');
             if (designer && data.links.github)
                 designer.href = data.links.github;
+            const repo = document.getElementById('github-star');
+            if (repo && data.links.repo)
+                repo.href = data.links.repo;
         }
         if (window.initTimeline) {
             window.initTimeline();

@@ -13,6 +13,7 @@ interface SiteData {
     links?: {
         github?: string;
         linkedin?: string;
+        repo?: string;
     };
 }
 
@@ -146,6 +147,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (li && data.links.linkedin) li.href = data.links.linkedin;
                 const designer = document.getElementById('designer-link') as HTMLAnchorElement | null;
                 if (designer && data.links.github) designer.href = data.links.github;
+                const repo = document.getElementById('github-star') as HTMLAnchorElement | null;
+                if (repo && data.links.repo) repo.href = data.links.repo;
             }
 
             if ((window as any).initTimeline) {
