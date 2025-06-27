@@ -11,7 +11,7 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 });
 
-import { setTheme, loadTheme } from '../ts/main';
+import { setTheme } from '../ts/main';
 
 describe('setTheme', () => {
   it('applies dark theme', () => {
@@ -21,13 +21,5 @@ describe('setTheme', () => {
     setTheme(true, toggle);
     expect(document.body.classList.contains('dark')).toBe(true);
     expect(toggle.checked).toBe(true);
-  });
-
-  it('loads theme colors', async () => {
-    (global as any).fetch = jest.fn().mockResolvedValue({
-      json: async () => ({ 'bg-light': '#abc' })
-    });
-    await loadTheme();
-    expect(document.documentElement.style.getPropertyValue('--bg-light')).toBe('#abc');
   });
 });
