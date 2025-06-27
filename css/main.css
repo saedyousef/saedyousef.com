@@ -4,6 +4,7 @@
     --bg-dark: #121212;
     --text-dark: #e0e0e0;
     --accent: #4f46e5;
+    --footer-bg: #222222;
 }
 
 body {
@@ -153,12 +154,13 @@ h2 {
 footer {
     margin-top: 2rem;
     padding: 1rem 0;
-    background-color: var(--accent);
-    color: #fff;
+    background-color: var(--footer-bg);
+    color: #eee;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     gap: 1rem;
 }
 
@@ -166,6 +168,28 @@ footer a {
     color: inherit;
     display: inline-flex;
     align-items: center;
+}
+
+.star-button {
+    border: 1px solid #555;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.star-button svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+#star-count {
+    font-weight: bold;
+}
+
+.designer {
+    text-decoration: none;
 }
 
 .social-icon svg {
