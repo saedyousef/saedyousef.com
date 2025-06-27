@@ -6,6 +6,14 @@ interface SiteData {
     experience?: any[];
     education?: any[];
     skills?: Record<string, string[]>;
+    terminal?: {
+        user?: string;
+        host?: string;
+    };
+    links?: {
+        github?: string;
+        linkedin?: string;
+    };
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -119,6 +127,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     fragment.appendChild(sectionDiv);
                 });
                 skillsContainer.appendChild(fragment);
+            }
+
+            if (data.terminal) {
+                const user = data.terminal.user || '';
+                const host = data.terminal.host || '';
+                const full = user && host ? `${user}@${host}` : user || host;
+                const toolbar = document.getElementById('terminal-toolbar');
+                if (toolbar) toolbar.textContent = `${full}: ~`;
+                const span = document.getElementById('terminal-user');
+                if (span) span.textContent = `${full}:`;
+            }
+
+            if (data.links) {
+                const gh = document.getElementById('github-link') as HTMLAnchorElement | null;
+                if (gh && data.links.github) gh.href = data.links.github;
+                const li = document.getElementById('linkedin-link') as HTMLAnchorElement | null;
+                if (li && data.links.linkedin) li.href = data.links.linkedin;
+                const designer = document.getElementById('designer-link') as HTMLAnchorElement | null;
+                if (designer && data.links.github) designer.href = data.links.github;
             }
 
             if ((window as any).initTimeline) {
