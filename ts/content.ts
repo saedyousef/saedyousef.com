@@ -151,9 +151,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (repo && data.links.repo) repo.href = data.links.repo;
             }
 
-            if ((window as any).initTimeline) {
-                (window as any).initTimeline();
-            }
+        if ((window as any).initTimeline) {
+            (window as any).initTimeline();
+        }
+
+        // Load GitHub activity component if container exists
+        const activityContainer = document.getElementById('activity');
+        if (activityContainer) {
+            fetch('github_activites.json')
+                .then(res => res.json())
+                .then(json => {
+                    if (json && json.html) {
+                        activityContainer.innerHTML = json.html;
+                    }
+                })
+                .catch(err => console.error('Failed to load github_activites.json', err));
+        }
         })
         .catch(err => {
             console.error('Failed to load content.json', err);
