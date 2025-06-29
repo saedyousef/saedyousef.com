@@ -129,7 +129,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 .then(res => res.json())
                 .then(json => {
                 if (json && json.html) {
-                    activityContainer.innerHTML = json.html;
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(json.html, 'text/html');
+                    const table = doc.querySelector('.js-calendar-graph table');
+                    if (table) {
+                        const wrapper = document.createElement('div');
+                        wrapper.style.maxWidth = '100%';
+                        wrapper.style.overflowY = 'hidden';
+                        wrapper.style.overflowX = 'auto';
+                        wrapper.appendChild(table);
+                        activityContainer.innerHTML = '';
+                        activityContainer.appendChild(wrapper);
+                    }
                 }
             })
                 .catch(err => console.error('Failed to load github_activites.json', err));
