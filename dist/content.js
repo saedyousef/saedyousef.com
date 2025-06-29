@@ -133,6 +133,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const doc = parser.parseFromString(json.html, 'text/html');
                     const table = doc.querySelector('.js-calendar-graph table');
                     if (table) {
+                        // Remove tooltips and anchors to keep only the
+                        // plain contribution cells and weekday labels
+                        table.querySelectorAll('tool-tip').forEach(t => t.remove());
+                        table.querySelectorAll('a').forEach(a => a.replaceWith(...Array.from(a.childNodes)));
                         const wrapper = document.createElement('div');
                         wrapper.style.maxWidth = '100%';
                         wrapper.style.overflowY = 'hidden';
