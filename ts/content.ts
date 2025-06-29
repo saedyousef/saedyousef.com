@@ -157,37 +157,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Load GitHub activity component if container exists
         const activityContainer = document.getElementById('activity');
-        if (activityContainer) {
-            fetch('github_activities.json')
-                .then(res => res.json())
-                .then(calendar => {
-                    if (calendar && Array.isArray(calendar.weeks)) {
-                        const levelMap: Record<string, string> = {
-                            NONE: '0',
-                            FIRST_QUARTILE: '1',
-                            SECOND_QUARTILE: '2',
-                            THIRD_QUARTILE: '3',
-                            FOURTH_QUARTILE: '4'
-                        };
-                        const table = document.createElement('table');
-                        for (let i = 0; i < 7; i++) {
-                            const tr = document.createElement('tr');
-                            calendar.weeks.forEach((week: any) => {
-                                const day = week.contributionDays[i];
-                                const td = document.createElement('td');
-                                td.className = 'ContributionCalendar-day';
-                                td.dataset.level = levelMap[day.contributionLevel] || '0';
-                                td.title = `${day.contributionCount} contributions on ${day.date}`;
-                                tr.appendChild(td);
-                            });
-                            table.appendChild(tr);
+            if (activityContainer) {
+                fetch('github_activities.json')
+                    .then(res => res.json())
+                    .then(calendar => {
+                        if (calendar && Array.isArray(calendar.weeks)) {
+                            const levelMap: Record<string, string> = {
+                                NONE: '0',
+                                FIRST_QUARTILE: '1',
+                                SECOND_QUARTILE: '2',
+                                THIRD_QUARTILE: '3',
+                                FOURTH_QUARTILE: '4'
+                            };
+                            const table = document.createElement('table');
+                            for (let i = 0; i < 7; i++) {
+                                const tr = document.createElement('tr');
+                                calendar.weeks.forEach((week: any) => {
+                                    const day = week.contributionDays ? week.contributionDays[i] : undefined;
+                                    const td = document.createElement('td');
+                                    td.className = 'ContributionCalendar-day';
+                                    if (day) {
+                                        td.dataset.level = levelMap[day.contributionLevel] || '0';
+                                        td.title = `${day.contributionCount} contributions on ${day.date}`;
+                                    } else {
+                                        td.dataset.level = '0';
+                                        td.title = '';
+                                    }
+                                    tr.appendChild(td);
+                                });
+                                table.appendChild(tr);
+                            }
+                            activityContainer.innerHTML = '';
+                            activityContainer.appendChild(table);
                         }
-                        activityContainer.innerHTML = '';
-                        activityContainer.appendChild(table);
-                    }
-                })
-                .catch(err => console.error('Failed to load github_activities.json', err));
-        }
+                    })
+                    .catch(err => console.error('Failed to load github_activities.json', err));
+            }
         })
         .catch(err => {
             console.error('Failed to load content.json', err);
