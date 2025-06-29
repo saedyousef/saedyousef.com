@@ -1,0 +1,31 @@
+name: Update GitHub Activity
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+      - name: Fetch activity
+        run: node scripts/updateActivity.js
+      - name: Commit changes
+        run: |
+          if [[ -n $(git status --porcelain github_activites.json) ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add github_activites.json
+            git commit -m "Update GitHub activity"
+            git push
+          fi
