@@ -238,17 +238,19 @@ footer a {
 
 .github-activity table {
     border-collapse: collapse;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
+    width: 100%;
+    table-layout: fixed;
 }
 
 .github-activity .ContributionCalendar-day {
-    width: 8px;
-    height: 8px;
-    border-radius: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
 }
 
 .github-activity .ContributionCalendar-label {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     padding: 0;
     color: var(--text-light);
 }
