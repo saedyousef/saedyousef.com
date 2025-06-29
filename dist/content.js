@@ -140,11 +140,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     for (let i = 0; i < 7; i++) {
                         const tr = document.createElement('tr');
                         calendar.weeks.forEach((week) => {
-                            const day = week.contributionDays[i];
+                            const day = week.contributionDays ? week.contributionDays[i] : undefined;
                             const td = document.createElement('td');
                             td.className = 'ContributionCalendar-day';
-                            td.dataset.level = levelMap[day.contributionLevel] || '0';
-                            td.title = `${day.contributionCount} contributions on ${day.date}`;
+                            if (day) {
+                                td.dataset.level = levelMap[day.contributionLevel] || '0';
+                                td.title = `${day.contributionCount} contributions on ${day.date}`;
+                            }
+                            else {
+                                td.dataset.level = '0';
+                                td.title = '';
+                            }
                             tr.appendChild(td);
                         });
                         table.appendChild(tr);
