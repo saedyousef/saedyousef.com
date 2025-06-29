@@ -238,12 +238,28 @@ footer a {
 
 .github-activity table {
     border-collapse: collapse;
+    font-size: 0.75rem;
 }
 
 .github-activity .ContributionCalendar-day {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
     border-radius: 2px;
+}
+
+.github-activity .ContributionCalendar-label {
+    font-size: 0.75rem;
+    padding: 0;
+    color: var(--text-light);
+}
+
+.dark .github-activity .ContributionCalendar-label {
+    color: var(--text-dark);
+}
+
+.github-activity .ContributionCalendar-label span[aria-hidden="true"] {
+    position: static !important;
+    clip-path: none !important;
 }
 
 .github-activity .ContributionCalendar-day[data-level="0"] { background-color: #ebedf0; }
