@@ -1,0 +1,2095 @@
+{
+  "totalContributions": 2811,
+  "weeks": [
+    {
+      "firstDay": "2024-06-30",
+      "contributionDays": [
+        {
+          "date": "2024-06-30",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-01",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-02",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-03",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-04",
+          "contributionCount": 19,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-05",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-06",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-07-07",
+      "contributionDays": [
+        {
+          "date": "2024-07-07",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-08",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-09",
+          "contributionCount": 17,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-10",
+          "contributionCount": 6,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-11",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-07-12",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-13",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-07-14",
+      "contributionDays": [
+        {
+          "date": "2024-07-14",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-15",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-16",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-17",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-18",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-19",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-20",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-07-21",
+      "contributionDays": [
+        {
+          "date": "2024-07-21",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-22",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-23",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-25",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-27",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-07-28",
+      "contributionDays": [
+        {
+          "date": "2024-07-28",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-29",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-30",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-07-31",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-01",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-02",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-03",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-08-04",
+      "contributionDays": [
+        {
+          "date": "2024-08-04",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-05",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-06",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-07",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-08",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-09",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-10",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-08-11",
+      "contributionDays": [
+        {
+          "date": "2024-08-11",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-12",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-13",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-14",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-15",
+          "contributionCount": 25,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-08-16",
+          "contributionCount": 6,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-17",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-08-18",
+      "contributionDays": [
+        {
+          "date": "2024-08-18",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-19",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-20",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-21",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-22",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-23",
+          "contributionCount": 6,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-08-25",
+      "contributionDays": [
+        {
+          "date": "2024-08-25",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-08-27",
+          "contributionCount": 11,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-28",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-29",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-30",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-08-31",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-09-01",
+      "contributionDays": [
+        {
+          "date": "2024-09-01",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-09-02",
+          "contributionCount": 15,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-03",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-04",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-05",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-06",
+          "contributionCount": 37,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-09-07",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-09-08",
+      "contributionDays": [
+        {
+          "date": "2024-09-08",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-09",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-09-10",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-11",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-09-12",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-13",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-14",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-09-15",
+      "contributionDays": [
+        {
+          "date": "2024-09-15",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-16",
+          "contributionCount": 6,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-17",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-18",
+          "contributionCount": 15,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-19",
+          "contributionCount": 11,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-20",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-21",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-09-22",
+      "contributionDays": [
+        {
+          "date": "2024-09-22",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-09-23",
+          "contributionCount": 15,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-24",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-25",
+          "contributionCount": 38,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-09-26",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-27",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-09-28",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-09-29",
+      "contributionDays": [
+        {
+          "date": "2024-09-29",
+          "contributionCount": 38,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-09-30",
+          "contributionCount": 58,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2024-10-01",
+          "contributionCount": 24,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-10-02",
+          "contributionCount": 16,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-03",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-10-04",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-05",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-10-06",
+      "contributionDays": [
+        {
+          "date": "2024-10-06",
+          "contributionCount": 47,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2024-10-07",
+          "contributionCount": 27,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-10-08",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-10-09",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-10",
+          "contributionCount": 21,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-11",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-12",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-10-13",
+      "contributionDays": [
+        {
+          "date": "2024-10-13",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-14",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-15",
+          "contributionCount": 21,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-16",
+          "contributionCount": 20,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-17",
+          "contributionCount": 31,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-10-18",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-19",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-10-20",
+      "contributionDays": [
+        {
+          "date": "2024-10-20",
+          "contributionCount": 13,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-21",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-22",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-23",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-24",
+          "contributionCount": 16,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-25",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-10-27",
+      "contributionDays": [
+        {
+          "date": "2024-10-27",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-10-28",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-29",
+          "contributionCount": 13,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-30",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-10-31",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-11-01",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-11-02",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-11-03",
+      "contributionDays": [
+        {
+          "date": "2024-11-03",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-11-04",
+          "contributionCount": 20,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-05",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-06",
+          "contributionCount": 21,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-07",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-08",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-09",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-11-10",
+      "contributionDays": [
+        {
+          "date": "2024-11-10",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-11-11",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-12",
+          "contributionCount": 20,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-13",
+          "contributionCount": 22,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-11-14",
+          "contributionCount": 19,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-15",
+          "contributionCount": 17,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-16",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-11-17",
+      "contributionDays": [
+        {
+          "date": "2024-11-17",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-11-18",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-19",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-20",
+          "contributionCount": 27,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-11-21",
+          "contributionCount": 20,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-22",
+          "contributionCount": 47,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2024-11-23",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-11-24",
+      "contributionDays": [
+        {
+          "date": "2024-11-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-11-25",
+          "contributionCount": 51,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2024-11-26",
+          "contributionCount": 16,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-27",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-28",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-11-29",
+          "contributionCount": 22,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-11-30",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-12-01",
+      "contributionDays": [
+        {
+          "date": "2024-12-01",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-02",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-03",
+          "contributionCount": 37,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-12-04",
+          "contributionCount": 20,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-05",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-06",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-07",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-12-08",
+      "contributionDays": [
+        {
+          "date": "2024-12-08",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-09",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-10",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-11",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-12",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-13",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-14",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-12-15",
+      "contributionDays": [
+        {
+          "date": "2024-12-15",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-16",
+          "contributionCount": 17,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-17",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-18",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-19",
+          "contributionCount": 24,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2024-12-20",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-21",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-12-22",
+      "contributionDays": [
+        {
+          "date": "2024-12-22",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-23",
+          "contributionCount": 17,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-25",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-27",
+          "contributionCount": 5,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2024-12-28",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2024-12-29",
+      "contributionDays": [
+        {
+          "date": "2024-12-29",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-30",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2024-12-31",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-01-01",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-02",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-01-03",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-04",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-01-05",
+      "contributionDays": [
+        {
+          "date": "2025-01-05",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-01-06",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-07",
+          "contributionCount": 31,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-01-08",
+          "contributionCount": 19,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-09",
+          "contributionCount": 5,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-10",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-11",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-01-12",
+      "contributionDays": [
+        {
+          "date": "2025-01-12",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-13",
+          "contributionCount": 13,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-14",
+          "contributionCount": 42,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-01-15",
+          "contributionCount": 30,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-01-16",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-17",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-18",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-01-19",
+      "contributionDays": [
+        {
+          "date": "2025-01-19",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-20",
+          "contributionCount": 35,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-01-21",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-01-22",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-23",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-01-25",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-01-26",
+      "contributionDays": [
+        {
+          "date": "2025-01-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-01-27",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-28",
+          "contributionCount": 51,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2025-01-29",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-30",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-01-31",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-01",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-02-02",
+      "contributionDays": [
+        {
+          "date": "2025-02-02",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-03",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-04",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-05",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-06",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-07",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-08",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-02-09",
+      "contributionDays": [
+        {
+          "date": "2025-02-09",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-10",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-11",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-12",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-13",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-14",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-15",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-02-16",
+      "contributionDays": [
+        {
+          "date": "2025-02-16",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-17",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-18",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-19",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-20",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-21",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-22",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-02-23",
+      "contributionDays": [
+        {
+          "date": "2025-02-23",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-24",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-02-25",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-27",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-02-28",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-01",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-03-02",
+      "contributionDays": [
+        {
+          "date": "2025-03-02",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-03",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-04",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-05",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-06",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-07",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-08",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-03-09",
+      "contributionDays": [
+        {
+          "date": "2025-03-09",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-10",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-11",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-12",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-13",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-14",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-15",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-03-16",
+      "contributionDays": [
+        {
+          "date": "2025-03-16",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-17",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-18",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-19",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-20",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-21",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-22",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-03-23",
+      "contributionDays": [
+        {
+          "date": "2025-03-23",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-25",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-27",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-28",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-03-29",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-03-30",
+      "contributionDays": [
+        {
+          "date": "2025-03-30",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-03-31",
+          "contributionCount": 17,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-01",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-02",
+          "contributionCount": 36,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-04-03",
+          "contributionCount": 59,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2025-04-04",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-05",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-04-06",
+      "contributionDays": [
+        {
+          "date": "2025-04-06",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-04-07",
+          "contributionCount": 11,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-08",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-09",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-10",
+          "contributionCount": 16,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-11",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-12",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-04-13",
+      "contributionDays": [
+        {
+          "date": "2025-04-13",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-14",
+          "contributionCount": 42,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-04-15",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-16",
+          "contributionCount": 15,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-17",
+          "contributionCount": 26,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-04-18",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-04-19",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-04-20",
+      "contributionDays": [
+        {
+          "date": "2025-04-20",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-04-21",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-04-22",
+          "contributionCount": 5,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-23",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-04-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-04-25",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-04-27",
+      "contributionDays": [
+        {
+          "date": "2025-04-27",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-04-28",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-29",
+          "contributionCount": 16,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-04-30",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-01",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-05-02",
+          "contributionCount": 5,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-03",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-05-04",
+      "contributionDays": [
+        {
+          "date": "2025-05-04",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-05",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-06",
+          "contributionCount": 11,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-07",
+          "contributionCount": 7,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-08",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-09",
+          "contributionCount": 13,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-10",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-05-11",
+      "contributionDays": [
+        {
+          "date": "2025-05-11",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-05-12",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-13",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-05-14",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-15",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-16",
+          "contributionCount": 3,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-17",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-05-18",
+      "contributionDays": [
+        {
+          "date": "2025-05-18",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-19",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-20",
+          "contributionCount": 21,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-21",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-22",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-23",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-24",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-05-25",
+      "contributionDays": [
+        {
+          "date": "2025-05-25",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-26",
+          "contributionCount": 12,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-27",
+          "contributionCount": 54,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2025-05-28",
+          "contributionCount": 4,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-29",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-05-30",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-05-31",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-06-01",
+      "contributionDays": [
+        {
+          "date": "2025-06-01",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-02",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-03",
+          "contributionCount": 27,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-06-04",
+          "contributionCount": 35,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-06-05",
+          "contributionCount": 14,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-06",
+          "contributionCount": 18,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-07",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-06-08",
+      "contributionDays": [
+        {
+          "date": "2025-06-08",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-06-09",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-06-10",
+          "contributionCount": 1,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-11",
+          "contributionCount": 9,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-12",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-13",
+          "contributionCount": 6,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-14",
+          "contributionCount": 43,
+          "contributionLevel": "SECOND_QUARTILE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-06-15",
+      "contributionDays": [
+        {
+          "date": "2025-06-15",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-06-16",
+          "contributionCount": 46,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2025-06-17",
+          "contributionCount": 11,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-18",
+          "contributionCount": 30,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-06-19",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-06-20",
+          "contributionCount": 13,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-21",
+          "contributionCount": 10,
+          "contributionLevel": "FIRST_QUARTILE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-06-22",
+      "contributionDays": [
+        {
+          "date": "2025-06-22",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-06-23",
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-24",
+          "contributionCount": 8,
+          "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-06-25",
+          "contributionCount": 56,
+          "contributionLevel": "THIRD_QUARTILE"
+        },
+        {
+          "date": "2025-06-26",
+          "contributionCount": 43,
+          "contributionLevel": "SECOND_QUARTILE"
+        },
+        {
+          "date": "2025-06-27",
+          "contributionCount": 87,
+          "contributionLevel": "FOURTH_QUARTILE"
+        },
+        {
+          "date": "2025-06-28",
+          "contributionCount": 49,
+          "contributionLevel": "THIRD_QUARTILE"
+        }
+      ]
+    },
+    {
+      "firstDay": "2025-06-29",
+      "contributionDays": [
+        {
+          "date": "2025-06-29",
+          "contributionCount": 30,
+          "contributionLevel": "SECOND_QUARTILE"
+        }
+      ]
+    }
+  ]
+}

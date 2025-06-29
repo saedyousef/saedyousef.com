@@ -158,30 +158,35 @@ document.addEventListener('DOMContentLoaded', () => {
         // Load GitHub activity component if container exists
         const activityContainer = document.getElementById('activity');
         if (activityContainer) {
-            fetch('github_activites.json')
+            fetch('github_activities.json')
                 .then(res => res.json())
-                .then(json => {
-                    if (json && json.html) {
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(json.html, 'text/html');
-                        const table = doc.querySelector('.js-calendar-graph table');
-                        if (table) {
-                            // Remove tooltips and anchors to keep only the
-                            // plain contribution cells and weekday labels
-                            table.querySelectorAll('tool-tip').forEach(t => t.remove());
-                            table.querySelectorAll('a').forEach(a => a.replaceWith(...Array.from(a.childNodes)));
-
-                            const wrapper = document.createElement('div');
-                            wrapper.style.maxWidth = '100%';
-                            wrapper.style.overflowY = 'hidden';
-                            wrapper.style.overflowX = 'auto';
-                            wrapper.appendChild(table);
-                            activityContainer.innerHTML = '';
-                            activityContainer.appendChild(wrapper);
+                .then(calendar => {
+                    if (calendar && Array.isArray(calendar.weeks)) {
+                        const levelMap: Record<string, string> = {
+                            NONE: '0',
+                            FIRST_QUARTILE: '1',
+                            SECOND_QUARTILE: '2',
+                            THIRD_QUARTILE: '3',
+                            FOURTH_QUARTILE: '4'
+                        };
+                        const table = document.createElement('table');
+                        for (let i = 0; i < 7; i++) {
+                            const tr = document.createElement('tr');
+                            calendar.weeks.forEach((week: any) => {
+                                const day = week.contributionDays[i];
+                                const td = document.createElement('td');
+                                td.className = 'ContributionCalendar-day';
+                                td.dataset.level = levelMap[day.contributionLevel] || '0';
+                                td.title = `${day.contributionCount} contributions on ${day.date}`;
+                                tr.appendChild(td);
+                            });
+                            table.appendChild(tr);
                         }
+                        activityContainer.innerHTML = '';
+                        activityContainer.appendChild(table);
                     }
                 })
-                .catch(err => console.error('Failed to load github_activites.json', err));
+                .catch(err => console.error('Failed to load github_activities.json', err));
         }
         })
         .catch(err => {
