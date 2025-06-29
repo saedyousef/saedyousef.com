@@ -122,6 +122,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.initTimeline) {
             window.initTimeline();
         }
+        // Load GitHub activity component if container exists
+        const activityContainer = document.getElementById('activity');
+        if (activityContainer) {
+            fetch('github_activites.json')
+                .then(res => res.json())
+                .then(json => {
+                if (json && json.html) {
+                    activityContainer.innerHTML = json.html;
+                }
+            })
+                .catch(err => console.error('Failed to load github_activites.json', err));
+        }
     })
         .catch(err => {
         console.error('Failed to load content.json', err);
