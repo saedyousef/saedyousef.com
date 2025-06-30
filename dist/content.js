@@ -1,13 +1,12 @@
-// anime.js ESM build exposes named exports rather than a default
-import { animate, stagger } from './anime.esm.js';
+import anime from './anime.esm.js';
 function animateSkills() {
-    animate({
+    anime({
         targets: '.skill-badge',
         translateY: [-5, 5],
         direction: 'alternate',
         easing: 'easeInOutSine',
         loop: true,
-        delay: stagger(100)
+        delay: anime.stagger(100)
     });
 }
 document.addEventListener('DOMContentLoaded', () => {
