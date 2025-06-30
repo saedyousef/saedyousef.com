@@ -14,19 +14,16 @@ permissions:
 
 jobs:
   deploy:
-    if: >-
-      (github.event_name == 'workflow_run' &&
-       github.event.workflow_run.conclusion == 'success') ||
-      github.event_name == 'repository_dispatch'
+    if: ${{ github.event_name == 'repository_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code from workflow_run
+      - name: Checkout Code
         if: github.event_name == 'workflow_run'
         uses: actions/checkout@v3
         with:
           repository: ${{ github.event.workflow_run.head_repository.full_name }}
           ref: ${{ github.event.workflow_run.head_branch }}
-      - name: Checkout code
+      - name: Checkout Code
         if: github.event_name == 'repository_dispatch'
         uses: actions/checkout@v3
       - name: Set up Node.js
