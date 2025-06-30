@@ -3,13 +3,14 @@
 ![Test](https://github.com/saedyousef/saedyousef.com/actions/workflows/test.yml/badge.svg)
 ![Deploy](https://github.com/saedyousef/saedyousef.com/actions/workflows/compile.yml/badge.svg)
 
-This repository contains the source code for **saedyousef.com**, a simple static website built with HTML, CSS and TypeScript. The site showcases Saed Yousef's professional experience and includes a dark mode toggle.
+This repository contains the source code for **saedyousef.com**, a simple static website built with HTML, CSS and TypeScript.  It showcases Saed Yousef's professional experience, fetches GitHub activity, and includes a dark mode toggle.
 
 ## Features
 - Dark mode toggle
 - Typing effect in about section
 - Animated timeline for experience
 - Data-driven content via `content.json`
+- GitHub contributions calendar rendered from `github_activities.json`
 
 
 ## Development
@@ -29,6 +30,8 @@ Push updates to the repository's `main` branch or your preferred branch and host
 5. Run `npm run build` to compile the TypeScript sources and then commit your changes.
 
 The included GitHub Actions workflows will automatically run the tests and deploy the site to GitHub Pages whenever changes are pushed to your `main` branch.
+An additional workflow, `update-activity.yml`, periodically queries the GitHub GraphQL API and commits the results to `github_activities.json` so the site can display your latest contributions.
+To enable it on your fork, create a repository secret named `GH_CONTRIBUTION_TOKEN` containing a personal access token with the `read:user` and `public_repo` scopes.
 
 ## License
 
