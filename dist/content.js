@@ -1,14 +1,3 @@
-import anime from './anime.esm.js';
-function animateSkills() {
-    anime({
-        targets: '.skill-badge',
-        translateY: [-5, 5],
-        direction: 'alternate',
-        easing: 'easeInOutSine',
-        loop: true,
-        delay: anime.stagger(100)
-    });
-}
 document.addEventListener('DOMContentLoaded', () => {
     fetch('content.json')
         .then(res => res.json())
@@ -104,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 fragment.appendChild(sectionDiv);
             });
             skillsContainer.appendChild(fragment);
-            animateSkills();
         }
         if (data.terminal) {
             const user = data.terminal.user || '';
