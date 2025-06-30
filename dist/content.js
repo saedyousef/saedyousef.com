@@ -1,15 +1,3 @@
-// anime.js ESM build exposes named exports rather than a default
-import { animate, stagger } from './anime.esm.js';
-function animateSkills() {
-    animate({
-        targets: '.skill-badge',
-        translateY: [-5, 5],
-        direction: 'alternate',
-        easing: 'easeInOutSine',
-        loop: true,
-        delay: stagger(100)
-    });
-}
 document.addEventListener('DOMContentLoaded', () => {
     fetch('content.json')
         .then(res => res.json())
@@ -105,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 fragment.appendChild(sectionDiv);
             });
             skillsContainer.appendChild(fragment);
-            animateSkills();
         }
         if (data.terminal) {
             const user = data.terminal.user || '';
