@@ -6,20 +6,26 @@ on:
     branches: [main]
     types:
       - completed
+  repository_dispatch:
+    types: [pages-deploy]
 
 permissions:
   contents: write
 
 jobs:
   deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'repository_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
+        if: github.event_name == 'workflow_run'
         uses: actions/checkout@v3
         with:
           repository: ${{ github.event.workflow_run.head_repository.full_name }}
           ref: ${{ github.event.workflow_run.head_branch }}
+      - name: Checkout Code
+        if: github.event_name == 'repository_dispatch'
+        uses: actions/checkout@v3
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
