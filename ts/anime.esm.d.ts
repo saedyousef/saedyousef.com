@@ -1,5 +1,6 @@
 declare module './anime.esm.js' {
-    const anime: any;
-    export default anime;
+    export function animate(...args: any[]): any;
+    export function stagger(...args: any[]): any;
+    export default animate;
 }
 export {};
