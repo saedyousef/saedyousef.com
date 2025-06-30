@@ -1,5 +1,4 @@
-// anime.js ESM build exposes named exports rather than a default
-import { animate, stagger } from './anime.esm.js';
+import anime from './anime.esm.js';
 
 interface SiteData {
     name?: string;
@@ -21,13 +20,13 @@ interface SiteData {
 }
 
 function animateSkills(): void {
-    animate({
+    anime({
         targets: '.skill-badge',
         translateY: [-5, 5],
         direction: 'alternate',
         easing: 'easeInOutSine',
         loop: true,
-        delay: stagger(100)
+        delay: anime.stagger(100)
     });
 }
 
