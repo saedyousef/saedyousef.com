@@ -3,9 +3,7 @@
 ![Test](https://github.com/saedyousef/saedyousef.com/actions/workflows/test.yml/badge.svg)
 ![Deploy](https://github.com/saedyousef/saedyousef.com/actions/workflows/compile.yml/badge.svg)
 ![Update Activity](https://github.com/saedyousef/saedyousef.com/actions/workflows/update-activity.yml/badge.svg)
-![Activity last run](https://img.shields.io/github/actions/workflow/run-date/saedyousef/saedyousef.com/update-activity.yml?label=activity%20last%20run)
 ![Scheduled Deploy](https://github.com/saedyousef/saedyousef.com/actions/workflows/scheduled-deploy.yml/badge.svg)
-![Deploy last run](https://img.shields.io/github/actions/workflow/run-date/saedyousef/saedyousef.com/scheduled-deploy.yml?label=deploy%20last%20run)
 
 This repository contains the source code for **saedyousef.com**, a simple static website built with HTML, CSS and TypeScript.  It showcases Saed Yousef's professional experience, fetches GitHub activity, and includes a dark mode toggle.
 
