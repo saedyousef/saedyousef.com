@@ -7625,3 +7625,5 @@ const stagger = (val, params = {}) => {
 };
 
 export { Animatable, Draggable, JSAnimation, Scope, ScrollObserver, Spring, Timeline, Timer, WAAPIAnimation, animate, createAnimatable, createDraggable, createScope, createSpring, createTimeline, createTimer, eases, engine, onScroll, scrollContainers, stagger, svg, utils, waapi };
+// Provide a default export for compatibility with previous usage
+export default animate;
