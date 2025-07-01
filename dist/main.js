@@ -87,7 +87,17 @@ export function initStarButton() {
         countEl.textContent = '';
     });
 }
+export function initMouseHighlight() {
+    const highlight = document.createElement('div');
+    highlight.id = 'mouse-highlight';
+    document.body.appendChild(highlight);
+    document.addEventListener('mousemove', (e) => {
+        highlight.style.left = `${e.clientX}px`;
+        highlight.style.top = `${e.clientY}px`;
+    });
+}
 if (typeof window !== 'undefined') {
     window.initTimeline = initTimeline;
     window.initStarButton = initStarButton;
+    window.initMouseHighlight = initMouseHighlight;
 }

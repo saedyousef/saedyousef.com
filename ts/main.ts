@@ -95,7 +95,18 @@ export function initStarButton(): void {
         });
 }
 
+export function initMouseHighlight(): void {
+    const highlight = document.createElement('div');
+    highlight.id = 'mouse-highlight';
+    document.body.appendChild(highlight);
+    document.addEventListener('mousemove', (e: MouseEvent) => {
+        highlight.style.left = `${e.clientX}px`;
+        highlight.style.top = `${e.clientY}px`;
+    });
+}
+
 if (typeof window !== 'undefined') {
     (window as any).initTimeline = initTimeline;
     (window as any).initStarButton = initStarButton;
+    (window as any).initMouseHighlight = initMouseHighlight;
 }
