@@ -11,6 +11,8 @@ body {
     margin: 0;
     font-family: 'Inter', sans-serif;
     background-color: var(--bg-light);
+    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
     color: var(--text-light);
     transition: background 0.3s, color 0.3s;
     overflow-x: hidden;
@@ -18,6 +20,8 @@ body {
 
 body.dark {
     background-color: var(--bg-dark);
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
     color: var(--text-dark);
 }
 
