@@ -111,6 +111,18 @@ h2 {
     border-color: #444;
 }
 
+#mouse-highlight {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    pointer-events: none;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--accent), transparent 70%);
+    opacity: 0.2;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
 /* === Timeline Fix === */
 .timeline {
     position: relative;
