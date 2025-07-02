@@ -2,6 +2,7 @@
  * Created by yousef on 6/14/2025 at 3:02 PM
  * Description: terminal
  */
+import { toggleCursorSpinner } from './main';
 // Typing effect in terminal
 function getTypedTextEl(): HTMLElement {
     return document.getElementById('typed-text') as HTMLElement;
@@ -15,6 +16,8 @@ function typeText(): void {
     if (index < aboutText.length) {
         typedTextEl.textContent += aboutText.charAt(index++);
         setTimeout(typeText, delay);
+    } else {
+        toggleCursorSpinner(false);
     }
 }
 
@@ -23,6 +26,7 @@ export function setAboutText(text: string): void {
     index = 0;
     const typedTextEl = getTypedTextEl();
     typedTextEl.textContent = '';
+    toggleCursorSpinner(true);
     typeText();
 }
 

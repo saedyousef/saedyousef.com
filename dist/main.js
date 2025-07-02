@@ -87,6 +87,13 @@ export function initStarButton() {
         countEl.textContent = '';
     });
 }
+let cursorSpinner = null;
+export function toggleCursorSpinner(active) {
+    if (!cursorSpinner)
+        return;
+    cursorSpinner.style.display = active ? 'block' : 'none';
+    document.body.style.cursor = active ? 'none' : 'auto';
+}
 export function initMouseHighlight() {
     const highlight = document.createElement('div');
     highlight.id = 'mouse-highlight';
@@ -95,9 +102,11 @@ export function initMouseHighlight() {
     const inner = document.createElement('div');
     inner.className = 'cursor-spinner-inner';
     cursor.appendChild(inner);
+    cursor.style.display = 'none';
+    cursorSpinner = cursor;
     document.body.appendChild(highlight);
     document.body.appendChild(cursor);
-    document.body.style.cursor = 'none';
+    document.body.style.cursor = 'auto';
     document.addEventListener('mousemove', (e) => {
         highlight.style.left = `${e.clientX}px`;
         highlight.style.top = `${e.clientY}px`;
