@@ -16,6 +16,7 @@ body {
     color: var(--text-light);
     transition: background 0.3s, color 0.3s;
     overflow-x: hidden;
+    cursor: url('../alien-cursor.svg') 16 16, auto;
 }
 
 body.dark {
