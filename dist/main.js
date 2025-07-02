@@ -90,10 +90,19 @@ export function initStarButton() {
 export function initMouseHighlight() {
     const highlight = document.createElement('div');
     highlight.id = 'mouse-highlight';
+    const cursor = document.createElement('div');
+    cursor.id = 'cursor-spinner';
+    const inner = document.createElement('div');
+    inner.className = 'cursor-spinner-inner';
+    cursor.appendChild(inner);
     document.body.appendChild(highlight);
+    document.body.appendChild(cursor);
+    document.body.style.cursor = 'none';
     document.addEventListener('mousemove', (e) => {
         highlight.style.left = `${e.clientX}px`;
         highlight.style.top = `${e.clientY}px`;
+        cursor.style.left = `${e.clientX}px`;
+        cursor.style.top = `${e.clientY}px`;
     });
 }
 if (typeof window !== 'undefined') {
