@@ -16,7 +16,7 @@ body {
     color: var(--text-light);
     transition: background 0.3s, color 0.3s;
     overflow-x: hidden;
-    cursor: url('../alien-cursor.svg') 16 16, auto;
+    cursor: none;
 }
 
 body.dark {
@@ -292,3 +292,32 @@ footer a {
 .dark .github-activity .ContributionCalendar-day[data-level="2"] { background-color: #006d32; }
 .dark .github-activity .ContributionCalendar-day[data-level="3"] { background-color: #26a641; }
 .dark .github-activity .ContributionCalendar-day[data-level="4"] { background-color: #39d353; }
+
+/* Cursor Spinner */
+#cursor-spinner {
+    position: fixed;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    border-radius: 50%;
+    border: 2px solid #444;
+    box-shadow: -4px -4px 4px #6359f8, 0 -4px 4px 0 #9c32e2, 4px -4px 4px #f36896, 4px 0 4px #ff0b0b, 4px 4px 4px 0 #ff5500, 0 4px 4px 0 #ff9500, -4px 4px 4px 0 #ffb700;
+    animation: cursor-rot 0.7s linear infinite;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+#cursor-spinner .cursor-spinner-inner {
+    border: 2px solid #444;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes cursor-rot {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
