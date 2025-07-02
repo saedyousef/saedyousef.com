@@ -2,7 +2,7 @@
  * Created by yousef on 6/14/2025 at 3:02 PM
  * Description: terminal
  */
-import { toggleCursorSpinner } from './main';
+import { toggleCursorSpinner } from './main.js';
 // Typing effect in terminal
 function getTypedTextEl(): HTMLElement {
     return document.getElementById('typed-text') as HTMLElement;
