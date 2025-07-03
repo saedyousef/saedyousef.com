@@ -72,53 +72,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (skillsContainer && data.skills && typeof data.skills === 'object') {
             // Clear previous content in case the script runs more than once
             skillsContainer.innerHTML = '';
-            const list = document.createElement('div');
-            list.className = 'skills-container';
+            const wrapper = document.createElement('div');
+            wrapper.className = 'skills-rows';
             const allSkills = [];
             Object.values(data.skills).forEach(skillList => {
                 if (Array.isArray(skillList)) {
                     allSkills.push(...skillList);
                 }
             });
-            allSkills.forEach(skill => {
-                const span = document.createElement('span');
-                span.className = 'skill-badge';
-                span.textContent = skill;
-                span.draggable = true;
-                list.appendChild(span);
-            });
-            let dragSrc = null;
-            list.addEventListener('dragstart', e => {
-                var _a;
-                const target = e.target;
-                if (target && target.classList.contains('skill-badge')) {
-                    dragSrc = target;
-                    target.classList.add('dragging');
-                    (_a = e.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData('text/plain', '');
-                }
-            });
-            list.addEventListener('dragover', e => {
-                e.preventDefault();
-                const target = e.target.closest('.skill-badge');
-                if (target && dragSrc && target !== dragSrc) {
-                    const nodes = Array.from(list.children);
-                    const srcIndex = nodes.indexOf(dragSrc);
-                    const targetIndex = nodes.indexOf(target);
-                    if (srcIndex < targetIndex) {
-                        list.insertBefore(dragSrc, target.nextSibling);
-                    }
-                    else {
-                        list.insertBefore(dragSrc, target);
-                    }
-                }
-            });
-            list.addEventListener('dragend', () => {
-                if (dragSrc) {
-                    dragSrc.classList.remove('dragging');
-                    dragSrc = null;
-                }
-            });
-            skillsContainer.appendChild(list);
+            const createRow = (dir) => {
+                const row = document.createElement('div');
+                row.className = 'skills-row' + (dir === 'right' ? ' row-right' : ' row-left');
+                const track = document.createElement('div');
+                track.className = 'skill-track';
+                allSkills.forEach(skill => {
+                    const span = document.createElement('span');
+                    span.className = 'skill-badge';
+                    span.textContent = skill;
+                    track.appendChild(span);
+                });
+                // Duplicate for seamless scrolling
+                allSkills.forEach(skill => {
+                    const span = document.createElement('span');
+                    span.className = 'skill-badge';
+                    span.textContent = skill;
+                    track.appendChild(span);
+                });
+                row.appendChild(track);
+                return row;
+            };
+            wrapper.appendChild(createRow('left'));
+            wrapper.appendChild(createRow('right'));
+            wrapper.appendChild(createRow('left'));
+            skillsContainer.appendChild(wrapper);
         }
         if (data.terminal) {
             const user = data.terminal.user || '';

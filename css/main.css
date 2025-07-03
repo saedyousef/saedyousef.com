@@ -259,6 +259,34 @@ footer a {
     color: var(--text-dark);
 }
 
+/* Animated skills rows */
+.skills-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: hidden;
+}
+
+.skills-row {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.skill-track {
+    display: inline-flex;
+    gap: 0.5rem;
+    animation: skills-scroll 30s linear infinite;
+}
+
+.row-right .skill-track {
+    animation-direction: reverse;
+}
+
+@keyframes skills-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
 /* GitHub Activity */
 .github-activity {
     overflow-x: auto;
