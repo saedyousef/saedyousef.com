@@ -275,7 +275,7 @@ footer a {
 .skill-track {
     display: inline-flex;
     gap: 0.5rem;
-    animation: skills-scroll 30s linear infinite;
+    animation: skills-scroll 60s linear infinite;
 }
 
 .row-right .skill-track {

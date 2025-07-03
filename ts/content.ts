@@ -114,19 +114,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                const createRow = (dir: 'left' | 'right') => {
+                const createRow = (dir: 'left' | 'right', skills: string[]) => {
                     const row = document.createElement('div');
                     row.className = 'skills-row' + (dir === 'right' ? ' row-right' : ' row-left');
                     const track = document.createElement('div');
                     track.className = 'skill-track';
-                    allSkills.forEach(skill => {
+                    skills.forEach(skill => {
                         const span = document.createElement('span');
                         span.className = 'skill-badge';
                         span.textContent = skill;
                         track.appendChild(span);
                     });
                     // Duplicate for seamless scrolling
-                    allSkills.forEach(skill => {
+                    skills.forEach(skill => {
                         const span = document.createElement('span');
                         span.className = 'skill-badge';
                         span.textContent = skill;
@@ -136,9 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     return row;
                 };
 
-                wrapper.appendChild(createRow('left'));
-                wrapper.appendChild(createRow('right'));
-                wrapper.appendChild(createRow('left'));
+                wrapper.appendChild(createRow('left', allSkills));
+                wrapper.appendChild(createRow('right', allSkills));
+                const reversed = [...allSkills].reverse();
+                wrapper.appendChild(createRow('left', reversed));
 
                 skillsContainer.appendChild(wrapper);
             }
