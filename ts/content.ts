@@ -104,8 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Clear previous content in case the script runs more than once
                 skillsContainer.innerHTML = '';
 
-                const list = document.createElement('div');
-                list.className = 'skills-container';
+                const wrapper = document.createElement('div');
+                wrapper.className = 'skills-rows';
 
                 const allSkills: string[] = [];
                 Object.values(data.skills).forEach(skillList => {
@@ -114,48 +114,33 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                allSkills.forEach(skill => {
-                    const span = document.createElement('span');
-                    span.className = 'skill-badge';
-                    span.textContent = skill;
-                    span.draggable = true;
-                    list.appendChild(span);
-                });
+                const createRow = (dir: 'left' | 'right') => {
+                    const row = document.createElement('div');
+                    row.className = 'skills-row' + (dir === 'right' ? ' row-right' : ' row-left');
+                    const track = document.createElement('div');
+                    track.className = 'skill-track';
+                    allSkills.forEach(skill => {
+                        const span = document.createElement('span');
+                        span.className = 'skill-badge';
+                        span.textContent = skill;
+                        track.appendChild(span);
+                    });
+                    // Duplicate for seamless scrolling
+                    allSkills.forEach(skill => {
+                        const span = document.createElement('span');
+                        span.className = 'skill-badge';
+                        span.textContent = skill;
+                        track.appendChild(span);
+                    });
+                    row.appendChild(track);
+                    return row;
+                };
 
-                let dragSrc: HTMLElement | null = null;
+                wrapper.appendChild(createRow('left'));
+                wrapper.appendChild(createRow('right'));
+                wrapper.appendChild(createRow('left'));
 
-                list.addEventListener('dragstart', e => {
-                    const target = e.target as HTMLElement;
-                    if (target && target.classList.contains('skill-badge')) {
-                        dragSrc = target;
-                        target.classList.add('dragging');
-                        e.dataTransfer?.setData('text/plain', '');
-                    }
-                });
-
-                list.addEventListener('dragover', e => {
-                    e.preventDefault();
-                    const target = (e.target as HTMLElement).closest('.skill-badge') as HTMLElement | null;
-                    if (target && dragSrc && target !== dragSrc) {
-                        const nodes = Array.from(list.children);
-                        const srcIndex = nodes.indexOf(dragSrc);
-                        const targetIndex = nodes.indexOf(target);
-                        if (srcIndex < targetIndex) {
-                            list.insertBefore(dragSrc, target.nextSibling);
-                        } else {
-                            list.insertBefore(dragSrc, target);
-                        }
-                    }
-                });
-
-                list.addEventListener('dragend', () => {
-                    if (dragSrc) {
-                        dragSrc.classList.remove('dragging');
-                        dragSrc = null;
-                    }
-                });
-
-                skillsContainer.appendChild(list);
+                skillsContainer.appendChild(wrapper);
             }
 
             if (data.terminal) {
