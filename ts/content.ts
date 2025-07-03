@@ -103,31 +103,59 @@ document.addEventListener('DOMContentLoaded', () => {
             if (skillsContainer && data.skills && typeof data.skills === 'object') {
                 // Clear previous content in case the script runs more than once
                 skillsContainer.innerHTML = '';
-                const fragment = document.createDocumentFragment();
-                Object.entries(data.skills).forEach(([section, skillList]) => {
-                    const sectionDiv = document.createElement('div');
-                    sectionDiv.className = 'skill-section';
 
-                    const h3 = document.createElement('h3');
-                    h3.textContent = section;
-                    sectionDiv.appendChild(h3);
+                const list = document.createElement('div');
+                list.className = 'skills-container';
 
-                    const list = document.createElement('div');
-                    list.className = 'skills-list';
-
+                const allSkills: string[] = [];
+                Object.values(data.skills).forEach(skillList => {
                     if (Array.isArray(skillList)) {
-                        skillList.forEach(skill => {
-                            const span = document.createElement('span');
-                            span.className = 'skill-badge';
-                            span.textContent = skill;
-                            list.appendChild(span);
-                        });
+                        allSkills.push(...skillList);
                     }
-
-                    sectionDiv.appendChild(list);
-                    fragment.appendChild(sectionDiv);
                 });
-                skillsContainer.appendChild(fragment);
+
+                allSkills.forEach(skill => {
+                    const span = document.createElement('span');
+                    span.className = 'skill-badge';
+                    span.textContent = skill;
+                    span.draggable = true;
+                    list.appendChild(span);
+                });
+
+                let dragSrc: HTMLElement | null = null;
+
+                list.addEventListener('dragstart', e => {
+                    const target = e.target as HTMLElement;
+                    if (target && target.classList.contains('skill-badge')) {
+                        dragSrc = target;
+                        target.classList.add('dragging');
+                        e.dataTransfer?.setData('text/plain', '');
+                    }
+                });
+
+                list.addEventListener('dragover', e => {
+                    e.preventDefault();
+                    const target = (e.target as HTMLElement).closest('.skill-badge') as HTMLElement | null;
+                    if (target && dragSrc && target !== dragSrc) {
+                        const nodes = Array.from(list.children);
+                        const srcIndex = nodes.indexOf(dragSrc);
+                        const targetIndex = nodes.indexOf(target);
+                        if (srcIndex < targetIndex) {
+                            list.insertBefore(dragSrc, target.nextSibling);
+                        } else {
+                            list.insertBefore(dragSrc, target);
+                        }
+                    }
+                });
+
+                list.addEventListener('dragend', () => {
+                    if (dragSrc) {
+                        dragSrc.classList.remove('dragging');
+                        dragSrc = null;
+                    }
+                });
+
+                skillsContainer.appendChild(list);
             }
 
             if (data.terminal) {
