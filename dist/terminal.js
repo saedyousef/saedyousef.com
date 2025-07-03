@@ -9,7 +9,7 @@ function getTypedTextEl() {
 }
 let aboutText = '';
 let index = 0;
-const delay = 30;
+let delay = 30;
 function typeText() {
     const typedTextEl = getTypedTextEl();
     if (index < aboutText.length) {
@@ -25,6 +25,7 @@ export function setAboutText(text) {
     index = 0;
     const typedTextEl = getTypedTextEl();
     typedTextEl.textContent = '';
+    delay = aboutText.length ? 2500 / aboutText.length : 0;
     toggleCursorSpinner(true);
     typeText();
 }
