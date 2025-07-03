@@ -27,7 +27,7 @@
 .input {
   background-color: #010201;
   border: none;
-  width: 301px;
+  width: 400px;
   height: 56px;
   border-radius: 10px;
   color: white;
@@ -45,8 +45,19 @@
 .input:focus {
   outline: none;
 }
+
+.input.active {
+  position: relative;
+  z-index: 1001;
+}
 #main:focus-within > #input-mask {
   display: none;
+}
+
+#search-hint,
+#close-hint {
+  text-align: center;
+  opacity: 0.6;
 }
 #input-mask {
   pointer-events: none;
@@ -304,6 +315,35 @@
   position: absolute;
   left: 20px;
   top: 15px;
+}
+
+.autocomplete-list {
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+  position: absolute;
+  top: 60px;
+  width: 100%;
+  background-color: #010201;
+  border: 1px solid #333;
+  max-height: 180px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.autocomplete-list li {
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.autocomplete-list li:hover {
+  background-color: #222;
+}
+
+.search-results {
+  margin-top: 10px;
+  text-align: center;
+  opacity: 0.8;
 }
 /* highlight style */
 .skill-badge.highlight {
