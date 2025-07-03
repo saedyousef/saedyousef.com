@@ -164,6 +164,21 @@ h2 {
     margin-right: auto;
 }
 
+#skills {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 245, 245, 0.8));
+    backdrop-filter: blur(4px);
+}
+
+.dark #skills {
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9), rgba(20, 20, 20, 0.8));
+    border-color: #444;
+}
+
 .timeline .card::before {
     content: '';
     position: absolute;
