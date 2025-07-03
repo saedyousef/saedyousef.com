@@ -76,7 +76,7 @@ header {
 }
 
 main {
-    max-width: 800px;
+    max-width: 1000px;
     margin: auto;
     padding: 1rem;
     position: relative;
@@ -147,6 +147,21 @@ h2 {
     position: relative;
     margin-bottom: 2rem;
     z-index: 1;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#education .card {
+    width: 95%;
+    margin: 0 auto 2rem;
+}
+
+#skills,
+.github-activity {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .timeline .card::before {
