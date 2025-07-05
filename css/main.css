@@ -124,41 +124,7 @@ h2 {
     z-index: 0;
 }
 
-/* === Timeline Fix === */
-.timeline {
-    position: relative;
-    --line-progress: 0%;
-    padding: 2rem 0;
-}
 
-.timeline::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    background: linear-gradient(to bottom, var(--accent) 0%, var(--accent) var(--line-progress), #ccc var(--line-progress), #ccc 100%);
-    z-index: 0;
-    transition: background 0.3s;
-}
-
-.timeline .card {
-    position: relative;
-    width: 45%;
-    margin: 2rem 0;
-    z-index: 1;
-}
-
-.timeline .card.left {
-    left: 0;
-    text-align: right;
-}
-
-.timeline .card.right {
-    left: 55%;
-}
 
 #education .card {
     width: 95%;
@@ -187,31 +153,6 @@ h2 {
     border-color: #444;
 }
 
-.timeline .card::before {
-    content: "";
-    position: absolute;
-    top: 1rem;
-    width: 12px;
-    height: 12px;
-    background-color: white;
-    border: 4px solid #ccc;
-    border-radius: 50%;
-    z-index: 2;
-    transition: background-color 0.3s, border-color 0.3s;
-}
-
-.timeline .card.left::before {
-    right: -30px;
-}
-
-.timeline .card.right::before {
-    left: -30px;
-}
-
-.timeline .card.active::before {
-    background-color: var(--accent);
-    border-color: var(--accent);
-}
 
 footer {
     margin-top: 2rem;
@@ -377,22 +318,6 @@ footer a {
 .dark .github-activity .ContributionCalendar-day[data-level="3"] { background-color: #26a641; }
 .dark .github-activity .ContributionCalendar-day[data-level="4"] { background-color: #39d353; }
 
-@media (max-width: 768px) {
-    .timeline::before {
-        left: 20px;
-        transform: none;
-    }
-    .timeline .card {
-        width: calc(100% - 40px);
-        left: 0 !important;
-        text-align: left;
-    }
-    .timeline .card.left::before,
-    .timeline .card.right::before {
-        left: -30px;
-        right: auto;
-    }
-}
 
 /* Cursor Spinner */
 #cursor-spinner {
