@@ -52,10 +52,7 @@ export function initTimeline() {
         const viewportBottom = window.scrollY + window.innerHeight;
         const progress = ((viewportBottom - lineRect.top) / lineRect.height) * 100;
         const target = Math.max(0, Math.min(progress, 100));
-        // Only animate when moving downwards to keep progress visible
-        if (target > currentProgress) {
-            animateLine(target);
-        }
+        animateLine(target);
     };
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
