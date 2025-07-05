@@ -64,10 +64,11 @@ export function initTimeline() {
             }
         });
         updateLineProgress();
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
     cards.forEach(card => observer.observe(card));
     window.addEventListener('load', updateLineProgress);
     window.addEventListener('scroll', updateLineProgress);
+    window.addEventListener('resize', updateLineProgress);
 }
 export function initStarButton() {
     const countEl = document.getElementById('star-count');
