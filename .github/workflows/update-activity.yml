@@ -19,13 +19,13 @@ jobs:
           GH_CONTRIBUTION_TOKEN: ${{ secrets.GH_CONTRIBUTION_TOKEN }}
         run: |
           query='{"query":"query { user(login: \"saedyousef\") { contributionsCollection { contributionCalendar { totalContributions weeks { firstDay contributionDays { date contributionCount contributionLevel } } } } } }"}'
-          curl -s -H "Authorization: bearer $GH_CONTRIBUTION_TOKEN" -H "Content-Type: application/json" -d "$query" https://api.github.com/graphql | jq '.data.user.contributionsCollection.contributionCalendar' > github_activities.json
+          curl -s -H "Authorization: bearer $GH_CONTRIBUTION_TOKEN" -H "Content-Type: application/json" -d "$query" https://api.github.com/graphql | jq '.data.user.contributionsCollection.contributionCalendar' > datasets/github_activities.json
       - name: Commit changes
         run: |
-          if [[ -n $(git status --porcelain github_activities.json) ]]; then
+          if [[ -n $(git status --porcelain datasets/github_activities.json) ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add github_activities.json
+            git add datasets/github_activities.json
             git commit -m "Update GitHub activity"
             git push
           fi

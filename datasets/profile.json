@@ -1,0 +1,23 @@
+{
+  "name": "Saed Yousef",
+  "tagline": "Software Engineer | Backend Specialist | Development Team Lead",
+  "headers": {
+    "about": "About Me",
+    "experience": "Experience",
+    "education": "Education",
+    "skills": "Skills",
+    "activity": "GitHub Activity"
+  },
+  "about": {
+    "text": "As a Development Team Lead with over 7 years of experience, I specialize in backend technologies, primarily PHP. My expertise lies in building robust web applications, integrating third-party systems, and architecting RESTful APIs. I emphasize clean, maintainable code and best practices while guiding my team to deliver high-quality solutions. With a strong foundation in DevOps, I automate workflows, manage infrastructure, and ensure efficient deployments. I'm passionate about leveraging technology to create scalable solutions and always open to new challenges."
+  },
+  "terminal": {
+    "user": "yousef",
+    "host": "admin"
+  },
+  "links": {
+    "github": "https://github.com/saedyousef",
+    "linkedin": "https://www.linkedin.com/in/saedyousef",
+    "repo": "https://github.com/saedyousef/saedyousef.com/stargazers"
+  }
+}
