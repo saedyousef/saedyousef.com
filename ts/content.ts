@@ -54,10 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const expContainer = document.getElementById('experience');
             if (expContainer && Array.isArray(data.experience)) {
-                data.experience.forEach((exp, i) => {
-                    const side = i % 2 === 0 ? 'left' : 'right';
+                data.experience.forEach((exp) => {
                     const card = document.createElement('div');
-                    card.className = `card ${side}`;
+                    card.className = 'card';
 
                     const h3 = document.createElement('h3');
                     h3.textContent = `${exp.position} – ${exp.company}`;
@@ -176,9 +175,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (repo && data.links.repo) repo.href = data.links.repo;
             }
 
-        if ((window as any).initTimeline) {
-            (window as any).initTimeline();
-        }
 
         // Load GitHub activity component if container exists
         const activityContainer = document.getElementById('activity');
