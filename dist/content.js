@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('content.json')
-        .then(res => res.json())
-        .then((data) => {
+    Promise.all([
+        fetch('datasets/profile.json').then(res => res.json()),
+        fetch('datasets/experiences.json').then(res => res.json()),
+        fetch('datasets/education.json').then(res => res.json()),
+        fetch('datasets/skills.json').then(res => res.json())
+    ])
+        .then(([profile, exp, edu, skills]) => {
+        const data = Object.assign(Object.assign({}, (profile || {})), { experience: exp === null || exp === void 0 ? void 0 : exp.experience, education: edu === null || edu === void 0 ? void 0 : edu.education, skills: skills === null || skills === void 0 ? void 0 : skills.skills });
         if (data.name) {
             const nameEl = document.getElementById('name');
             if (nameEl)
@@ -138,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Load GitHub activity component if container exists
         const activityContainer = document.getElementById('activity');
         if (activityContainer) {
-            fetch('github_activities.json')
+            fetch('datasets/github_activities.json')
                 .then(res => res.json())
                 .then(calendar => {
                 if (calendar && Array.isArray(calendar.weeks)) {
@@ -176,6 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
         .catch(err => {
-        console.error('Failed to load content.json', err);
+        console.error('Failed to load datasets', err);
     });
 });

@@ -11,8 +11,8 @@ This repository contains the source code for **saedyousef.com**, a simple static
 - Dark mode toggle
 - Typing effect in about section
 - Animated timeline for experience
-- Data-driven content via `content.json`
-- GitHub contributions calendar rendered from `github_activities.json`
+- Data-driven content via JSON files in the `datasets` directory
+- GitHub contributions calendar rendered from `datasets/github_activities.json`
 
 
 ## Development
@@ -27,12 +27,12 @@ Push updates to the repository's `main` branch or your preferred branch and host
 
 1. **Fork** this repository on GitHub.
 2. Clone your fork locally and install the dependencies with `npm install`.
-3. Edit [`content.json`](content.json) to replace the sample data with your own biography, experience and skills.
+3. Edit the JSON files in [`datasets`](datasets/) to replace the sample profile, experience, education and skills with your own data.
 4. Update assets like `profile.jpg` or add new images as needed.
 5. Run `npm run build` to compile the TypeScript sources and then commit your changes.
 
 The included GitHub Actions workflows will automatically run the tests and deploy the site to GitHub Pages whenever changes are pushed to your `main` branch.
-An additional workflow, `update-activity.yml`, periodically queries the GitHub GraphQL API and commits the results to `github_activities.json` so the site can display your latest contributions.
+An additional workflow, `update-activity.yml`, periodically queries the GitHub GraphQL API and commits the results to `datasets/github_activities.json` so the site can display your latest contributions.
 To enable it on your fork, create a repository secret named `GH_CONTRIBUTION_TOKEN` containing a personal access token with the `read:user` and `public_repo` scopes.
 
 ## License
