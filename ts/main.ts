@@ -70,11 +70,12 @@ export function initTimeline(): void {
             }
         });
         updateLineProgress();
-    }, { threshold: 0.3 });
+    }, { threshold: 0.2 });
 
     cards.forEach(card => observer.observe(card));
     window.addEventListener('load', updateLineProgress);
     window.addEventListener('scroll', updateLineProgress);
+    window.addEventListener('resize', updateLineProgress);
 }
 
 export function initStarButton(): void {
