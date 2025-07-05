@@ -33,7 +33,7 @@ export function initSkillSearch() {
         hint.style.display = 'none';
         closeHint.style.display = 'block';
         input.classList.add('active');
-        wrapper.style.zIndex = '1000';
+        wrapper.style.zIndex = '2000';
     };
     const hideSearch = () => {
         wrapper.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 300, fill: 'forwards' }).onfinish = () => {
@@ -43,6 +43,7 @@ export function initSkillSearch() {
             input.classList.remove('active');
             autocomplete.innerHTML = '';
             wrapper.style.zIndex = '';
+            results.style.display = 'none';
         };
     };
     document.addEventListener('keydown', (e) => {

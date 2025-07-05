@@ -1,4 +1,9 @@
 /* Search component styles */
+.search-wrapper,
+#search-wrapper {
+  position: relative;
+  z-index: 100;
+}
 .grid {
   height: 800px;
   width: 800px;
@@ -328,7 +333,7 @@
   border: 1px solid #333;
   max-height: 180px;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 2000;
 }
 
 .autocomplete-list li {
@@ -349,4 +354,12 @@
 .skill-badge.highlight {
   background-color: #ffeb3b;
   color: #000;
+}
+
+@media (max-width: 768px) {
+  #search-wrapper,
+  #search-hint,
+  #close-hint {
+    display: none !important;
+  }
 }
