@@ -127,8 +127,8 @@ h2 {
 /* === Timeline Fix === */
 .timeline {
     position: relative;
-    padding-left: 40px;
     --line-progress: 0%;
+    padding: 2rem 0;
 }
 
 .timeline::before {
@@ -136,7 +136,8 @@ h2 {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 20px; /* vertical line position */
+    left: 50%;
+    transform: translateX(-50%);
     width: 4px;
     background: linear-gradient(to bottom, var(--accent) 0%, var(--accent) var(--line-progress), #ccc var(--line-progress), #ccc 100%);
     z-index: 0;
@@ -145,10 +146,18 @@ h2 {
 
 .timeline .card {
     position: relative;
-    margin: 0 0 2rem;
+    width: 45%;
+    margin: 2rem 0;
     z-index: 1;
-    width: calc(100% - 40px);
-    margin-left: 0;
+}
+
+.timeline .card.left {
+    left: 0;
+    text-align: right;
+}
+
+.timeline .card.right {
+    left: 55%;
 }
 
 #education .card {
@@ -179,9 +188,8 @@ h2 {
 }
 
 .timeline .card::before {
-    content: '';
+    content: "";
     position: absolute;
-    left: -30px; /* align circle with timeline */
     top: 1rem;
     width: 12px;
     height: 12px;
@@ -190,6 +198,14 @@ h2 {
     border-radius: 50%;
     z-index: 2;
     transition: background-color 0.3s, border-color 0.3s;
+}
+
+.timeline .card.left::before {
+    right: -30px;
+}
+
+.timeline .card.right::before {
+    left: -30px;
 }
 
 .timeline .card.active::before {
@@ -360,6 +376,23 @@ footer a {
 .dark .github-activity .ContributionCalendar-day[data-level="2"] { background-color: #006d32; }
 .dark .github-activity .ContributionCalendar-day[data-level="3"] { background-color: #26a641; }
 .dark .github-activity .ContributionCalendar-day[data-level="4"] { background-color: #39d353; }
+
+@media (max-width: 768px) {
+    .timeline::before {
+        left: 20px;
+        transform: none;
+    }
+    .timeline .card {
+        width: calc(100% - 40px);
+        left: 0 !important;
+        text-align: left;
+    }
+    .timeline .card.left::before,
+    .timeline .card.right::before {
+        left: -30px;
+        right: auto;
+    }
+}
 
 /* Cursor Spinner */
 #cursor-spinner {

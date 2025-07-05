@@ -54,9 +54,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const expContainer = document.getElementById('experience');
             if (expContainer && Array.isArray(data.experience)) {
-                data.experience.forEach(exp => {
+                data.experience.forEach((exp, i) => {
+                    const side = i % 2 === 0 ? 'left' : 'right';
                     const card = document.createElement('div');
-                    card.className = 'card';
+                    card.className = `card ${side}`;
 
                     const h3 = document.createElement('h3');
                     h3.textContent = `${exp.position} – ${exp.company}`;
