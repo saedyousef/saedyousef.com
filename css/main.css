@@ -145,11 +145,10 @@ h2 {
 
 .timeline .card {
     position: relative;
-    margin-bottom: 2rem;
+    margin: 0 0 2rem;
     z-index: 1;
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
+    width: calc(100% - 40px);
+    margin-left: 0;
 }
 
 #education .card {
@@ -182,7 +181,7 @@ h2 {
 .timeline .card::before {
     content: '';
     position: absolute;
-    left: -29px; /* center circle on the line */
+    left: -30px; /* align circle with timeline */
     top: 1rem;
     width: 12px;
     height: 12px;
