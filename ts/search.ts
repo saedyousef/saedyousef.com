@@ -37,7 +37,7 @@ export function initSkillSearch(): void {
     hint.style.display = 'none';
     closeHint.style.display = 'block';
     input.classList.add('active');
-    wrapper.style.zIndex = '1000';
+    wrapper.style.zIndex = '2000';
   };
 
   const hideSearch = () => {
@@ -48,6 +48,7 @@ export function initSkillSearch(): void {
       input.classList.remove('active');
       autocomplete.innerHTML = '';
       wrapper.style.zIndex = '';
+      results.style.display = 'none';
     };
   };
 
