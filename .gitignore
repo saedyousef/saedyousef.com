@@ -1,3 +1,12 @@
-node_modules
 .idea
-/dist
+# Ignore node_modules
+node_modules/
+
+# Ignore compiled TypeScript files (optional if you don't want to include them)
+
+# Ignore temporary files
+*.log
+.DS_Store
+
+# Ignore TypeScript cache files
+*.tsbuildinfo
