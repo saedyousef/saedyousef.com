@@ -122,12 +122,15 @@
 
 <!-- External JavaScript files -->
 <script type="module">
-  import { initTheme, initStarButton, initMouseHighlight } from './dist/main.js';
+  import { initStarButton, initMouseHighlight } from './dist/main.js';
+  import { initTheme, loadThemeFromFile } from './dist/theme.js';
   import './dist/terminal.js';
   import './dist/content.js';
-  initTheme();
-  initStarButton();
-  initMouseHighlight();
+  loadThemeFromFile().then(() => {
+    initTheme();
+    initStarButton();
+    initMouseHighlight();
+  });
 </script>
 </body>
 </html>

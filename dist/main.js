@@ -2,21 +2,6 @@
  * Created by yousef on 6/14/2025 at 3:02 PM
  * Description: main
  */
-// Theme toggle
-export function setTheme(dark, toggleEl) {
-    document.body.classList.toggle('dark', dark);
-    toggleEl.checked = dark;
-}
-export function initTheme() {
-    const toggle = document.getElementById('theme-toggle');
-    const storedTheme = localStorage.getItem('theme');
-    setTheme(storedTheme ? storedTheme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches, toggle);
-    toggle.addEventListener('change', () => {
-        const isDark = toggle.checked;
-        setTheme(isDark, toggle);
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    });
-}
 export function initStarButton() {
     const countEl = document.getElementById('star-count');
     if (!countEl)

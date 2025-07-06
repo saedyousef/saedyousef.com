@@ -1,0 +1,11 @@
+{
+  "profilePhoto": "profile.jpg",
+  "colors": {
+    "accent": "#4f46e5",
+    "backgroundLight": "#ffffff",
+    "backgroundDark": "#121212",
+    "textLight": "#1f1f1f",
+    "textDark": "#e0e0e0",
+    "footerBg": "#222222"
+  }
+}

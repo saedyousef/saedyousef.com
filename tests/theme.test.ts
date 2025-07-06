@@ -11,7 +11,7 @@ Object.defineProperty(window, 'matchMedia', {
   }))
 });
 
-import { setTheme } from '../ts/main';
+import { setTheme } from '../ts/theme';
 
 describe('setTheme', () => {
   it('applies dark theme', () => {
