@@ -37,9 +37,11 @@ jobs:
       - name: Compile TypeScript
         run: tsc
       - name: Temporarily Modify .gitignore
-        run: sed -i '/\\/dist/d' .gitignore
+        run: sed -i '/dist\//d' .gitignore
+        
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
+          exclude_gitignore: true
