@@ -5,21 +5,36 @@
 ![Update Activity](https://github.com/saedyousef/saedyousef.com/actions/workflows/update-activity.yml/badge.svg)
 ![Scheduled Deploy](https://github.com/saedyousef/saedyousef.com/actions/workflows/scheduled-deploy.yml/badge.svg)
 
-This repository contains the source code for **saedyousef.com**, a simple static website built with HTML, CSS and TypeScript.  It showcases Saed Yousef's professional experience, fetches GitHub activity, and includes a dark mode toggle.
+This repository contains the source code for **saedyousef.com**, a static portfolio site built with HTML, CSS and TypeScript. The page loads its content from JSON files, displays a GitHub contribution calendar and supports light and dark themes.
 
-## Features
-- Dark mode toggle
-- Typing effect in about section
-- Animated timeline for experience
-- Data-driven content via JSON files in the `datasets` directory
-- GitHub contributions calendar rendered from `datasets/github_activities.json`
+## How It Works
 
+- All content is stored in files under [`datasets/`](datasets/). This includes the profile, experience, education, skills and the site theme.
+- The TypeScript files in [`ts/`](ts/) read these JSON files at runtime and populate the page. After compiling, the JavaScript output is placed in `dist/` and referenced from `index.html`.
+- A GitHub Actions workflow (`update-activity.yml`) periodically queries the GitHub GraphQL API and commits `datasets/github_activities.json` so that your contribution graph stays up to date.
+- Additional workflows run the test suite (`test.yml`) and deploy the site to the `gh-pages` branch (`compile.yml` and `scheduled-deploy.yml`).
 
-## Development
+### Theme Configuration
 
-Follow these steps to build and preview the site locally:
+The file [`datasets/theme.json`](datasets/theme.json) controls the visual appearance. You can change the accent color, light and dark backgrounds, text colors and the footer background. The `profilePhoto` field lets you specify an image displayed in the header.
 
-1. **Install Node.js** – the project is tested with Node 20, so use version 20 or newer.
+```json
+{
+  "profilePhoto": "profile.jpg",
+  "colors": {
+    "accent": "#4f46e5",
+    "backgroundLight": "#ffffff",
+    "backgroundDark": "#121212",
+    "textLight": "#1f1f1f",
+    "textDark": "#e0e0e0",
+    "footerBg": "#222222"
+  }
+}
+```
+
+## Local Development
+
+1. **Install Node.js** – version 20 or newer is recommended.
 2. **Install dependencies**
    ```bash
    npm install
@@ -28,35 +43,38 @@ Follow these steps to build and preview the site locally:
    ```bash
    npm run build
    ```
-   The compiled JavaScript files will appear in the `dist/` directory.
-4. *(Optional)* **Run the test suite**
+   The compiled JavaScript files will appear in `dist/`.
+4. *(Optional)* **Run the tests**
    ```bash
    npm test
    ```
-5. **Open the site** – either open `index.html` directly in your browser or serve the project with a static HTTP server such as:
+5. **Preview the site** – open `index.html` in your browser or run a static server such as:
    ```bash
    npx http-server
    ```
-   Then visit `http://localhost:8080`.
-
-## Deployment
-
-Push updates to the repository's `main` branch or your preferred branch and host the files on any static hosting service (e.g. GitHub Pages). The domain `saedyousef.com` is configured via the `CNAME` file.
+   and visit `http://localhost:8080`.
 
 ## Forking and Customization
 
-1. **Fork** this repository on GitHub.
-2. Clone your fork locally and install the dependencies with `npm install`.
-3. Edit the JSON files in [`datasets`](datasets/) to replace the sample profile, experience, education and skills with your own data.
-4. Update assets like `profile.jpg` or add new images as needed.
-5. Run `npm run build` to compile the TypeScript sources and then commit your changes.
+1. Fork this repository on GitHub and clone your fork locally.
+2. Edit the JSON files in [`datasets/`](datasets/) to replace the sample profile, experience, education and skills with your own data.
+3. Tweak [`datasets/theme.json`](datasets/theme.json) to customize colors or change the profile photo.
+4. Replace assets such as `profile.jpg` or add new images as desired.
+5. Run `npm run build` and commit your changes.
+6. Create a repository secret named `GH_CONTRIBUTION_TOKEN` with a personal access token containing the `read:user` and `public_repo` scopes if you want the activity updater workflow to function.
 
-The included GitHub Actions workflows will automatically run the tests and deploy the site to GitHub Pages whenever changes are pushed to your `main` branch.
-An additional workflow, `update-activity.yml`, periodically queries the GitHub GraphQL API and commits the results to `datasets/github_activities.json` so the site can display your latest contributions.
-To enable it on your fork, create a repository secret named `GH_CONTRIBUTION_TOKEN` containing a personal access token with the `read:user` and `public_repo` scopes.
+## Hosting on GitHub Pages
+
+The workflows in `.github/workflows/` automatically build the site and push the result to the `gh-pages` branch. To host your fork:
+
+1. Enable GitHub Actions on your repository.
+2. Go to **Settings → Pages** and choose the **gh-pages** branch as the source.
+3. After the `Compile & Deploy` workflow runs, your site will be available at `https://<your-username>.github.io/<repository>/`.
+
+If you use a custom domain, create a `CNAME` file with the domain name and configure your DNS accordingly.
 
 ## License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-If you enjoy this website, please consider **starring** the project on GitHub!
+If you enjoy this website, please consider starring the project on GitHub!
