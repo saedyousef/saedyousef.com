@@ -17,7 +17,27 @@ This repository contains the source code for **saedyousef.com**, a simple static
 
 ## Development
 
-Install dependencies with `npm install` and run `npm run build` to compile the TypeScript sources. Tests can be executed with `npm test`. Once built, open `index.html` in your browser or serve the files using any static HTTP server.
+Follow these steps to build and preview the site locally:
+
+1. **Install Node.js** – the project is tested with Node 20, so use version 20 or newer.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+3. **Compile the TypeScript sources**
+   ```bash
+   npm run build
+   ```
+   The compiled JavaScript files will appear in the `dist/` directory.
+4. *(Optional)* **Run the test suite**
+   ```bash
+   npm test
+   ```
+5. **Open the site** – either open `index.html` directly in your browser or serve the project with a static HTTP server such as:
+   ```bash
+   npx http-server
+   ```
+   Then visit `http://localhost:8080`.
 
 ## Deployment
 
