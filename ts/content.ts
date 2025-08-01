@@ -21,15 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     Promise.all([
         fetch('datasets/profile.json').then(res => res.json()),
         fetch('datasets/experiences.json').then(res => res.json()),
-        fetch('datasets/education.json').then(res => res.json()),
-        fetch('datasets/skills.json').then(res => res.json())
+        fetch('datasets/education.json').then(res => res.json())
     ])
-        .then(([profile, exp, edu, skills]) => {
+        .then(([profile, exp, edu]) => {
             const data: SiteData = {
                 ...(profile || {}),
                 experience: exp?.experience,
-                education: edu?.education,
-                skills: skills?.skills
+                education: edu?.education
             };
             if (data.name) {
                 const nameEl = document.getElementById('name');
@@ -48,11 +46,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            if (data.about && (window as any).setAboutText) {
-                (window as any).setAboutText(data.about.text);
+            if (data.about) {
+                const bio = document.getElementById('bio-text');
+                const aboutEl = document.getElementById('about-text');
+                const html = data.about.text
+                    .replace(/Development Team Lead/g, '<strong>Development Team Lead</strong>')
+                    .replace(/DevOps/g, '<strong>DevOps</strong>');
+                if (bio) bio.innerHTML = html;
+                if (aboutEl) aboutEl.innerHTML = html;
             }
 
-            const expContainer = document.getElementById('experience');
+            const expContainer = document.getElementById('experience-list');
             if (expContainer && Array.isArray(data.experience)) {
                 data.experience.forEach((exp) => {
                     const card = document.createElement('div');
@@ -87,7 +91,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            const eduContainer = document.getElementById('education');
+            const eduContainer = document.getElementById('education-list');
             if (eduContainer && Array.isArray(data.education)) {
                 data.education.forEach(edu => {
                     const card = document.createElement('div');
@@ -109,60 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            const skillsContainer = document.getElementById('skills');
-            if (skillsContainer && data.skills && typeof data.skills === 'object') {
-                // Clear previous content in case the script runs more than once
-                skillsContainer.innerHTML = '';
-
-                const wrapper = document.createElement('div');
-                wrapper.className = 'skills-rows';
-
-                const allSkills: string[] = [];
-                Object.values(data.skills).forEach(skillList => {
-                    if (Array.isArray(skillList)) {
-                        allSkills.push(...skillList);
-                    }
-                });
-
-                const createRow = (dir: 'left' | 'right', skills: string[]) => {
-                    const row = document.createElement('div');
-                    row.className = 'skills-row' + (dir === 'right' ? ' row-right' : ' row-left');
-                    const track = document.createElement('div');
-                    track.className = 'skill-track';
-                    skills.forEach(skill => {
-                        const span = document.createElement('span');
-                        span.className = 'skill-badge';
-                        span.textContent = skill;
-                        track.appendChild(span);
-                    });
-                    // Duplicate for seamless scrolling
-                    skills.forEach(skill => {
-                        const span = document.createElement('span');
-                        span.className = 'skill-badge';
-                        span.textContent = skill;
-                        track.appendChild(span);
-                    });
-                    row.appendChild(track);
-                    return row;
-                };
-
-                wrapper.appendChild(createRow('left', allSkills));
-                wrapper.appendChild(createRow('right', allSkills));
-                const reversed = [...allSkills].reverse();
-                wrapper.appendChild(createRow('left', reversed));
-
-                skillsContainer.appendChild(wrapper);
-            }
-
-            if (data.terminal) {
-                const user = data.terminal.user || '';
-                const host = data.terminal.host || '';
-                const full = user && host ? `${user}@${host}` : user || host;
-                const toolbar = document.getElementById('terminal-toolbar');
-                if (toolbar) toolbar.textContent = `${full}: ~`;
-                const span = document.getElementById('terminal-user');
-                if (span) span.textContent = `${full}:`;
-            }
+            // skills and terminal sections removed in new layout
 
             if (data.links) {
                 const gh = document.getElementById('github-link') as HTMLAnchorElement | null;
@@ -176,44 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
 
-        // Load GitHub activity component if container exists
-        const activityContainer = document.getElementById('activity');
-            if (activityContainer) {
-                fetch('datasets/github_activities.json')
-                    .then(res => res.json())
-                    .then(calendar => {
-                        if (calendar && Array.isArray(calendar.weeks)) {
-                            const levelMap: Record<string, string> = {
-                                NONE: '0',
-                                FIRST_QUARTILE: '1',
-                                SECOND_QUARTILE: '2',
-                                THIRD_QUARTILE: '3',
-                                FOURTH_QUARTILE: '4'
-                            };
-                            const table = document.createElement('table');
-                            for (let i = 0; i < 7; i++) {
-                                const tr = document.createElement('tr');
-                                calendar.weeks.forEach((week: any) => {
-                                    const day = week.contributionDays ? week.contributionDays[i] : undefined;
-                                    const td = document.createElement('td');
-                                    td.className = 'ContributionCalendar-day';
-                                    if (day) {
-                                        td.dataset.level = levelMap[day.contributionLevel] || '0';
-                                        td.title = `${day.contributionCount} contributions on ${day.date}`;
-                                    } else {
-                                        td.dataset.level = '0';
-                                        td.title = '';
-                                    }
-                                    tr.appendChild(td);
-                                });
-                                table.appendChild(tr);
-                            }
-                            activityContainer.innerHTML = '';
-                            activityContainer.appendChild(table);
-                        }
-                    })
-                    .catch(err => console.error('Failed to load github_activities.json', err));
-            }
+        // github activity section removed in new layout
         })
         .catch(err => {
             console.error('Failed to load datasets', err);

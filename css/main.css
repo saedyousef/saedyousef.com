@@ -1,7 +1,7 @@
 :root {
     --bg-light: #ffffff;
     --text-light: #1f1f1f;
-    --bg-dark: #121212;
+    --bg-dark: #0a192f;
     --text-dark: #e0e0e0;
     --accent: #4f46e5;
     --footer-bg: #222222;
@@ -10,20 +10,13 @@
 body {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-light);
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-    color: var(--text-light);
-    transition: background 0.3s, color 0.3s;
-    overflow-x: hidden;
-    cursor: none;
-}
-
-body.dark {
     background-color: var(--bg-dark);
     background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
     color: var(--text-dark);
+    transition: background 0.3s, color 0.3s;
+    overflow-x: hidden;
+    cursor: none;
 }
 
 .background-3d {
@@ -107,10 +100,6 @@ h2 {
     backdrop-filter: blur(4px);
 }
 
-.dark .card {
-    background-color: rgba(30, 30, 30, 0.85);
-    border-color: #444;
-}
 
 #mouse-highlight {
     position: fixed;
@@ -148,10 +137,6 @@ h2 {
     backdrop-filter: blur(4px);
 }
 
-.dark #skills {
-    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9), rgba(20, 20, 20, 0.8));
-    border-color: #444;
-}
 
 
 footer {
@@ -239,11 +224,6 @@ footer a {
     transform: scale(1.1);
 }
 
-.dark .skill-badge {
-    background-color: #333;
-    border: 1px solid var(--accent);
-    color: var(--text-dark);
-}
 
 /* Animated skills rows */
 .skills-rows {
@@ -297,9 +277,6 @@ footer a {
     color: var(--text-light);
 }
 
-.dark .github-activity .ContributionCalendar-label {
-    color: var(--text-dark);
-}
 
 .github-activity .ContributionCalendar-label span[aria-hidden="true"] {
     position: static !important;
@@ -312,11 +289,6 @@ footer a {
 .github-activity .ContributionCalendar-day[data-level="3"] { background-color: #30a14e; }
 .github-activity .ContributionCalendar-day[data-level="4"] { background-color: #216e39; }
 
-.dark .github-activity .ContributionCalendar-day[data-level="0"] { background-color: #161b22; }
-.dark .github-activity .ContributionCalendar-day[data-level="1"] { background-color: #0e4429; }
-.dark .github-activity .ContributionCalendar-day[data-level="2"] { background-color: #006d32; }
-.dark .github-activity .ContributionCalendar-day[data-level="3"] { background-color: #26a641; }
-.dark .github-activity .ContributionCalendar-day[data-level="4"] { background-color: #39d353; }
 
 
 /* Cursor Spinner */
@@ -346,4 +318,21 @@ footer a {
 
 @keyframes cursor-rot {
     to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Navigation links in hero */
+.nav-link {
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+#bio-text strong,
+#about-text strong {
+    color: var(--accent);
 }
