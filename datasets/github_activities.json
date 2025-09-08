@@ -1,5 +1,5 @@
 {
-  "totalContributions": 3250,
+  "totalContributions": 3175,
   "weeks": [
     {
       "firstDay": "2024-09-08",
@@ -2086,6 +2086,11 @@
       "contributionDays": [
         {
           "date": "2025-09-07",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
+        },
+        {
+          "date": "2025-09-08",
           "contributionCount": 0,
           "contributionLevel": "NONE"
         }
