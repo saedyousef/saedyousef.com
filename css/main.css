@@ -1,349 +1,487 @@
-:root {
-    --bg-light: #ffffff;
-    --text-light: #1f1f1f;
-    --bg-dark: #121212;
-    --text-dark: #e0e0e0;
-    --accent: #4f46e5;
-    --footer-bg: #222222;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Self-hosted Inter font family */
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-300.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-400.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-500.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-600.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('../assets/fonts/Inter-800.woff2') format('woff2');
+}
+
+/* Custom Portfolio Styles */
+/* ========================================
+   BRITTANY CHIANG INSPIRED PORTFOLIO STYLES
+   Color Scheme: Navy & Teal/Green
+   ======================================== */
+
+/* ===== GLOBAL STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-light);
-    background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-    color: var(--text-light);
-    transition: background 0.3s, color 0.3s;
+    background: linear-gradient(180deg, #0a192f 0%, #020c1b 100%); /* Navy gradient instead of pure black */
+    color: #8892b0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
-    cursor: none;
 }
 
-body.dark {
-    background-color: var(--bg-dark);
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-    color: var(--text-dark);
-}
-
-.background-3d {
+/* Ensure canvas stays in background */
+#sphere-canvas {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    z-index: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
     pointer-events: none;
 }
 
-.rotating-circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, var(--accent), transparent 70%);
-    border-radius: 50%;
-    transform: translate(-50%, -50%) rotate(0deg);
-    animation: rotateCircle 60s linear infinite;
-    opacity: 0.2;
-}
-
-@keyframes rotateCircle {
-    from { transform: translate(-50%, -50%) rotate(0deg); }
-    to { transform: translate(-50%, -50%) rotate(360deg); }
-}
-
-header {
-    padding: 2rem;
-    text-align: center;
+/* Ensure content is above canvas */
+section,
+.social-links,
+.email-link {
     position: relative;
-    z-index: 1;
+    z-index: 10;
 }
 
-.profile-photo {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 1rem;
-    border: 3px solid var(--accent);
-    transition: transform 0.5s ease;
-}
-
-.profile-photo:hover {
-    transform: scale(1.05) rotateX(10deg) rotateY(10deg);
-}
-
-main {
-    max-width: 1000px;
-    margin: auto;
-    padding: 1rem;
-    position: relative;
-    z-index: 1;
-}
-
+/* Sections without background for cleaner look */
 section {
-    margin-bottom: 2rem;
-    animation: fadeInUp 0.6s ease both;
+    padding: 80px 20px;
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #233554;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #64ffda;
+}
+
+/* ===== SELECTION ===== */
+::selection {
+    background-color: #233554;
+    color: #64ffda;
+}
+
+/* ===== LINKS ===== */
+a {
+    color: #64ffda;
+    text-decoration: none;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+a:hover {
+    color: #64ffda;
+}
+
+/* ===== SECTION ANIMATIONS ===== */
+.fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
 }
 
 @keyframes fadeInUp {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-h2 {
-    color: var(--accent);
+/* ===== HERO SECTION ===== */
+/* Animation now handled by GSAP in main.js */
+.hero-content h1 {
+    line-height: 1.1;
+    color: #ccd6f6 !important;
+    font-weight: 700;
 }
 
-.card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(4px);
+.hero-content h2 {
+    line-height: 1.1;
+    color: #8892b0 !important;
 }
 
-.dark .card {
-    background-color: rgba(30, 30, 30, 0.85);
-    border-color: #444;
+.hero-content p {
+    max-width: 540px;
+    color: #8892b0;
 }
 
-#mouse-highlight {
-    position: fixed;
-    width: 1000px;
-    height: 1000px;
-    pointer-events: none;
-    border-radius: 50%;
-    background: radial-gradient(circle, var(--accent), transparent 70%);
-    opacity: 0.23;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-}
-
-
-
-#education .card {
-    width: 95%;
-    margin: 0 auto 2rem;
-}
-
-#skills,
-.github-activity {
-    width: 95%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#skills {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(245, 245, 245, 0.8));
-    backdrop-filter: blur(4px);
-}
-
-.dark #skills {
-    background: linear-gradient(135deg, rgba(45, 45, 45, 0.9), rgba(20, 20, 20, 0.8));
-    border-color: #444;
-}
-
-
-footer {
-    margin-top: 2rem;
-    padding: 1rem 0;
-    background-color: var(--footer-bg);
-    color: #eee;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-footer a {
-    color: inherit;
-    display: inline-flex;
-    align-items: center;
-}
-
-.star-button {
-    border: 1px solid #555;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    gap: 0.25rem;
-    font-size: 0.9rem;
-}
-
-.star-button svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
-}
-
-#star-count {
-    font-weight: bold;
-}
-
-.designer {
-    text-decoration: none;
-}
-
-.social-icon svg {
-    width: 24px;
-    height: 24px;
-    fill: currentColor;
-}
-
-
-.skills-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.skills-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.skill-section {
-    margin-bottom: 1rem;
-}
-
-.skill-section h3 {
-    margin-bottom: 0.5rem;
-}
-
-.skill-badge {
-    background-color: var(--accent);
-    color: #fff;
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    transition: transform 0.2s;
-}
-
-.skill-badge.dragging {
-    opacity: 0.5;
-}
-
-.skill-badge:hover {
-    transform: scale(1.1);
-}
-
-.dark .skill-badge {
-    background-color: #333;
-    border: 1px solid var(--accent);
-    color: var(--text-dark);
-}
-
-/* Animated skills rows */
-.skills-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow: hidden;
-}
-
-.skills-row {
-    overflow: hidden;
+/* ===== SECTION TITLES ===== */
+.section-title {
+    position: relative;
     white-space: nowrap;
 }
 
-.skill-track {
-    display: inline-flex;
-    gap: 0.5rem;
-    animation: skills-scroll 60s linear infinite;
+/* ===== EXPERIENCE SECTION ===== */
+.experience-item {
+    position: relative;
+    padding: 30px;
+    background: rgba(17, 34, 64, 0.6); /* Slightly more opaque for readability */
+    border: 1px solid rgba(100, 255, 218, 0.2);
+    border-radius: 4px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
-.row-right .skill-track {
-    animation-direction: reverse;
+.experience-item:hover {
+    background: rgba(17, 34, 64, 0.8);
+    border-color: rgba(100, 255, 218, 0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(100, 255, 218, 0.2);
 }
 
-@keyframes skills-scroll {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+.experience-item h3 {
+    color: #ccd6f6;
+    font-size: 1.5rem;
+    margin-bottom: 5px;
 }
 
-/* GitHub Activity */
-.github-activity {
-    overflow-x: auto;
+.experience-item .company {
+    color: #64ffda;
+    font-size: 1.125rem;
 }
 
-.github-activity table {
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    width: 100%;
-    table-layout: fixed;
+.experience-item .period {
+    color: #8892b0;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.875rem;
+    margin-bottom: 20px;
 }
 
-.github-activity .ContributionCalendar-day {
-    width: 13px;
-    height: 13px;
+.experience-item ul {
+    list-style: none;
+    padding: 0;
+}
+
+.experience-item ul li {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 10px;
+    color: #8892b0;
+}
+
+.experience-item ul li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: #64ffda;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.tech-tag {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: #64ffda;
+    background: rgba(100, 255, 218, 0.1);
+    padding: 5px 10px;
     border-radius: 3px;
 }
 
-.github-activity .ContributionCalendar-label {
-    font-size: 0.85rem;
-    padding: 0;
-    color: var(--text-light);
+/* ===== PROJECT CARDS ===== */
+.project-card {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 100px;
 }
 
-.dark .github-activity .ContributionCalendar-label {
-    color: var(--text-dark);
+.project-card:nth-child(even) .project-content {
+    text-align: left;
 }
 
-.github-activity .ContributionCalendar-label span[aria-hidden="true"] {
-    position: static !important;
-    clip-path: none !important;
+.project-image-container {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    background: rgba(10, 20, 40, 0.8);
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.github-activity .ContributionCalendar-day[data-level="0"] { background-color: #ebedf0; }
-.github-activity .ContributionCalendar-day[data-level="1"] { background-color: #9be9a8; }
-.github-activity .ContributionCalendar-day[data-level="2"] { background-color: #40c463; }
-.github-activity .ContributionCalendar-day[data-level="3"] { background-color: #30a14e; }
-.github-activity .ContributionCalendar-day[data-level="4"] { background-color: #216e39; }
-
-.dark .github-activity .ContributionCalendar-day[data-level="0"] { background-color: #161b22; }
-.dark .github-activity .ContributionCalendar-day[data-level="1"] { background-color: #0e4429; }
-.dark .github-activity .ContributionCalendar-day[data-level="2"] { background-color: #006d32; }
-.dark .github-activity .ContributionCalendar-day[data-level="3"] { background-color: #26a641; }
-.dark .github-activity .ContributionCalendar-day[data-level="4"] { background-color: #39d353; }
-
-
-/* Cursor Spinner */
-#cursor-spinner {
-    position: fixed;
-    width: 16px;
-    height: 16px;
-    pointer-events: none;
-    border-radius: 50%;
-    border: 2px solid #444;
-    box-shadow: -4px -4px 4px #6359f8, 0 -4px 4px 0 #9c32e2, 4px -4px 4px #f36896, 4px 0 4px #ff0b0b, 4px 4px 4px 0 #ff5500, 0 4px 4px 0 #ff9500, -4px 4px 4px 0 #ffb700;
-    animation: cursor-rot 0.7s linear infinite;
-    transform: translate(-50%, -50%);
+.project-image-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(100, 255, 218, 0.1);
+    mix-blend-mode: multiply;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
     z-index: 1;
 }
 
-#cursor-spinner .cursor-spinner-inner {
-    border: 2px solid #444;
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.project-card:hover .project-image-container::before {
+    background: transparent;
 }
 
-@keyframes cursor-rot {
-    to { transform: translate(-50%, -50%) rotate(360deg); }
+.project-overline {
+    color: #64ffda;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.875rem;
+    margin-bottom: 10px;
+}
+
+.project-title {
+    color: #ccd6f6;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.project-title a {
+    color: #ccd6f6;
+}
+
+.project-title a:hover {
+    color: #64ffda;
+}
+
+.project-description {
+    background: #112240;
+    color: #a8b2d1;
+    padding: 25px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    box-shadow: 0 10px 30px -15px rgba(2, 12, 27, 0.7);
+    margin-bottom: 20px;
+}
+
+.project-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.project-tech-list li {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.8rem;
+    color: #a8b2d1;
+}
+
+.project-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.project-links a {
+    color: #a8b2d1;
+    font-size: 1.25rem;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.project-links a:hover {
+    color: #64ffda;
+    transform: translateY(-3px);
+}
+
+/* ===== TECH LIST ===== */
+#tech-list li {
+    position: relative;
+    padding-left: 20px;
+}
+
+#tech-list li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: #64ffda;
+    font-size: 1rem;
+}
+
+/* ===== BUTTONS ===== */
+button,
+.btn {
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+button:hover,
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 1.75rem !important;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem !important;
+    }
+    
+    .hero-content h2 {
+        font-size: 2rem !important;
+    }
+    
+    .project-card {
+        margin-bottom: 60px;
+    }
+}
+
+/* ===== TRANSITIONS ===== */
+a, button, .project-card, .experience-item {
+    transition: all 0.25s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* ===== FOCUS VISIBLE ===== */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px dashed #64ffda;
+    outline-offset: 3px;
+}
+
+/* ===== VISIBLE CLASS ===== */
+.visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+
+/* ===== TEXT COLOR CONSISTENCY ===== */
+/* Ensure text colors remain consistent after animations */
+h1, h2, h3, h4, h5, h6 {
+    color: inherit;
+}
+
+.text-lightest-slate {
+    color: #ccd6f6 !important;
+}
+
+.text-slate {
+    color: #8892b0 !important;
+}
+
+.text-green {
+    color: #64ffda !important;
+}
+
+/* Ensure hero text maintains color */
+#home h1 {
+    color: #ccd6f6 !important;
+}
+
+#home h2 {
+    color: #8892b0 !important;
+}
+
+#home p {
+    color: #8892b0 !important;
+}
+
+/* ===== EDUCATION SECTION ===== */
+#education-container > div {
+    backdrop-filter: blur(10px);
+}
+
+#education-container h3:hover {
+    transform: translateX(5px);
+}
+
+/* ===== SKILLS SECTION ===== */
+#skills-container > div {
+    backdrop-filter: blur(10px);
+}
+
+#skills-container span:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(100, 255, 218, 0.3);
+}
+
+/* ===== CLEAN ICONS - NO CIRCLES ===== */
+/* Icons should be clean SVG paths, no background circles */
+svg {
+    transition: all 0.25s ease;
+}
+
+svg:hover {
+    transform: scale(1.05);
+}
+
+/* ===== SMOOTH SCROLLING ===== */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+    }
 }

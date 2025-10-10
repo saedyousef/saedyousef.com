@@ -1,120 +1,118 @@
-{
-  "experience": [
+[
     {
-      "company": "IPO Solutions",
-      "position": "Development Team Lead",
-      "start": "Feb 2024",
-      "end": "Present",
-      "location": "Bruchsal, Germany",
-      "workType": "Hybrid",
-      "description": "Lead a team of engineers delivering scalable PHP services. Set architecture standards, perform code reviews, and coordinate DevOps automation to ensure smooth releases.",
-      "responsibilities": [
-        "Manage a team of developers and coordinate sprint planning.",
-        "Review code and enforce best practices for maintainable PHP.",
-        "Architect RESTful APIs and system integrations.",
-        "Drive automation and deployment processes."
-      ]
+        "company": "IPO Solutions",
+        "position": "Development Team Lead",
+        "start": "Feb 2024",
+        "end": "Present",
+        "location": "Bruchsal, Germany",
+        "workType": "Hybrid",
+        "description": "Lead a team of engineers delivering scalable PHP services. Set architecture standards, perform code reviews, and coordinate DevOps automation to ensure smooth releases.",
+        "responsibilities": [
+            "Manage a team of developers and coordinate sprint planning.",
+            "Review code and enforce best practices for maintainable PHP.",
+            "Architect RESTful APIs and system integrations.",
+            "Drive automation and deployment processes."
+        ]
     },
     {
-      "company": "IPO Solutions",
-      "position": "Senior Software Engineer",
-      "start": "Feb 2022",
-      "end": "Feb 2024",
-      "location": "Weingarten, Germany",
-      "workType": "On-site",
-      "description": "Designed and implemented complex backend features. Mentored teammates, contributed to infrastructure improvements, and collaborated on system design and integrations.",
-      "responsibilities": [
-        "Build and optimize backend services.",
-        "Lead architecture discussions and integrations.",
-        "Mentor developers through code reviews and pair programming.",
-        "Ensure reliable deployments using Docker and Kubernetes."
-      ]
+        "company": "IPO Solutions",
+        "position": "Senior Software Engineer",
+        "start": "Feb 2022",
+        "end": "Feb 2024",
+        "location": "Weingarten, Germany",
+        "workType": "On-site",
+        "description": "Designed and implemented complex backend features. Mentored teammates, contributed to infrastructure improvements, and collaborated on system design and integrations.",
+        "responsibilities": [
+            "Build and optimize backend services.",
+            "Lead architecture discussions and integrations.",
+            "Mentor developers through code reviews and pair programming.",
+            "Ensure reliable deployments using Docker and Kubernetes."
+        ]
     },
     {
-      "company": "IPO Solutions",
-      "position": "Software Engineer",
-      "start": "Sep 2021",
-      "end": "Feb 2022",
-      "location": "Weingarten, Germany",
-      "workType": "On-site",
-      "description": "Improved backend systems and adopted DevOps practices. Managed infrastructure using Docker and Kubernetes on AWS.",
-      "responsibilities": [
-        "Implement backend logic and manage infrastructure.",
-        "Establish CI/CD pipelines.",
-        "Utilize Laravel, Docker, Kubernetes, AWS, and REST APIs."
-      ]
+        "company": "IPO Solutions",
+        "position": "Software Engineer",
+        "start": "Sep 2021",
+        "end": "Feb 2022",
+        "location": "Weingarten, Germany",
+        "workType": "On-site",
+        "description": "Improved backend systems and adopted DevOps practices. Managed infrastructure using Docker and Kubernetes on AWS.",
+        "responsibilities": [
+            "Implement backend logic and manage infrastructure.",
+            "Establish CI/CD pipelines.",
+            "Utilize Laravel, Docker, Kubernetes, AWS, and REST APIs."
+        ]
     },
     {
-      "company": "IPO Solutions",
-      "position": "Software Engineer",
-      "start": "Aug 2021",
-      "end": "Sep 2021",
-      "location": "Weingarten, Germany",
-      "workType": "Remote",
-      "description": "Refactored existing APIs and improved JSON data structures while collaborating with an agile remote team.",
-      "responsibilities": [
-        "Refactor and review JSON-based APIs.",
-        "Collaborate in an agile, remote-first team.",
-        "Ensure documentation and test coverage."
-      ]
+        "company": "IPO Solutions",
+        "position": "Software Engineer",
+        "start": "Aug 2021",
+        "end": "Sep 2021",
+        "location": "Weingarten, Germany",
+        "workType": "Remote",
+        "description": "Refactored existing APIs and improved JSON data structures while collaborating with an agile remote team.",
+        "responsibilities": [
+            "Refactor and review JSON-based APIs.",
+            "Collaborate in an agile, remote-first team.",
+            "Ensure documentation and test coverage."
+        ]
     },
     {
-      "company": "Freelance",
-      "position": "Backend Developer",
-      "start": "Jan 2021",
-      "end": "Jun 2021",
-      "location": "Remote",
-      "workType": "Remote",
-      "description": "Delivered backend services for clients, focusing on API design, integrations, and independent project management.",
-      "responsibilities": [
-        "Design and integrate APIs for clients.",
-        "Communicate project scope and deliver milestones.",
-        "Maintain reliability with automated testing."
-      ]
+        "company": "Freelance",
+        "position": "Backend Developer",
+        "start": "Jan 2021",
+        "end": "Jun 2021",
+        "location": "Remote",
+        "workType": "Remote",
+        "description": "Delivered backend services for clients, focusing on API design, integrations, and independent project management.",
+        "responsibilities": [
+            "Design and integrate APIs for clients.",
+            "Communicate project scope and deliver milestones.",
+            "Maintain reliability with automated testing."
+        ]
     },
     {
-      "company": "Freelance",
-      "position": "Full Stack Developer",
-      "start": "May 2020",
-      "end": "Sep 2020",
-      "location": "Remote",
-      "workType": "Remote",
-      "description": "Developed full-stack applications using PHP and AWS, managing the entire lifecycle from planning to deployment.",
-      "responsibilities": [
-        "Build full-stack applications.",
-        "Integrate PHP apps with AWS using best practices.",
-        "Implement design patterns and maintainable code."
-      ]
+        "company": "Freelance",
+        "position": "Full Stack Developer",
+        "start": "May 2020",
+        "end": "Sep 2020",
+        "location": "Remote",
+        "workType": "Remote",
+        "description": "Developed full-stack applications using PHP and AWS, managing the entire lifecycle from planning to deployment.",
+        "responsibilities": [
+            "Build full-stack applications.",
+            "Integrate PHP apps with AWS using best practices.",
+            "Implement design patterns and maintainable code."
+        ]
     },
     {
-      "company": "Plexable",
-      "position": "Senior Software Engineer",
-      "start": "Aug 2019",
-      "end": "Jan 2020",
-      "location": "Amman, Jordan",
-      "workType": "On-site",
-      "description": "Developed and maintained core systems and APIs. Built SDKs for delivery integrations, deployed fixes, and provided client support and onboarding.",
-      "responsibilities": [
-        "Develop and maintain core systems and APIs.",
-        "Build SDKs and deploy fixes.",
-        "Provide client support and onboarding.",
-        "Train new team members."
-      ]
+        "company": "Plexable",
+        "position": "Senior Software Engineer",
+        "start": "Aug 2019",
+        "end": "Jan 2020",
+        "location": "Amman, Jordan",
+        "workType": "On-site",
+        "description": "Developed and maintained core systems and APIs. Built SDKs for delivery integrations, deployed fixes, and provided client support and onboarding.",
+        "responsibilities": [
+            "Develop and maintain core systems and APIs.",
+            "Build SDKs and deploy fixes.",
+            "Provide client support and onboarding.",
+            "Train new team members."
+        ]
     },
     {
-      "company": "Classera",
-      "position": "Software Engineer",
-      "start": "Jul 2016",
-      "end": "Jul 2019",
-      "location": "Amman, Jordan",
-      "workType": "On-site",
-      "description": "Led API development and integrations across multiple projects. Managed payment gateways and infrastructure while coordinating releases and mentoring junior developers.",
-      "responsibilities": [
-        "Lead backend API development and system integration.",
-        "Set up and maintain payment gateways.",
-        "Coordinate projects and train junior developers.",
-        "Manage servers and environments."
-      ]
+        "company": "Classera",
+        "position": "Software Engineer",
+        "start": "Jul 2016",
+        "end": "Jul 2019",
+        "location": "Amman, Jordan",
+        "workType": "On-site",
+        "description": "Led API development and integrations across multiple projects. Managed payment gateways and infrastructure while coordinating releases and mentoring junior developers.",
+        "responsibilities": [
+            "Lead backend API development and system integration.",
+            "Set up and maintain payment gateways.",
+            "Coordinate projects and train junior developers.",
+            "Manage servers and environments."
+        ]
     }
-  ]
-}
+]
