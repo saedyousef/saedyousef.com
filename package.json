@@ -4,9 +4,10 @@
   "description": "3D Portfolio Website with Three.js - TypeScript implementation",
   "main": "dist/main.js",
   "scripts": {
-    "build": "npm run build:ts && npm run build:css",
+  "build": "npm run build:ts && npm run build:css && npm run build:vendor",
     "build:ts": "tsc --project tsconfig.json",
     "build:css": "postcss css/main.css -o dist/main.css",
+  "build:vendor": "node scripts/copy-vendor.cjs",
     "watch": "tsc --watch",
     "test": "jest",
     "test:watch": "jest --watch",
