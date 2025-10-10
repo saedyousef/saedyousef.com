@@ -12,12 +12,21 @@
 
 import * as THREE from 'three';
 
+type StarLayer = {
+    mesh: THREE.Points;
+    rotationSpeed: number;
+    twinkleSpeed: number;
+    twinkleOffset: number;
+    baseSize: number;
+    baseOpacity: number;
+};
+
 // ============================================
 // CONFIGURATION
 // ============================================
 const CONFIG = {
     // Scene
-    fogDensity: 0.015,
+    fogDensity: 0.006,
     fogColor: 0x0a0e1a,
     
     // Camera
@@ -26,12 +35,12 @@ const CONFIG = {
     cameraScrollMultiplier: 50,
     
     // Data Nodes
-    nodeCount: 25,
-    nodeOrbitRadius: 28,
+    nodeCount: 40,
+    nodeOrbitRadius: 24,
     nodeSize: 0.5,
     
     // Particles
-    starParticleCount: 3000,
+    starParticleCount: 8000,
     
     // Colors
     primaryColor: 0x64ffda,      // Green
@@ -40,7 +49,7 @@ const CONFIG = {
     
     // Animation speeds
     orbitSpeed: 0.0004,
-    connectionDistance: 20
+    connectionDistance: 26
 };
 
 class NetworkConstellation {
@@ -53,7 +62,7 @@ class NetworkConstellation {
     private mouse: { x: number; y: number };
     private nodes: any[];
     private connections: any[];
-    private particles: any[];
+    private particles: StarLayer[];
 
     constructor(canvasId: string = 'sphere-canvas') {
         this.canvas = document.getElementById(canvasId);
@@ -78,9 +87,9 @@ class NetworkConstellation {
         this.setupScene();
         this.setupCamera();
         this.setupRenderer();
-        this.setupLighting();
+    this.setupLighting();
         
-        // Create scene elements
+    // Create scene elements
         this.createStarField();
         this.createNetworkNodes();
         this.createConnections();
@@ -139,44 +148,100 @@ class NetworkConstellation {
     }
 
     createStarField() {
-        const starGeometry = new THREE.BufferGeometry();
-        const positions = new Float32Array(CONFIG.starParticleCount * 3);
-        const colors = new Float32Array(CONFIG.starParticleCount * 3);
-        
-        for (let i = 0; i < CONFIG.starParticleCount; i++) {
-            const radius = 150 + Math.random() * 150;
+        const layers = [
+            {
+                count: Math.floor(CONFIG.starParticleCount * 0.4),
+                minRadius: 90,
+                maxRadius: 160,
+                size: 0.28,
+                opacity: 1,
+                rotationSpeed: 0.00012,
+                twinkleSpeed: 1.05
+            },
+            {
+                count: Math.floor(CONFIG.starParticleCount * 0.35),
+                minRadius: 160,
+                maxRadius: 260,
+                size: 0.22,
+                opacity: 0.85,
+                rotationSpeed: 0.00008,
+                twinkleSpeed: 0.8
+            },
+            {
+                count: Math.floor(CONFIG.starParticleCount * 0.2),
+                minRadius: 260,
+                maxRadius: 380,
+                size: 0.16,
+                opacity: 0.6,
+                rotationSpeed: 0.00004,
+                twinkleSpeed: 0.55
+            }
+        ];
+
+        layers.forEach(layerConfig => {
+            const starLayer = this.generateStarLayer(layerConfig);
+            this.scene.add(starLayer.mesh);
+            this.particles.push(starLayer);
+        });
+    }
+
+    private generateStarLayer(layerConfig: {
+        count: number;
+        minRadius: number;
+        maxRadius: number;
+        size: number;
+        opacity: number;
+        rotationSpeed: number;
+        twinkleSpeed: number;
+    }): StarLayer {
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(layerConfig.count * 3);
+        const colors = new Float32Array(layerConfig.count * 3);
+
+        for (let i = 0; i < layerConfig.count; i++) {
+            const radius = layerConfig.minRadius + Math.random() * (layerConfig.maxRadius - layerConfig.minRadius);
             const theta = Math.random() * Math.PI * 2;
             const phi = Math.acos(Math.random() * 2 - 1);
-            
+
             positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
             positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
             positions[i * 3 + 2] = radius * Math.cos(phi);
-            
-            // Star colors - cool tones
+
             const colorChoice = Math.random();
-            if (colorChoice > 0.7) {
-                colors[i * 3] = 0.39; colors[i * 3 + 1] = 0.98; colors[i * 3 + 2] = 0.85; // Green
-            } else if (colorChoice > 0.5) {
-                colors[i * 3] = 0.53; colors[i * 3 + 1] = 0.57; colors[i * 3 + 2] = 0.69; // Slate
+            if (colorChoice > 0.75) {
+                colors[i * 3] = 1.0; colors[i * 3 + 1] = 1.0; colors[i * 3 + 2] = 1.0; // bright white
+            } else if (colorChoice > 0.4) {
+                colors[i * 3] = 0.75; colors[i * 3 + 1] = 0.95; colors[i * 3 + 2] = 0.9; // cyan tint
             } else {
-                colors[i * 3] = 0.7; colors[i * 3 + 1] = 0.75; colors[i * 3 + 2] = 0.85; // Light
+                colors[i * 3] = 0.85; colors[i * 3 + 1] = 0.82; colors[i * 3 + 2] = 1.0; // blue tint
             }
         }
-        
-        starGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        starGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        
-        const starMaterial = new THREE.PointsMaterial({
-            size: 0.15,
+
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+        const material = new THREE.PointsMaterial({
+            size: layerConfig.size,
             vertexColors: true,
             transparent: true,
-            opacity: 0.7,
-            blending: THREE.AdditiveBlending
+            opacity: layerConfig.opacity,
+            blending: THREE.AdditiveBlending,
+            sizeAttenuation: true
         });
-        
-        const stars = new THREE.Points(starGeometry, starMaterial);
-        this.scene.add(stars);
-        this.particles.push(stars);
+        material.depthWrite = false;
+        material.needsUpdate = true;
+
+        const mesh = new THREE.Points(geometry, material);
+        mesh.renderOrder = -20;
+
+        return {
+            mesh,
+            rotationSpeed: layerConfig.rotationSpeed,
+            twinkleSpeed: layerConfig.twinkleSpeed,
+            twinkleOffset: Math.random() * Math.PI * 2,
+            baseSize: layerConfig.size,
+            baseOpacity: layerConfig.opacity
+        };
     }
 
     createNetworkNodes() {
@@ -317,9 +382,24 @@ class NetworkConstellation {
             line.material.opacity = (1 - normalizedDistance) * (line.userData.baseOpacity + pulse * 0.1);
         });
 
-        // Rotate star field slowly
-        this.particles.forEach(particleSystem => {
-            particleSystem.rotation.y += 0.00005;
+        // Rotate and twinkle star layers
+        this.particles.forEach(layer => {
+            layer.mesh.rotation.y += layer.rotationSpeed;
+
+            const materialCandidate = Array.isArray(layer.mesh.material)
+                ? layer.mesh.material[0]
+                : layer.mesh.material;
+            const material = materialCandidate as THREE.PointsMaterial | undefined;
+
+            if (material) {
+                const twinkle = (Math.sin(elapsedTime * layer.twinkleSpeed + layer.twinkleOffset) + 1) * 0.5;
+                const opacity = layer.baseOpacity * (0.6 + twinkle * 0.6);
+                const size = layer.baseSize * (0.85 + twinkle * 0.35);
+
+                material.opacity = Math.min(1, Math.max(0.1, opacity));
+                material.size = Math.max(0.05, size);
+                material.needsUpdate = true;
+            }
         });
 
         // Camera movement

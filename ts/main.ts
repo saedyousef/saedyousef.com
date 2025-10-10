@@ -80,24 +80,22 @@ async function loadAllData(): Promise<void> {
  * Initialize scroll animations with GSAP
  */
 function initScrollAnimations(): void {
-    // Hero section animations
+    // Hero section animations - only animate in, don't start hidden
     gsap.from('.hero-content > *', {
-        scrollTrigger: {
-            trigger: '.hero-content',
-            start: 'top 80%',
-        },
         opacity: 0,
         y: 30,
         duration: 0.8,
-        stagger: 0.2
+        stagger: 0.2,
+        delay: 0.3 // Small delay after page load
     });
 
-    // Section animations
-    gsap.utils.toArray('section').forEach((section: any) => {
+    // Section animations - only trigger when scrolling into view
+    gsap.utils.toArray('section:not(#home)').forEach((section: any) => {
         gsap.from(section, {
             scrollTrigger: {
                 trigger: section,
                 start: 'top 85%',
+                once: true // Only animate once
             },
             opacity: 0,
             y: 50,
@@ -119,6 +117,54 @@ function renderAboutSection(): void {
         p.className = 'text-slate mb-4 leading-relaxed';
         p.textContent = paragraph;
         aboutContent.appendChild(p);
+    });
+}
+
+function renderTechList(): void {
+    const techList = document.getElementById('tech-list');
+    if (!techList) return;
+
+    techList.innerHTML = '';
+
+    const skillBuckets = skillsData?.skills;
+    if (!skillBuckets || Object.keys(skillBuckets).length === 0) {
+        const fallbackItem = document.createElement('li');
+        fallbackItem.className = 'text-slate font-mono text-sm';
+        fallbackItem.textContent = 'Technologies data will be available soon.';
+        techList.appendChild(fallbackItem);
+        return;
+    }
+
+    const priorityCategories = [
+        'Frontend Development',
+        'Development Tools & Frameworks',
+        'Core Software Skills',
+        'Cloud & Infrastructure',
+        'Data & Search Technologies'
+    ];
+
+    const aggregated: string[] = [];
+    priorityCategories.forEach(category => {
+        const items = skillBuckets[category];
+        if (items) {
+            aggregated.push(...items);
+        }
+    });
+
+    if (aggregated.length === 0) {
+        Object.values(skillBuckets).forEach(items => {
+            aggregated.push(...items);
+        });
+    }
+
+    const uniqueTechnologies = Array.from(new Set(aggregated)).filter(Boolean);
+    const technologiesToDisplay = uniqueTechnologies.slice(0, 10);
+
+    technologiesToDisplay.forEach(tech => {
+        const item = document.createElement('li');
+        item.className = 'text-slate font-mono text-sm';
+        item.textContent = tech;
+        techList.appendChild(item);
     });
 }
 
@@ -173,18 +219,22 @@ function updateSocialLinks(): void {
     if (!profileData) return;
 
     const { contact } = profileData;
+    const repoUrl = 'https://github.com/saedyousef/saedyousef.com';
     
     // Left sidebar social links
     const leftSidebar = document.getElementById('social-links-left');
     if (leftSidebar) {
         leftSidebar.innerHTML = `
-            <a href="${contact.github}" target="_blank" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300">
+            <a href="${contact.github}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="GitHub profile">
                 <i class="fab fa-github text-xl"></i>
             </a>
-            <a href="${contact.linkedin}" target="_blank" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300">
+            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="Site repository">
+                <i class="fas fa-code text-xl"></i>
+            </a>
+            <a href="${contact.linkedin}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="LinkedIn profile">
                 <i class="fab fa-linkedin text-xl"></i>
             </a>
-            <a href="mailto:${contact.email}" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300">
+            <a href="mailto:${contact.email}" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="Email">
                 <i class="fas fa-envelope text-xl"></i>
             </a>
             <div class="w-px h-24 bg-slate"></div>
@@ -199,6 +249,25 @@ function updateSocialLinks(): void {
                 ${contact.email}
             </a>
             <div class="w-px h-24 bg-slate"></div>
+        `;
+    }
+    
+    // Mobile social links in footer
+    const mobileSocial = document.getElementById('social-links-mobile');
+    if (mobileSocial) {
+        mobileSocial.innerHTML = `
+            <a href="${contact.github}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300" aria-label="GitHub profile">
+                <i class="fab fa-github text-2xl"></i>
+            </a>
+            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300" aria-label="Site repository">
+                <i class="fas fa-code text-2xl"></i>
+            </a>
+            <a href="${contact.linkedin}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300" aria-label="LinkedIn profile">
+                <i class="fab fa-linkedin text-2xl"></i>
+            </a>
+            <a href="mailto:${contact.email}" class="text-slate hover:text-green transition-all duration-300" aria-label="Email">
+                <i class="fas fa-envelope text-2xl"></i>
+            </a>
         `;
     }
     
@@ -593,6 +662,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderExperienceSection();
     renderEducationSection();
     renderSkillsSection();
+    renderTechList();
     renderGitHubActivities();
     
     console.log('Portfolio ready!');
@@ -606,6 +676,7 @@ export {
     renderExperienceSection,
     renderEducationSection,
     renderSkillsSection,
+    renderTechList,
     renderGitHubActivities,
     updatePageTitle,
     updateHeroSection,
