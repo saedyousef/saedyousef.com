@@ -13,6 +13,7 @@ declare function initScrollAnimations(): void;
  * Render about section
  */
 declare function renderAboutSection(): void;
+declare function renderTechList(): void;
 /**
  * Update page title
  */
@@ -42,5 +43,5 @@ declare function renderEducationSection(): void;
  */
 declare function renderSkillsSection(): void;
 declare function renderGitHubActivities(): void;
-export { loadAllData, initScrollAnimations, renderAboutSection, renderExperienceSection, renderEducationSection, renderSkillsSection, renderGitHubActivities, updatePageTitle, updateHeroSection, updateSocialLinks, updateFooter };
+export { loadAllData, initScrollAnimations, renderAboutSection, renderExperienceSection, renderEducationSection, renderSkillsSection, renderTechList, renderGitHubActivities, updatePageTitle, updateHeroSection, updateSocialLinks, updateFooter };
 //# sourceMappingURL=main.d.ts.map
