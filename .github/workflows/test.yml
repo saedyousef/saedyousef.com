@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Debug: Check lockfile
+      - name: "Debug: Check lockfile"
         run: |
           echo "Check for package-lock.json:"
           test -f package-lock.json && echo "Found!" || echo "Missing!"
