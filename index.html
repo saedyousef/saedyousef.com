@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="page-title"></title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+    
+    <!-- Import Map for ES Modules -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "./node_modules/three/build/three.module.js",
+            "gsap": "./node_modules/gsap/index.js",
+            "gsap/ScrollTrigger": "./node_modules/gsap/ScrollTrigger.js"
+        }
+    }
+    </script>
+    
+    <!-- Compiled Tailwind CSS -->
+    <link rel="stylesheet" href="dist/main.css">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+
+    <!-- Preload self-hosted fonts -->
+    <link rel="preload" href="assets/fonts/Inter-400.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/Inter-700.woff2" as="font" type="font/woff2" crossorigin>
+</head>
+<body class="bg-navy text-slate font-inter overflow-x-hidden">
+    
+    <!-- Fixed Social Links - Left Side -->
+    <div id="social-links-left" class="fixed left-0 bottom-0 hidden lg:flex flex-col items-center space-y-6 pl-12 z-40">
+        <!-- Links loaded from profile.json -->
+        <div class="w-px h-24 bg-slate"></div>
+    </div>
+
+    <!-- Fixed Email - Right Side -->
+    <div id="social-links-right" class="fixed right-0 bottom-0 hidden lg:flex flex-col items-center pr-12 z-40">
+        <!-- Email loaded from profile.json -->
+        <div class="w-px h-24 bg-slate"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center px-6 lg:px-24 relative overflow-hidden">
+        <!-- 3D Animated Sphere Canvas -->
+        <canvas id="sphere-canvas" class="fixed inset-0 w-full h-full pointer-events-none" style="z-index: 0;"></canvas>
+        
+        <div class="container max-w-6xl mx-auto relative z-10">
+            <div class="hero-content">
+                <p id="hero-greeting" class="text-green font-mono text-sm md:text-base mb-6">Hi, my name is</p>
+                <h1 id="hero-name" class="text-5xl md:text-7xl lg:text-8xl font-bold text-lightest-slate mb-4">
+                    <!-- Name loaded from profile.json -->
+                </h1>
+                <h2 id="hero-subtitle" class="text-4xl md:text-6xl lg:text-7xl font-bold text-slate mb-8">
+                    <!-- Subtitle loaded from profile.json -->
+                </h2>
+                <p id="hero-description" class="text-slate text-base md:text-lg max-w-2xl mb-12 leading-relaxed">
+                    <!-- Description loaded from profile.json -->
+                </p>
+                <a href="#projects" class="inline-block px-7 py-5 border border-green text-green rounded font-mono text-sm hover:bg-green-tint transition-all duration-300">
+                    Check out my work!
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-24 px-6 lg:px-24">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="section-title flex items-center text-3xl font-bold text-lightest-slate mb-12">
+                <span class="text-green font-mono text-2xl mr-2">01.</span>
+                About Me
+                <span class="ml-4 h-px bg-lightest-navy flex-grow max-w-xs"></span>
+            </h2>
+            
+            <div class="max-w-3xl">
+                <div id="about-content" class="space-y-4 text-slate leading-relaxed">
+                    <!-- Content will be loaded dynamically from profile.json -->
+                </div>
+                
+                <div class="mt-8">
+                    <p class="text-slate mb-4">Here are a few technologies I've been working with recently:</p>
+                    <ul id="tech-list" class="grid grid-cols-2 gap-2 text-sm font-mono text-slate">
+                        <!-- Tech list will be populated dynamically -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-24 px-6 lg:px-24">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="section-title flex items-center text-3xl font-bold text-lightest-slate mb-12">
+                <span class="text-green font-mono text-2xl mr-2">02.</span>
+                Where I've Worked
+                <span class="ml-4 h-px bg-lightest-navy flex-grow max-w-xs"></span>
+            </h2>
+            
+            <div id="experience-container" class="space-y-8">
+                <!-- Experience items will be loaded dynamically from profile.json -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-24 px-6 lg:px-24">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="section-title flex items-center text-3xl font-bold text-lightest-slate mb-12">
+                <span class="text-green font-mono text-2xl mr-2">03.</span>
+                Education
+                <span class="ml-4 h-px bg-lightest-navy flex-grow max-w-xs"></span>
+            </h2>
+            
+            <div id="education-container" class="space-y-8">
+                <!-- Education items will be loaded dynamically from profile.json -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 lg:px-24 bg-light-navy/20">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="section-title flex items-center text-3xl font-bold text-lightest-slate mb-12">
+                <span class="text-green font-mono text-2xl mr-2">04.</span>
+                Skills & Technologies
+                <span class="ml-4 h-px bg-lightest-navy flex-grow max-w-xs"></span>
+            </h2>
+            
+            <div id="skills-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Skills will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6 lg:px-24">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="section-title flex items-center text-3xl font-bold text-lightest-slate mb-16">
+                <span class="text-green font-mono text-2xl mr-2">05.</span>
+                What I'm Building
+                <span class="ml-4 h-px bg-lightest-navy flex-grow max-w-xs"></span>
+            </h2>
+            
+            <div class="text-center py-16">
+                <div class="inline-block p-12 rounded-lg bg-light-navy/30 border border-green/10 backdrop-blur-md">
+                    <svg class="w-16 h-16 mx-auto mb-6 text-green opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    </svg>
+                    <h3 class="text-2xl font-bold text-lightest-slate mb-4">Projects Coming Soon</h3>
+                    <p class="text-slate max-w-md mx-auto leading-relaxed">
+                        I'm currently working on some exciting projects. Check back soon to see what I've been building!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Activity Section -->
+    <section id="github-activity" class="py-24 px-6 lg:px-24 bg-light-navy/20">
+        <div class="container mx-auto max-w-5xl">
+            <h2 class="section-title flex items-center text-3xl font-bold text-lightest-slate mb-12">
+                <span class="text-green font-mono text-2xl mr-2">06.</span>
+                GitHub Activity
+                <span class="ml-4 h-px bg-lightest-navy flex-grow max-w-xs"></span>
+            </h2>
+
+            <div id="github-activities-container" class="flex flex-col gap-8">
+                <!-- GitHub activities loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 lg:px-24 min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- 3D Animated Background Canvas -->
+        <canvas id="contact-canvas" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 0;"></canvas>
+        
+        <div class="container mx-auto max-w-2xl text-center relative z-10">
+            <p class="text-green font-mono text-base mb-5">07. What's Next?</p>
+            <h2 class="text-5xl md:text-6xl font-bold text-lightest-slate mb-5">Get In Touch</h2>
+            
+            <p class="text-slate text-lg leading-relaxed mb-12 max-w-xl mx-auto">
+                Whether you have a question or just want to say hi, I'll try my best to get back to you!
+            </p>
+            
+            <a id="contact-email-btn" href="#" class="inline-block px-7 py-5 border border-green text-green rounded font-mono text-sm hover:bg-green-tint transition-all duration-300">
+                Say Hello
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-6 text-center">
+        <div class="container mx-auto">
+            <p id="footer-text" class="text-slate text-sm font-mono">
+                <!-- Footer loaded from profile.json -->
+            </p>
+        </div>
+    </footer>
+
+    <!-- Compiled JavaScript (TypeScript build output) -->
+    <script type="module" src="dist/three-background.js"></script>
+    <script type="module" src="dist/main.js"></script>
+</body>
+</html>

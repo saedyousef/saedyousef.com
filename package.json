@@ -1,0 +1,48 @@
+{
+  "name": "portfolio-3d",
+  "version": "1.0.0",
+  "description": "3D Portfolio Website with Three.js - TypeScript implementation",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "npm run build:ts && npm run build:css",
+    "build:ts": "tsc --project tsconfig.json",
+    "build:css": "postcss css/main.css -o dist/main.css",
+    "watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint ts/**/*.ts",
+    "serve": "node -e \"require('http').createServer((req, res) => { const fs = require('fs'); const path = require('path'); let filePath = '.' + (req.url === '/' ? '/index.html' : req.url); const extname = String(path.extname(filePath)).toLowerCase(); const mimeTypes = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpg', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.ico': 'image/x-icon' }; const contentType = mimeTypes[extname] || 'application/octet-stream'; fs.readFile(filePath, (error, content) => { if (error) { if(error.code == 'ENOENT') { res.writeHead(404); res.end('404 Not Found'); } else { res.writeHead(500); res.end('500 Internal Server Error'); } } else { res.writeHead(200, { 'Content-Type': contentType }); res.end(content, 'utf-8'); } }); }).listen(8096, () => console.log('Server running at http://localhost:8096/'))\""
+  },
+  "keywords": [
+    "portfolio",
+    "threejs",
+    "3d",
+    "typescript",
+    "gsap"
+  ],
+  "author": "Saed Yousef",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jest": "^29.5.12",
+    "@types/three": "^0.158.0",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "autoprefixer": "^10.4.19",
+    "cssnano": "^6.1.2",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "tailwindcss": "^3.4.3",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "gsap": "^3.13.0",
+    "three": "^0.158.0"
+  }
+}

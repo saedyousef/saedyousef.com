@@ -1,0 +1,89 @@
+{
+  "skills": {
+    "Core Software Skills": [
+      "Object-Oriented Programming (OOP)",
+      "Design Patterns",
+      "RESTful API Development",
+      "Full-Stack Web Development",
+      "Database Design & Indexing",
+      "Workflow Automation",
+      "DevOps & Deployment",
+      "Code Review & Quality Assurance",
+      "Analytical Thinking",
+      "Team Leadership",
+      "Spoken & Written English"
+    ],
+
+    "Development Tools & Frameworks": [
+      "Laravel",
+      "Lumen (Laravel Micro Framework)",
+      "CakePHP",
+      "Composer",
+      "Docker",
+      "Git & GitHub",
+      "GitHub Actions",
+      "Kubernetes",
+      "n8n Workflow Automation"
+    ],
+
+    "Cloud & Infrastructure": [
+      "AWS",
+      "DigitalOcean",
+      "Rancher (Kubernetes Management)"
+    ],
+
+    "Data & Search Technologies": [
+      "MySQL",
+      "SQLite",
+      "Redis",
+      "Algolia"
+    ],
+
+    "Frontend Development": [
+      "HTML5",
+      "CSS3 / SASS",
+      "JavaScript (ES6+)",
+      "jQuery",
+      "MVC Architecture"
+    ],
+
+    "Operating Systems & Web Servers": [
+      "Linux",
+      "Ubuntu",
+      "Unix",
+      "Nginx",
+      "Apache"
+    ],
+
+    "IDEs & Text Editors": [
+      "VS Code",
+      "PhpStorm",
+      "WebStorm",
+      "Android Studio",
+      "Xcode",
+      "Cursor",
+      "Sublime Text",
+      "Vim"
+    ],
+
+    "Software Methodologies": [
+      "Agile",
+      "Scrum",
+      "Continuous Integration (CI)",
+      "Continuous Delivery (CD)"
+    ],
+
+    "Project & Task Management": [
+      "ClickUp",
+      "Jira"
+    ],
+
+    "AI Tools & Assistants": [
+      "ChatGPT",
+      "OpenAI Codex",
+      "GitHub Copilot",
+      "Cursor AI Editor",
+      "Claude Code"
+    ]
+  }
+}
