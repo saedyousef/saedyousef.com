@@ -28,6 +28,8 @@ jobs:
       with:
         name: dist-files
         path: build-output
+        run-id: ${{ github.event.workflow_run.id }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
     
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v4
