@@ -1,9 +1,10 @@
-name: Compile & Deploy
+name: Deploy
 
 on:
-  push:
-    branches: [ main ]
-  workflow_dispatch:
+  workflow_run:
+    workflows: ["Compile"]
+    types:
+      - completed
 
 permissions:
   contents: write
@@ -12,28 +13,26 @@ permissions:
 
 jobs:
   build-and-deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push' && github.event.workflow_run.head_branch == 'main' }}
     runs-on: ubuntu-latest
     
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-    
-    - name: Setup Node.js 20
-      uses: actions/setup-node@v4
       with:
-        node-version: '20'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build TypeScript and CSS
-      run: npm run build
+        ref: ${{ github.event.workflow_run.head_sha }}
+        repository: ${{ github.event.workflow_run.head_repository.full_name }}
+
+    - name: Download compiled artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: dist-files
+        path: build-output
     
     - name: Deploy to gh-pages
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
+        publish_dir: build-output
         publish_branch: gh-pages
-        exclude_assets: 'node_modules/**,tests/**,ts/**,.github/**,.gitignore,.eslintrc.js,tsconfig.json,jest.config.js,postcss.config.js,tailwind.config.js'
+        exclude_assets: ''
