@@ -1,0 +1,31 @@
+name: Update GitHub Activity
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Fetch activity
+        env:
+          GH_CONTRIBUTION_TOKEN: ${{ secrets.GH_CONTRIBUTION_TOKEN }}
+        run: |
+          query='{"query":"query { user(login: \"saedyousef\") { contributionsCollection { contributionCalendar { totalContributions weeks { firstDay contributionDays { date contributionCount contributionLevel } } } } } }"}'
+          curl -s -H "Authorization: bearer $GH_CONTRIBUTION_TOKEN" -H "Content-Type: application/json" -d "$query" https://api.github.com/graphql | jq '.data.user.contributionsCollection.contributionCalendar' > datasets/github_activities.json
+      - name: Commit changes
+        run: |
+          if [[ -n $(git status --porcelain datasets/github_activities.json) ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add datasets/github_activities.json
+            git commit -m "Update GitHub activity"
+            git push
+          fi
