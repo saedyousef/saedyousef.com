@@ -2093,6 +2093,11 @@
           "date": "2025-12-01",
           "contributionCount": 8,
           "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2025-12-02",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
         }
       ]
     }
