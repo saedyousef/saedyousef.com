@@ -2061,7 +2061,7 @@
         },
         {
           "date": "2025-11-26",
-          "contributionCount": 8,
+          "contributionCount": 6,
           "contributionLevel": "FIRST_QUARTILE"
         },
         {
@@ -2111,8 +2111,8 @@
         },
         {
           "date": "2025-12-05",
-          "contributionCount": 0,
-          "contributionLevel": "NONE"
+          "contributionCount": 2,
+          "contributionLevel": "FIRST_QUARTILE"
         }
       ]
     }
