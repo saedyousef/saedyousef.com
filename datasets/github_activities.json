@@ -2103,6 +2103,11 @@
           "date": "2026-02-25",
           "contributionCount": 2,
           "contributionLevel": "FIRST_QUARTILE"
+        },
+        {
+          "date": "2026-02-26",
+          "contributionCount": 0,
+          "contributionLevel": "NONE"
         }
       ]
     }
