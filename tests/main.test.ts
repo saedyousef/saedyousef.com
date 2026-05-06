@@ -1,439 +1,207 @@
-/**
- * Tests for main portfolio functionality
- * Tests are data-driven and work with any valid profile.json
- */
-
-import { 
-    loadAllData, 
-    renderAboutSection, 
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import {
+    loadAllData,
     renderGitHubActivities,
-    updatePageTitle,
+    renderPortfolio,
     updateHeroSection,
-    updateSocialLinks,
-    updateFooter
+    updateSocialLinks
 } from '../ts/main';
-import profileJson from '../datasets/profile.json';
-import experiencesJson from '../datasets/experiences.json';
 import educationJson from '../datasets/education.json';
+import experiencesJson from '../datasets/experiences.json';
 import githubActivitiesJson from '../datasets/github_activities.json';
+import profileJson from '../datasets/profile.json';
+import projectsJson from '../datasets/projects.json';
+import siteJson from '../datasets/site.json';
+import skillsJson from '../datasets/skills.json';
 
-// Mock fetch to return actual JSON files
-global.fetch = jest.fn();
+const datasets: Record<string, unknown> = {
+    'datasets/site.json': siteJson,
+    'datasets/profile.json': profileJson,
+    'datasets/experiences.json': experiencesJson,
+    'datasets/education.json': educationJson,
+    'datasets/skills.json': skillsJson,
+    'datasets/projects.json': projectsJson,
+    'datasets/github_activities.json': githubActivitiesJson
+};
 
-describe('Portfolio Main Functions', () => {
+function mockFetch(): void {
+    vi.stubGlobal('fetch', vi.fn((input: RequestInfo | URL) => {
+        const url = String(input);
+        const key = Object.keys(datasets).find(datasetPath => url.includes(datasetPath));
+
+        if (!key) {
+            return Promise.resolve({
+                ok: false,
+                status: 404,
+                json: async () => ({})
+            } as Response);
+        }
+
+        return Promise.resolve({
+            ok: true,
+            status: 200,
+            json: async () => datasets[key]
+        } as Response);
+    }));
+}
+
+function mountPortfolioDom(): void {
+    document.body.innerHTML = `
+        <a id="site-brand"></a>
+        <nav id="site-nav"></nav>
+        <button id="theme-toggle" type="button">
+            <span id="theme-toggle-icon"></span>
+            <span id="theme-toggle-label"></span>
+        </button>
+        <button id="effects-toggle" type="button">
+            <span id="effects-toggle-icon"></span>
+            <span id="effects-toggle-label"></span>
+        </button>
+        <aside id="social-links-left"></aside>
+        <aside id="social-links-right"></aside>
+        <main>
+            <p id="hero-greeting"></p>
+            <h1 id="hero-name"></h1>
+            <p id="hero-subtitle"></p>
+            <p id="hero-description"></p>
+            <div id="hero-actions"></div>
+            <div id="hero-meta"></div>
+            <div id="about-header"></div>
+            <div id="about-content"></div>
+            <p id="tech-intro"></p>
+            <ul id="tech-list"></ul>
+            <div id="experience-header"></div>
+            <div id="experience-container"></div>
+            <div id="education-header"></div>
+            <div id="education-container"></div>
+            <div id="skills-header"></div>
+            <div id="skills-container"></div>
+            <div id="projects-header"></div>
+            <div id="projects-container"></div>
+            <div id="github-header"></div>
+            <div id="github-activities-container"></div>
+            <p id="contact-eyebrow"></p>
+            <h2 id="contact-title"></h2>
+            <p id="contact-body"></p>
+            <div id="contact-actions"></div>
+        </main>
+        <footer>
+            <p id="footer-text"></p>
+            <div id="social-links-mobile"></div>
+        </footer>
+    `;
+}
+
+describe('portfolio datasets', () => {
+    it('keeps the correct canonical domain without visible version branding', () => {
+        expect(siteJson.canonicalDomain).toBe('saedyousef.com');
+        expect(JSON.stringify(siteJson).toLowerCase()).not.toMatch(/portfolio v\d|\bv\d\b/);
+        expect(JSON.stringify(siteJson).toLowerCase()).not.toMatch(/technical\s+resume/);
+    });
+
+    it('contains the required profile contact URLs', () => {
+        expect(profileJson.name).toBeTruthy();
+        expect(profileJson.title).toBeTruthy();
+        expect(profileJson.contact.email).toMatch(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+        expect(profileJson.contact.github).toMatch(/^https:\/\//);
+        expect(profileJson.contact.linkedin).toMatch(/^https:\/\//);
+        expect(profileJson.contact.website).toBe('https://saedyousef.com');
+    });
+
+    it('has structured resume sections', () => {
+        expect(experiencesJson.length).toBeGreaterThan(0);
+        expect(educationJson.length).toBeGreaterThan(0);
+        expect(Object.keys(skillsJson.skills).length).toBeGreaterThan(0);
+        expect(projectsJson).toHaveLength(0);
+        expect(skillsJson.skills['Development Tools & Frameworks']).toContain('PHP');
+        expect(skillsJson.skills['Development Tools & Frameworks']).toContain('TypeScript');
+        expect(skillsJson.skills['Development Tools & Frameworks']).toContain('Nuxt');
+        expect(skillsJson.skills['Development Tools & Frameworks']).toContain('Go');
+        expect(skillsJson.skills['Development Tools & Frameworks']).not.toContain('CakePHP');
+        expect(skillsJson.skills['Development Tools & Frameworks'].join(' ')).not.toContain('Lumen');
+    });
+
+    it('has a valid GitHub contribution calendar fallback', () => {
+        expect(typeof githubActivitiesJson.totalContributions).toBe('number');
+        expect(githubActivitiesJson.weeks.length).toBeGreaterThan(0);
+        githubActivitiesJson.weeks.forEach(week => {
+            expect(typeof week.firstDay).toBe('string');
+            expect(week.contributionDays.length).toBeGreaterThan(0);
+        });
+    });
+});
+
+describe('portfolio renderer', () => {
     beforeEach(() => {
-        // Clear all mocks
-        jest.clearAllMocks();
-        
-        // Reset DOM
+        vi.restoreAllMocks();
+        mockFetch();
+        mountPortfolioDom();
+    });
+
+    it('loads all JSON datasets', async () => {
+        await loadAllData();
+
+        Object.keys(datasets).forEach(datasetPath => {
+            expect(fetch).toHaveBeenCalledWith(datasetPath);
+        });
+    });
+
+    it('renders the complete portfolio from datasets', async () => {
+        await loadAllData();
+        renderPortfolio();
+
+        expect(document.title).toContain(profileJson.name);
+        expect(document.getElementById('site-nav')?.querySelectorAll('a')).toHaveLength(siteJson.navigation.length);
+        expect(document.getElementById('site-nav')?.textContent).not.toMatch(/\d{2}\./);
+        expect(document.getElementById('hero-name')?.textContent).toBe(profileJson.name);
+        expect(document.getElementById('hero-subtitle')?.textContent).toBe(profileJson.subtitle);
+        expect(document.getElementById('hero-meta')?.textContent).not.toContain('version');
+        expect(document.getElementById('hero-meta')?.textContent).toContain('9+ years');
+        expect(document.getElementById('about-content')?.querySelectorAll('p')).toHaveLength(profileJson.about.length);
+        expect(document.getElementById('experience-container')?.querySelectorAll('article')).toHaveLength(experiencesJson.length);
+        expect(document.getElementById('education-container')?.querySelectorAll('article')).toHaveLength(educationJson.length);
+        expect(document.getElementById('skills-container')?.querySelectorAll('article')).toHaveLength(Object.keys(skillsJson.skills).length);
+        expect(document.getElementById('projects-container')?.querySelectorAll('article')).toHaveLength(1);
+        expect(document.getElementById('projects-container')?.textContent).toContain('Coming soon..');
+        expect(document.getElementById('contact-title')?.textContent).toBe(siteJson.contact.title);
+        expect(document.getElementById('theme-toggle')).not.toBeNull();
+        expect(document.getElementById('effects-toggle')).not.toBeNull();
+        expect(document.getElementById('effects-toggle-label')?.textContent).toBe('Effects Off');
+        expect(document.body.textContent?.toLowerCase()).not.toMatch(/portfolio v\d|\bv\d\b/);
+        expect(document.body.textContent?.toLowerCase()).not.toMatch(/technical\s+resume/);
+        expect(document.getElementById('footer-text')?.textContent).toContain('First version');
+    });
+
+    it('renders hero actions and social links with profile URLs', async () => {
+        await loadAllData();
+        updateHeroSection();
+        updateSocialLinks();
+
+        const heroLinks = document.getElementById('hero-actions')?.querySelectorAll('a');
+        expect(heroLinks?.length).toBe(siteJson.hero.actions.length);
+
+        const socialHtml = document.getElementById('social-links-left')?.innerHTML || '';
+        expect(socialHtml).toContain(profileJson.contact.github);
+        expect(socialHtml).toContain(profileJson.contact.linkedin);
+        expect(socialHtml).toContain(`mailto:${profileJson.contact.email}`);
+    });
+
+    it('renders GitHub calendar cells from the activity dataset', async () => {
+        await loadAllData();
+        renderGitHubActivities();
+
+        const expectedDayCount = githubActivitiesJson.weeks.reduce((sum, week) => sum + week.contributionDays.length, 0);
+        expect(document.querySelector('[data-role="github-calendar-grid"]')).not.toBeNull();
+        expect(document.querySelectorAll('[data-activity-day]')).toHaveLength(expectedDayCount);
+        expect(document.getElementById('github-activities-container')?.textContent).toContain(
+            githubActivitiesJson.totalContributions.toLocaleString()
+        );
+    });
+
+    it('handles missing optional containers without throwing', async () => {
+        await loadAllData();
         document.body.innerHTML = '';
-        
-        // Mock fetch to return actual data from JSON files
-        (global.fetch as jest.Mock).mockImplementation((url: string) => {
-            if (url.includes('profile.json')) {
-                return Promise.resolve({
-                    json: async () => profileJson
-                } as Response);
-            }
-            if (url.includes('experiences.json')) {
-                return Promise.resolve({
-                    json: async () => experiencesJson
-                } as Response);
-            }
-            if (url.includes('education.json')) {
-                return Promise.resolve({
-                    json: async () => educationJson
-                } as Response);
-            }
-            if (url.includes('skills.json')) {
-                return Promise.resolve({
-                    json: async () => ({ skills: {} })
-                } as Response);
-            }
-            if (url.includes('github_activities.json')) {
-                return Promise.resolve({
-                    ok: true,
-                    json: async () => githubActivitiesJson
-                } as Response);
-            }
-            return Promise.reject(new Error('Not found'));
-        });
-    });
 
-    describe('Profile Data Validation', () => {
-        it('should have valid profile structure', () => {
-            expect(profileJson).toHaveProperty('name');
-            expect(profileJson).toHaveProperty('contact');
-            expect(profileJson.contact).toHaveProperty('email');
-            expect(profileJson.contact).toHaveProperty('github');
-            expect(profileJson.contact).toHaveProperty('linkedin');
-            expect(profileJson.contact).toHaveProperty('website');
-        });
-
-        it('should have valid email format', () => {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            expect(profileJson.contact.email).toMatch(emailRegex);
-        });
-
-        it('should have valid URLs', () => {
-            const urlRegex = /^https?:\/\/.+/;
-            expect(profileJson.contact.github).toMatch(urlRegex);
-            expect(profileJson.contact.linkedin).toMatch(urlRegex);
-            expect(profileJson.contact.website).toMatch(urlRegex);
-        });
-
-        it('should have about section as array', () => {
-            expect(Array.isArray(profileJson.about)).toBe(true);
-            expect(profileJson.about.length).toBeGreaterThan(0);
-        });
-    });
-
-    describe('Experiences Data Validation', () => {
-        it('should have valid experiences structure', () => {
-            expect(Array.isArray(experiencesJson)).toBe(true);
-            expect(experiencesJson.length).toBeGreaterThan(0);
-        });
-
-        it('should have required fields in each experience', () => {
-            experiencesJson.forEach((exp) => {
-                expect(exp).toHaveProperty('company');
-                expect(exp).toHaveProperty('position');
-                expect(exp).toHaveProperty('start');
-                expect(exp).toHaveProperty('description');
-            });
-        });
-    });
-
-    describe('Education Data Validation', () => {
-        it('should have valid education structure', () => {
-            expect(Array.isArray(educationJson)).toBe(true);
-            expect(educationJson.length).toBeGreaterThan(0);
-        });
-
-        it('should have required fields in each education entry', () => {
-            educationJson.forEach((edu) => {
-                expect(edu).toHaveProperty('institution');
-                expect(edu).toHaveProperty('degree');
-                expect(edu).toHaveProperty('field');
-                expect(edu).toHaveProperty('start');
-                expect(edu).toHaveProperty('end');
-            });
-        });
-    });
-
-    describe('GitHub Contribution Data Validation', () => {
-        it('should expose total contributions and weekly breakdown', () => {
-            expect(githubActivitiesJson).toHaveProperty('totalContributions');
-            expect(typeof githubActivitiesJson.totalContributions).toBe('number');
-            expect(Array.isArray(githubActivitiesJson.weeks)).toBe(true);
-            expect(githubActivitiesJson.weeks.length).toBeGreaterThan(0);
-        });
-
-        it('should have valid week and day structures', () => {
-            githubActivitiesJson.weeks.forEach((week: any) => {
-                expect(week).toHaveProperty('firstDay');
-                expect(typeof week.firstDay).toBe('string');
-                expect(Array.isArray(week.contributionDays)).toBe(true);
-                expect(week.contributionDays.length).toBeGreaterThan(0);
-
-                week.contributionDays.forEach((day: any) => {
-                    expect(day).toHaveProperty('date');
-                    expect(day).toHaveProperty('contributionCount');
-                    expect(day).toHaveProperty('contributionLevel');
-                    expect(typeof day.date).toBe('string');
-                    expect(typeof day.contributionCount).toBe('number');
-                    expect(typeof day.contributionLevel).toBe('string');
-                });
-            });
-        });
-    });
-
-    describe('loadAllData', () => {
-        it('should load all data files successfully', async () => {
-            await loadAllData();
-            
-            expect(global.fetch).toHaveBeenCalledWith('datasets/profile.json');
-            expect(global.fetch).toHaveBeenCalledWith('datasets/experiences.json');
-            expect(global.fetch).toHaveBeenCalledWith('datasets/education.json');
-            expect(global.fetch).toHaveBeenCalledWith('datasets/github_activities.json');
-        });
-
-        it('should handle fetch errors gracefully', async () => {
-            (global.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
-
-            await loadAllData();
-            
-            // Should not throw
-            expect(true).toBe(true);
-        });
-    });
-
-    describe('updatePageTitle', () => {
-        beforeEach(async () => {
-            document.body.innerHTML = '<title id="page-title">Initial Title</title>';
-            await loadAllData();
-        });
-
-        it('should update page title with profile name', () => {
-            updatePageTitle();
-            
-            const titleEl = document.getElementById('page-title');
-            expect(titleEl?.textContent).toContain(profileJson.name);
-            if (profileJson.title) {
-                expect(titleEl?.textContent).toContain(profileJson.title);
-            }
-            expect(titleEl?.textContent).not.toContain('Portfolio');
-        });
-
-        it('should update document.title', () => {
-            updatePageTitle();
-            
-            expect(document.title).toContain(profileJson.name);
-            if (profileJson.title) {
-                expect(document.title).toContain(profileJson.title);
-            }
-            expect(document.title).not.toContain('Portfolio');
-        });
-
-        it('should handle missing title element gracefully', () => {
-            document.body.innerHTML = '';
-            expect(() => updatePageTitle()).not.toThrow();
-        });
-    });
-
-    describe('updateHeroSection', () => {
-        beforeEach(async () => {
-            document.body.innerHTML = `
-                <div id="hero-greeting"></div>
-                <div id="hero-name"></div>
-                <div id="hero-subtitle"></div>
-                <div id="hero-description"></div>
-            `;
-            await loadAllData();
-        });
-
-        it('should populate hero section with profile data', () => {
-            updateHeroSection();
-            
-            const nameEl = document.getElementById('hero-name');
-            expect(nameEl?.textContent).toBe(profileJson.name);
-            
-            const descEl = document.getElementById('hero-description');
-            expect(descEl?.textContent).toBe(profileJson.about[0]);
-        });
-
-        it('should populate greeting if provided', () => {
-            updateHeroSection();
-            
-            const greetingEl = document.getElementById('hero-greeting');
-            if (profileJson.greeting) {
-                expect(greetingEl?.textContent).toBe(profileJson.greeting);
-            }
-        });
-
-        it('should populate subtitle if provided', () => {
-            updateHeroSection();
-            
-            const subtitleEl = document.getElementById('hero-subtitle');
-            if (profileJson.subtitle) {
-                expect(subtitleEl?.textContent).toBe(profileJson.subtitle);
-            }
-        });
-
-        it('should handle missing elements gracefully', () => {
-            document.body.innerHTML = '';
-            expect(() => updateHeroSection()).not.toThrow();
-        });
-    });
-
-    describe('updateSocialLinks', () => {
-        beforeEach(async () => {
-            document.body.innerHTML = `
-                <div id="social-links-left"></div>
-                <div id="social-links-right"></div>
-                <a id="contact-email-btn" href="#"></a>
-            `;
-            await loadAllData();
-        });
-
-        it('should populate social links with profile data', () => {
-            updateSocialLinks();
-            
-            const leftSidebar = document.getElementById('social-links-left');
-            expect(leftSidebar?.innerHTML).toContain(profileJson.contact.github);
-            expect(leftSidebar?.innerHTML).toContain(profileJson.contact.linkedin);
-            expect(leftSidebar?.innerHTML).toContain(profileJson.contact.email);
-        });
-
-        it('should populate right sidebar with email', () => {
-            updateSocialLinks();
-            
-            const rightSidebar = document.getElementById('social-links-right');
-            expect(rightSidebar?.innerHTML).toContain(profileJson.contact.email);
-        });
-
-        it('should update contact button href', () => {
-            updateSocialLinks();
-            
-            const contactBtn = document.getElementById('contact-email-btn') as HTMLAnchorElement;
-            expect(contactBtn?.href).toContain(`mailto:${profileJson.contact.email}`);
-        });
-
-        it('should create clickable links', () => {
-            updateSocialLinks();
-            
-            const leftSidebar = document.getElementById('social-links-left');
-            const links = leftSidebar?.querySelectorAll('a');
-            expect(links!.length).toBeGreaterThan(0);
-        });
-
-        it('should handle missing elements gracefully', () => {
-            document.body.innerHTML = '';
-            expect(() => updateSocialLinks()).not.toThrow();
-        });
-    });
-
-    describe('updateFooter', () => {
-        beforeEach(async () => {
-            document.body.innerHTML = '<div id="footer-text"></div>';
-            await loadAllData();
-        });
-
-        it('should populate footer with profile data', () => {
-            updateFooter();
-            
-            const footerEl = document.getElementById('footer-text');
-            expect(footerEl?.innerHTML).toContain(profileJson.contact.website.replace(/^https?:\/\//, ''));
-        });
-
-        it('should include name if footer.showName is true', () => {
-            updateFooter();
-            
-            const footerEl = document.getElementById('footer-text');
-            if (profileJson.footer && profileJson.footer.showName) {
-                expect(footerEl?.innerHTML).toContain(profileJson.name);
-            }
-        });
-
-        it('should create website link', () => {
-            updateFooter();
-            
-            const footerEl = document.getElementById('footer-text');
-            const link = footerEl?.querySelector('a');
-            // Compare without trailing slash to handle browser normalization
-            expect(link?.href.replace(/\/$/, '')).toBe(profileJson.contact.website.replace(/\/$/, ''));
-        });
-
-        it('should handle missing footer config', () => {
-            updateFooter();
-            
-            const footerEl = document.getElementById('footer-text');
-            expect(footerEl?.innerHTML.length).toBeGreaterThan(0);
-        });
-
-        it('should handle missing element gracefully', () => {
-            document.body.innerHTML = '';
-            expect(() => updateFooter()).not.toThrow();
-        });
-    });
-
-    describe('renderAboutSection', () => {
-        beforeEach(async () => {
-            document.body.innerHTML = '<div id="about-content"></div>';
-            await loadAllData();
-        });
-
-        it('should render all about paragraphs from profile', () => {
-            renderAboutSection();
-
-            const container = document.getElementById('about-content');
-            expect(container?.children.length).toBe(profileJson.about.length);
-        });
-
-        it('should create paragraph elements', () => {
-            renderAboutSection();
-
-            const container = document.getElementById('about-content');
-            const paragraphs = container?.querySelectorAll('p');
-            expect(paragraphs!.length).toBe(profileJson.about.length);
-        });
-
-        it('should populate paragraphs with correct content', () => {
-            renderAboutSection();
-
-            const container = document.getElementById('about-content');
-            const paragraphs = container?.querySelectorAll('p');
-            
-            paragraphs?.forEach((p, index) => {
-                expect(p.textContent).toBe(profileJson.about[index]);
-            });
-        });
-
-        it('should handle missing container gracefully', () => {
-            document.body.innerHTML = '';
-            
-            expect(() => renderAboutSection()).not.toThrow();
-        });
-    });
-
-    describe('Integration Tests', () => {
-        it('should load and render complete profile', async () => {
-            document.body.innerHTML = `
-                <title id="page-title">Portfolio</title>
-                <div id="hero-greeting"></div>
-                <div id="hero-name"></div>
-                <div id="hero-subtitle"></div>
-                <div id="hero-description"></div>
-                <div id="social-links-left"></div>
-                <div id="social-links-right"></div>
-                <a id="contact-email-btn" href="#"></a>
-                <div id="footer-text"></div>
-                <div id="about-content"></div>
-                <div id="github-activities-container"></div>
-            `;
-
-            await loadAllData();
-            updatePageTitle();
-            updateHeroSection();
-            updateSocialLinks();
-            updateFooter();
-            renderAboutSection();
-            renderGitHubActivities();
-
-            // Verify all sections are populated
-            expect(document.getElementById('page-title')?.textContent).toContain(profileJson.name);
-            expect(document.getElementById('hero-name')?.textContent).toBe(profileJson.name);
-            expect(document.getElementById('about-content')?.children.length).toBe(profileJson.about.length);
-            expect(document.getElementById('footer-text')?.innerHTML.length).toBeGreaterThan(0);
-            const grid = document.querySelector('[data-role="github-calendar-grid"]');
-            expect(grid).not.toBeNull();
-            const dayCells = document.querySelectorAll('[data-activity-day]');
-            const expectedDayCount = githubActivitiesJson.weeks.reduce((sum: number, week: any) => sum + week.contributionDays.length, 0);
-            expect(dayCells.length).toBe(expectedDayCount);
-        });
-    });
-
-    describe('renderGitHubActivities', () => {
-        beforeEach(async () => {
-            document.body.innerHTML = '<div id="github-activities-container"></div>';
-            await loadAllData();
-        });
-
-        it('should render GitHub activities cards', () => {
-            renderGitHubActivities();
-
-            const container = document.getElementById('github-activities-container');
-            const dayCells = container?.querySelectorAll('[data-activity-day]');
-            const expectedDayCount = githubActivitiesJson.weeks.reduce((sum: number, week: any) => sum + week.contributionDays.length, 0);
-            expect(dayCells?.length).toBe(expectedDayCount);
-            const summaryText = container?.querySelector('span.text-lightest-slate')?.textContent;
-            expect(summaryText).toBeDefined();
-            expect(summaryText).toContain(githubActivitiesJson.totalContributions.toLocaleString());
-        });
-
-        it('should handle missing container gracefully', () => {
-            document.body.innerHTML = '';
-            expect(() => renderGitHubActivities()).not.toThrow();
-        });
+        expect(() => renderPortfolio()).not.toThrow();
     });
 });

@@ -4,6 +4,10 @@
       "Object-Oriented Programming (OOP)",
       "Design Patterns",
       "RESTful API Development",
+      "Software Architecture",
+      "Technical Decision Making",
+      "Performance Engineering",
+      "System Stability",
       "Full-Stack Web Development",
       "Database Design & Indexing",
       "Workflow Automation",
@@ -15,9 +19,11 @@
     ],
 
     "Development Tools & Frameworks": [
+      "PHP",
       "Laravel",
-      "Lumen (Laravel Micro Framework)",
-      "CakePHP",
+      "TypeScript",
+      "Nuxt",
+      "Go",
       "Composer",
       "Docker",
       "Git & GitHub",
@@ -43,6 +49,8 @@
       "HTML5",
       "CSS3 / SASS",
       "JavaScript (ES6+)",
+      "TypeScript",
+      "Nuxt",
       "jQuery",
       "MVC Architecture"
     ],

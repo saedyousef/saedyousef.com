@@ -20,6 +20,56 @@ export interface ProfileData {
     };
 }
 
+export interface SiteLink {
+    label: string;
+    href?: string;
+    url?: string;
+    urlKey?: keyof ProfileData['contact'];
+    variant?: 'primary' | 'secondary';
+}
+
+export interface NavigationItem {
+    label: string;
+    target: string;
+}
+
+export interface SiteSection {
+    number: string;
+    title: string;
+    eyebrow: string;
+    summary?: string;
+    techIntro?: string;
+}
+
+export interface SocialLink {
+    id: string;
+    label: string;
+    url?: string;
+    urlKey?: keyof ProfileData['contact'];
+    icon: 'github' | 'linkedin' | 'email' | 'code';
+}
+
+export interface SiteData {
+    canonicalDomain: string;
+    sourceRepository: string;
+    theme?: string;
+    footerNote?: string;
+    navigation: NavigationItem[];
+    hero: {
+        eyebrow: string;
+        terminalTitle: string;
+        actions: SiteLink[];
+    };
+    sections: Record<string, SiteSection>;
+    socialLinks: SocialLink[];
+    contact: {
+        eyebrow: string;
+        title: string;
+        body: string;
+        actions: SiteLink[];
+    };
+}
+
 export interface Experience {
     company: string;
     position: string;
@@ -52,10 +102,12 @@ export interface Skills {
 export interface Project {
     title: string;
     description: string;
+    status?: string;
     technologies: string[];
-    github?: string;
-    live?: string;
-    image?: string;
+    links?: Array<{
+        label: string;
+        href: string;
+    }>;
 }
 
 export type ContributionLevel = 'NONE' | 'FIRST_QUARTILE' | 'SECOND_QUARTILE' | 'THIRD_QUARTILE' | 'FOURTH_QUARTILE';

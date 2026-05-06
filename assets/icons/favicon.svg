@@ -1,4 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-    <rect width="64" height="64" rx="12" ry="12" fill="#0a192f"/>
-    <text x="50%" y="52%" text-anchor="middle" fill="#64ffda" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700">SY</text>
+    <defs>
+        <linearGradient id="bg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#67e8f9" stop-opacity="0.24"/>
+            <stop offset="1" stop-color="#a78bfa" stop-opacity="0.26"/>
+        </linearGradient>
+        <linearGradient id="stroke" x1="10" y1="12" x2="54" y2="52" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#67e8f9"/>
+            <stop offset="1" stop-color="#a78bfa"/>
+        </linearGradient>
+    </defs>
+    <rect x="4" y="4" width="56" height="56" rx="18" fill="#050816"/>
+    <rect x="5" y="5" width="54" height="54" rx="17" fill="url(#bg)" stroke="url(#stroke)" stroke-width="2"/>
+    <text x="32" y="39" text-anchor="middle" fill="#f8fafc" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800" letter-spacing="-2">SY</text>
 </svg>

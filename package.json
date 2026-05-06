@@ -1,49 +1,45 @@
 {
-  "name": "portfolio-3d",
+  "name": "saedyousef-portfolio",
   "version": "1.0.0",
-  "description": "3D Portfolio Website with Three.js - TypeScript implementation",
-  "main": "dist/main.js",
+  "description": "Saed Yousef personal portfolio",
+  "type": "module",
   "scripts": {
-  "build": "npm run build:ts && npm run build:css && npm run build:vendor",
-    "build:ts": "tsc --project tsconfig.json",
-    "build:css": "postcss css/main.css -o dist/main.css",
-  "build:vendor": "node scripts/copy-vendor.cjs",
-    "watch": "tsc --watch",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "dev": "vite --host 0.0.0.0 --port 8096",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 8096",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint ts/**/*.ts",
-    "serve": "node -e \"require('http').createServer((req, res) => { const fs = require('fs'); const path = require('path'); let filePath = '.' + (req.url === '/' ? '/index.html' : req.url); const extname = String(path.extname(filePath)).toLowerCase(); const mimeTypes = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.png': 'image/png', '.jpg': 'image/jpg', '.gif': 'image/gif', '.svg': 'image/svg+xml', '.ico': 'image/x-icon' }; const contentType = mimeTypes[extname] || 'application/octet-stream'; fs.readFile(filePath, (error, content) => { if (error) { if(error.code == 'ENOENT') { res.writeHead(404); res.end('404 Not Found'); } else { res.writeHead(500); res.end('500 Internal Server Error'); } } else { res.writeHead(200, { 'Content-Type': contentType }); res.end(content, 'utf-8'); } }); }).listen(8096, () => console.log('Server running at http://localhost:8096/'))\""
+    "serve": "npm run preview"
   },
   "keywords": [
     "portfolio",
-    "threejs",
-    "3d",
+    "resume",
     "typescript",
-    "gsap"
+    "vite"
   ],
   "author": "Saed Yousef",
   "license": "MIT",
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "@types/three": "^0.158.0",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "autoprefixer": "^10.4.19",
-    "cssnano": "^6.1.2",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
+    "@vitest/coverage-v8": "^4.1.5",
+    "autoprefixer": "^10.5.0",
+    "cssnano": "^7.1.9",
     "eslint": "^8.57.0",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
-    "postcss": "^8.4.38",
-    "postcss-cli": "^11.0.0",
-    "tailwindcss": "^3.4.3",
-    "ts-jest": "^29.1.2",
-    "typescript": "^5.4.5"
+    "jsdom": "^29.1.1",
+    "postcss": "^8.5.14",
+    "tailwindcss": "^3.4.19",
+    "typescript": "^5.4.5",
+    "vite": "^8.0.10",
+    "vitest": "^4.1.5"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.2.8",
-    "@fortawesome/fontawesome-free": "^7.1.0",
-    "gsap": "^3.13.0",
-    "three": "^0.158.0"
+    "shaders": "^2.5.113"
   }
 }

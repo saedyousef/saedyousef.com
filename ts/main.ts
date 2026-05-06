@@ -1,683 +1,1055 @@
-/**
- * PORTFOLIO MAIN TYPESCRIPT FILE
- */
-
+import '../css/main.css';
 import type {
-    ProfileData,
-    Skills,
-    Experience,
-    Education,
-    GitHubContributionCalendar,
+    ContributionDay,
     ContributionWeek,
-    ContributionDay
-} from './types.js';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+    Education,
+    Experience,
+    GitHubContributionCalendar,
+    ProfileData,
+    Project,
+    SiteData,
+    SiteLink,
+    SiteSection,
+    Skills,
+    SocialLink
+} from './types';
 
-// Register GSAP plugins
-if (typeof window !== 'undefined' && gsap && ScrollTrigger) {
-    gsap.registerPlugin(ScrollTrigger);
-}
-
-// Global state
 let profileData: ProfileData | null = null;
+let siteData: SiteData | null = null;
 let skillsData: Skills | null = null;
 let experiencesData: Experience[] = [];
 let educationData: Education[] = [];
+let projectsData: Project[] = [];
 let githubCalendarData: GitHubContributionCalendar | null = null;
+let cursorTrailCleanup: (() => void) | null = null;
 
-/**
- * Load all JSON data files
- */
-async function loadAllData(): Promise<void> {
+const fallbackProfileData: ProfileData = {
+    name: 'Saed Yousef',
+    title: 'Software Engineer',
+    subtitle: 'I build reliable backend systems.',
+    greeting: 'Backend systems',
+    about: ['Profile data is currently unavailable.'],
+    contact: {
+        email: 'me@saedyousef.com',
+        github: 'https://github.com/saedyousef',
+        linkedin: 'https://www.linkedin.com/in/saedyousef',
+        website: 'https://saedyousef.com'
+    },
+    footer: {
+        text: 'Designed & Built by',
+        showName: true
+    }
+};
+
+const fallbackSiteData: SiteData = {
+    canonicalDomain: 'saedyousef.com',
+    sourceRepository: 'https://github.com/saedyousef/saedyousef.com',
+    theme: 'Nitro-inspired portfolio',
+    navigation: [
+        { label: 'About', target: 'about' },
+        { label: 'Experience', target: 'experience' },
+        { label: 'Skills', target: 'skills' },
+        { label: 'Contact', target: 'contact' }
+    ],
+    hero: {
+        eyebrow: '',
+        terminalTitle: 'profile.json',
+        actions: [
+            { label: 'View experience', href: '#experience', variant: 'primary' },
+            { label: 'Say hello', urlKey: 'email', variant: 'secondary' }
+        ]
+    },
+    sections: {
+        about: {
+            number: '01',
+            title: 'About',
+            eyebrow: 'Profile',
+            techIntro: 'Current working set'
+        },
+        experience: {
+            number: '02',
+            title: 'Experience',
+            eyebrow: 'Work'
+        },
+        education: {
+            number: '03',
+            title: 'Education',
+            eyebrow: 'Foundation'
+        },
+        skills: {
+            number: '04',
+            title: 'Skills',
+            eyebrow: 'Toolbox'
+        },
+        projects: {
+            number: '05',
+            title: 'Projects',
+            eyebrow: 'Selected work'
+        },
+        github: {
+            number: '06',
+            title: 'GitHub Activity',
+            eyebrow: 'Contributions'
+        }
+    },
+    socialLinks: [
+        { id: 'github', label: 'GitHub', urlKey: 'github', icon: 'github' },
+        { id: 'linkedin', label: 'LinkedIn', urlKey: 'linkedin', icon: 'linkedin' },
+        { id: 'email', label: 'Email', urlKey: 'email', icon: 'email' }
+    ],
+    contact: {
+        eyebrow: 'Contact',
+        title: 'Let us build reliable systems.',
+        body: 'Send a message and I will get back to you.',
+        actions: [
+            { label: 'Say hello', urlKey: 'email', variant: 'primary' }
+        ]
+    }
+};
+
+const iconMap: Record<SocialLink['icon'], string> = {
+    github: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.05c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.23a11.48 11.48 0 0 1 6 0C14.3 4.63 15.3 4.95 15.3 4.95c.66 1.65.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.23v3.31c0 .32.21.7.83.58A12 12 0 0 0 12 .5Z"/></svg>',
+    linkedin: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0Z"/></svg>',
+    email: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>',
+    code: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m14 5-4 14"/></svg>'
+};
+
+type UiIconName = 'briefcase' | 'calendar' | 'location' | 'remote' | 'school' | 'spark' | 'sun' | 'moon';
+
+const uiIconMap: Record<UiIconName, string> = {
+    briefcase: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/><path d="M3 8h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><path d="M3 13h18"/><path d="M10 13v2h4v-2"/></svg>',
+    calendar: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v4"/><path d="M17 3v4"/><path d="M4 8h16"/><path d="M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>',
+    location: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>',
+    remote: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H4z"/><path d="M8 19h8"/><path d="M12 15v4"/></svg>',
+    school: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11.5V16c0 1.7 2.2 3 5 3s5-1.3 5-3v-4.5"/></svg>',
+    spark: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 9.8 8.8 4 11l5.8 2.2L12 19l2.2-5.8L20 11l-5.8-2.2L12 3Z"/></svg>',
+    sun: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
+    moon: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z"/></svg>'
+};
+
+async function fetchJson<T>(path: string): Promise<T> {
+    const response = await fetch(path);
+
+    if (!response.ok) {
+        throw new Error(`Failed to load ${path}: ${response.status}`);
+    }
+
+    return await response.json() as T;
+}
+
+async function loadJsonOrDefault<T>(path: string, fallback: T): Promise<T> {
     try {
-        // Load profile data from local file
-        const profileResponse = await fetch('datasets/profile.json');
-        profileData = await profileResponse.json();
-
-        // Load experiences from local file
-        const experiencesResponse = await fetch('datasets/experiences.json');
-        experiencesData = await experiencesResponse.json();
-
-        // Load education from local file
-        const educationResponse = await fetch('datasets/education.json');
-        educationData = await educationResponse.json();
-
-        // Load skills from local file
-        const skillsResponse = await fetch('datasets/skills.json');
-        skillsData = await skillsResponse.json();
-
-        // Load GitHub contribution calendar from local file
-        const githubResponse = await fetch('datasets/github_activities.json');
-        githubCalendarData = githubResponse.ok ? await githubResponse.json() : {
-            totalContributions: 0,
-            weeks: []
-        };
-
-        console.log('All data loaded successfully');
+        return await fetchJson<T>(path);
     } catch (error) {
-        console.error('Error loading data:', error);
-        // Fallback data
-        profileData = {
-            name: 'Saed Yousef',
-            title: 'Software Engineer',
-            about: ['Loading...'],
-            contact: {
-                email: 'me@saedyousef.com',
-                github: 'https://github.com/saedyousef',
-                linkedin: 'https://linkedin.com/in/saedyousef',
-                website: 'https://saedyousef.com'
-            }
-        };
-        githubCalendarData = {
-            totalContributions: 0,
-            weeks: []
-        };
+        console.error(error);
+        return fallback;
     }
 }
 
-/**
- * Initialize scroll animations with GSAP
- */
-function initScrollAnimations(): void {
-    // Hero section animations - only animate in, don't start hidden
-    gsap.from('.hero-content > *', {
-        opacity: 0,
-        y: 30,
-        duration: 0.8,
-        stagger: 0.2,
-        delay: 0.3 // Small delay after page load
-    });
+async function loadAllData(): Promise<void> {
+    const [site, profile, experiences, education, skills, projects, github] = await Promise.all([
+        loadJsonOrDefault<SiteData>('datasets/site.json', fallbackSiteData),
+        loadJsonOrDefault<ProfileData>('datasets/profile.json', fallbackProfileData),
+        loadJsonOrDefault<Experience[]>('datasets/experiences.json', []),
+        loadJsonOrDefault<Education[]>('datasets/education.json', []),
+        loadJsonOrDefault<Skills>('datasets/skills.json', { skills: {} }),
+        loadJsonOrDefault<Project[]>('datasets/projects.json', []),
+        loadJsonOrDefault<GitHubContributionCalendar>('datasets/github_activities.json', {
+            totalContributions: 0,
+            weeks: []
+        })
+    ]);
 
-    // Section animations - only trigger when scrolling into view
-    gsap.utils.toArray('section:not(#home)').forEach((section: any) => {
-        gsap.from(section, {
-            scrollTrigger: {
-                trigger: section,
-                start: 'top 85%',
-                once: true // Only animate once
-            },
-            opacity: 0,
-            y: 50,
-            duration: 0.8
-        });
-    });
+    siteData = site;
+    profileData = profile;
+    experiencesData = experiences;
+    educationData = education;
+    skillsData = skills;
+    projectsData = projects;
+    githubCalendarData = github;
 }
 
-/**
- * Render about section
- */
-function renderAboutSection(): void {
-    const aboutContent = document.getElementById('about-content');
-    if (!aboutContent || !profileData) return;
-
-    aboutContent.innerHTML = '';
-    profileData.about.forEach(paragraph => {
-        const p = document.createElement('p');
-        p.className = 'text-slate mb-4 leading-relaxed';
-        p.textContent = paragraph;
-        aboutContent.appendChild(p);
-    });
+function getElement<T extends HTMLElement>(id: string): T | null {
+    return document.getElementById(id) as T | null;
 }
 
-function renderTechList(): void {
-    const techList = document.getElementById('tech-list');
-    if (!techList) return;
+function clearElement(element: HTMLElement): void {
+    while (element.firstChild) {
+        element.removeChild(element.firstChild);
+    }
+}
 
-    techList.innerHTML = '';
+function setText(id: string, value: string): void {
+    const element = getElement(id);
 
-    const skillBuckets = skillsData?.skills;
-    if (!skillBuckets || Object.keys(skillBuckets).length === 0) {
-        const fallbackItem = document.createElement('li');
-        fallbackItem.className = 'text-slate font-mono text-sm';
-        fallbackItem.textContent = 'Technologies data will be available soon.';
-        techList.appendChild(fallbackItem);
+    if (element) {
+        element.textContent = value;
+    }
+}
+
+function setOptionalText(id: string, value: string): void {
+    const element = getElement(id);
+
+    if (!element) {
         return;
     }
 
-    const priorityCategories = [
-        'Frontend Development',
-        'Development Tools & Frameworks',
-        'Core Software Skills',
-        'Cloud & Infrastructure',
-        'Data & Search Technologies'
-    ];
-
-    const aggregated: string[] = [];
-    priorityCategories.forEach(category => {
-        const items = skillBuckets[category];
-        if (items) {
-            aggregated.push(...items);
-        }
-    });
-
-    if (aggregated.length === 0) {
-        Object.values(skillBuckets).forEach(items => {
-            aggregated.push(...items);
-        });
-    }
-
-    const uniqueTechnologies = Array.from(new Set(aggregated)).filter(Boolean);
-    const technologiesToDisplay = uniqueTechnologies.slice(0, 10);
-
-    technologiesToDisplay.forEach(tech => {
-        const item = document.createElement('li');
-        item.className = 'text-slate font-mono text-sm';
-        item.textContent = tech;
-        techList.appendChild(item);
-    });
+    element.textContent = value;
+    element.hidden = value.trim().length === 0;
 }
 
-/**
- * Update page title
- */
-function updatePageTitle(): void {
-    if (!profileData) return;
-    const titleEl = document.getElementById('page-title');
-    const titleText = profileData.title
-        ? `${profileData.name} | ${profileData.title}`
-        : profileData.name;
-    if (titleEl) {
-        titleEl.textContent = titleText;
+function appendTextElement<K extends keyof HTMLElementTagNameMap>(
+    parent: HTMLElement,
+    tagName: K,
+    className: string,
+    text: string
+): HTMLElementTagNameMap[K] {
+    const element = document.createElement(tagName);
+    element.className = className;
+    element.textContent = text;
+    parent.appendChild(element);
+    return element;
+}
+
+function resolveLinkUrl(link: SiteLink | SocialLink): string {
+    if ('href' in link && link.href) {
+        return link.href;
     }
-    // Also update document title for browsers
+
+    if (link.url) {
+        return link.url;
+    }
+
+    if (!profileData || !link.urlKey) {
+        return '#';
+    }
+
+    const value = profileData.contact[link.urlKey];
+    return link.urlKey === 'email' ? `mailto:${value}` : value;
+}
+
+function createAnchor(label: string, href: string, className: string): HTMLAnchorElement {
+    const anchor = document.createElement('a');
+    anchor.className = className;
+    anchor.href = href;
+    anchor.textContent = label;
+
+    if (href.startsWith('http')) {
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+    }
+
+    return anchor;
+}
+
+function createIconAnchor(link: SocialLink): HTMLAnchorElement {
+    const anchor = createAnchor('', resolveLinkUrl(link), 'icon-link');
+    anchor.setAttribute('aria-label', link.label);
+    anchor.innerHTML = iconMap[link.icon];
+    return anchor;
+}
+
+function createUiIcon(name: UiIconName): HTMLSpanElement {
+    const icon = document.createElement('span');
+    icon.className = 'meta-icon';
+    icon.innerHTML = uiIconMap[name];
+    return icon;
+}
+
+function createMetaChip(icon: UiIconName, text: string): HTMLSpanElement {
+    const chip = document.createElement('span');
+    chip.className = 'meta-chip';
+    chip.append(createUiIcon(icon), document.createTextNode(text));
+    return chip;
+}
+
+function renderSectionHeader(containerId: string, section?: SiteSection): void {
+    const container = getElement(containerId);
+
+    if (!container || !section) {
+        return;
+    }
+
+    clearElement(container);
+    appendTextElement(container, 'p', 'section-kicker', section.eyebrow);
+
+    const title = document.createElement('h2');
+    title.className = 'section-title';
+
+    const number = document.createElement('span');
+    number.className = 'section-number';
+    number.textContent = section.number;
+
+    const label = document.createElement('span');
+    label.textContent = section.title;
+
+    title.append(number, label);
+    container.appendChild(title);
+    if (section.summary) {
+        appendTextElement(container, 'p', 'section-summary', section.summary);
+    }
+}
+
+function updatePageTitle(): void {
+    if (!profileData) {
+        return;
+    }
+
+    const titleText = profileData.title ? `${profileData.name} | ${profileData.title}` : profileData.name;
+    setText('page-title', titleText);
     document.title = titleText;
 }
 
-/**
- * Update hero section with dynamic content
- */
-function updateHeroSection(): void {
-    if (!profileData) return;
+function renderNavigation(): void {
+    const nav = getElement('site-nav');
+    const brand = getElement('site-brand');
 
-    const greetingEl = document.getElementById('hero-greeting');
-    const nameEl = document.getElementById('hero-name');
-    const subtitleEl = document.getElementById('hero-subtitle');
-    const descriptionEl = document.getElementById('hero-description');
-
-    if (greetingEl && profileData.greeting) {
-        greetingEl.textContent = profileData.greeting;
+    if (brand && profileData) {
+        brand.textContent = profileData.name
+            .split(' ')
+            .map(part => part[0])
+            .join('')
+            .slice(0, 2)
+            .toUpperCase();
     }
-    
-    if (nameEl) {
-        nameEl.textContent = profileData.name;
-    }
-    
-    if (subtitleEl && profileData.subtitle) {
-        subtitleEl.textContent = profileData.subtitle;
-    }
-    
-    if (descriptionEl && profileData.about && profileData.about.length > 0) {
-        descriptionEl.textContent = profileData.about[0];
-    }
-}
 
-/**
- * Update social links
- */
-function updateSocialLinks(): void {
-    if (!profileData) return;
-
-    const { contact } = profileData;
-    const repoUrl = 'https://github.com/saedyousef/saedyousef.com';
-    
-    // Left sidebar social links
-    const leftSidebar = document.getElementById('social-links-left');
-    if (leftSidebar) {
-        leftSidebar.innerHTML = `
-            <a href="${contact.github}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="GitHub profile">
-                <i class="fab fa-github text-xl"></i>
-            </a>
-            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="Site repository">
-                <i class="fas fa-code text-xl"></i>
-            </a>
-            <a href="${contact.linkedin}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="LinkedIn profile">
-                <i class="fab fa-linkedin text-xl"></i>
-            </a>
-            <a href="mailto:${contact.email}" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300" aria-label="Email">
-                <i class="fas fa-envelope text-xl"></i>
-            </a>
-            <div class="w-px h-24 bg-slate"></div>
-        `;
-    }
-    
-    // Right sidebar email
-    const rightSidebar = document.getElementById('social-links-right');
-    if (rightSidebar) {
-        rightSidebar.innerHTML = `
-            <a href="mailto:${contact.email}" class="text-slate hover:text-green hover:-translate-y-1 transition-all duration-300 font-mono text-xs tracking-wider mb-28" style="writing-mode: vertical-rl;">
-                ${contact.email}
-            </a>
-            <div class="w-px h-24 bg-slate"></div>
-        `;
-    }
-    
-    // Mobile social links in footer
-    const mobileSocial = document.getElementById('social-links-mobile');
-    if (mobileSocial) {
-        mobileSocial.innerHTML = `
-            <a href="${contact.github}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300" aria-label="GitHub profile">
-                <i class="fab fa-github text-2xl"></i>
-            </a>
-            <a href="${repoUrl}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300" aria-label="Site repository">
-                <i class="fas fa-code text-2xl"></i>
-            </a>
-            <a href="${contact.linkedin}" target="_blank" rel="noopener noreferrer" class="text-slate hover:text-green transition-all duration-300" aria-label="LinkedIn profile">
-                <i class="fab fa-linkedin text-2xl"></i>
-            </a>
-            <a href="mailto:${contact.email}" class="text-slate hover:text-green transition-all duration-300" aria-label="Email">
-                <i class="fas fa-envelope text-2xl"></i>
-            </a>
-        `;
-    }
-    
-    // Contact button
-    const contactBtn = document.getElementById('contact-email-btn');
-    if (contactBtn) {
-        contactBtn.setAttribute('href', `mailto:${contact.email}`);
-    }
-}
-
-/**
- * Update footer
- */
-function updateFooter(): void {
-    if (!profileData) return;
-
-    const footerEl = document.getElementById('footer-text');
-    if (!footerEl) return;
-
-    const footer = profileData.footer || { text: 'Designed & Built by', showName: true };
-    const websiteLink = profileData.contact.website;
-    const websiteDomain = websiteLink.replace(/^https?:\/\//, '');
-
-    let footerHTML = footer.text;
-    if (footer.showName) {
-        footerHTML += ` ${profileData.name}`;
-    }
-    footerHTML += ` | <a href="${websiteLink}" target="_blank" class="text-green hover:underline">${websiteDomain}</a>`;
-
-    footerEl.innerHTML = footerHTML;
-}
-
-
-/**
- * Render experience section
- */
-function renderExperienceSection(): void {
-    const container = document.getElementById('experience-container');
-    if (!container || !experiencesData.length) return;
-
-    container.innerHTML = '';
-
-    experiencesData.forEach((exp, index) => {
-        const expDiv = document.createElement('div');
-        expDiv.className = 'relative pl-8 pb-12 border-l-2 border-green/30 last:pb-0';
-
-        const dot = document.createElement('div');
-        dot.className = 'absolute left-[-9px] top-0 w-4 h-4 bg-green rounded-full border-4 border-navy';
-        expDiv.appendChild(dot);
-
-        const dateSpan = document.createElement('span');
-        dateSpan.className = 'text-sm text-green font-mono mb-2 block';
-        dateSpan.textContent = `${exp.start} — ${exp.end || 'Present'}`;
-        expDiv.appendChild(dateSpan);
-
-        const title = document.createElement('h3');
-        title.className = 'text-xl font-bold text-lightest-slate mb-1';
-        title.textContent = exp.position;
-        expDiv.appendChild(title);
-
-        const company = document.createElement('div');
-        company.className = 'text-light-slate mb-2';
-        company.innerHTML = `${exp.company} ${exp.location ? `· ${exp.location}` : ''} ${exp.workType ? `· <span class="text-green">${exp.workType}</span>` : ''}`;
-        expDiv.appendChild(company);
-
-        const desc = document.createElement('p');
-        desc.className = 'text-slate mb-4';
-        desc.textContent = exp.description;
-        expDiv.appendChild(desc);
-
-        if (exp.responsibilities?.length) {
-            const ul = document.createElement('ul');
-            ul.className = 'list-disc list-inside space-y-2 text-slate';
-            exp.responsibilities.forEach(resp => {
-                const li = document.createElement('li');
-                li.textContent = resp;
-                ul.appendChild(li);
-            });
-            expDiv.appendChild(ul);
-        }
-
-        container.appendChild(expDiv);
-
-        // Animate on scroll
-        gsap.from(expDiv, {
-            scrollTrigger: {
-                trigger: expDiv,
-                start: 'top 85%'
-            },
-            opacity: 0,
-            x: -30,
-            duration: 0.6,
-            delay: index * 0.1
-        });
-    });
-}
-
-/**
- * Render education section
- */
-function renderEducationSection(): void {
-    const container = document.getElementById('education-container');
-    if (!container || !educationData.length) return;
-
-    container.innerHTML = '';
-
-    educationData.forEach((edu, index) => {
-        const card = document.createElement('div');
-        card.className = 'bg-light-navy/30 border border-green/20 rounded-lg p-6 hover:border-green/50 transition-all duration-300';
-
-        const icon = document.createElement('div');
-        icon.className = 'flex items-center gap-3 mb-4';
-        icon.innerHTML = `
-            <svg class="w-6 h-6 text-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
-            </svg>
-            <h3 class="text-xl font-bold text-lightest-slate">${edu.institution}</h3>
-        `;
-        card.appendChild(icon);
-
-        const degree = document.createElement('p');
-        degree.className = 'text-light-slate mb-2';
-        degree.innerHTML = `<strong>${edu.degree}</strong> in ${edu.field}`;
-        card.appendChild(degree);
-
-        const period = document.createElement('p');
-        period.className = 'text-slate text-sm';
-        period.textContent = `${edu.start} — ${edu.end} · ${edu.location}`;
-        card.appendChild(period);
-
-        container.appendChild(card);
-
-        // Animate on scroll
-        gsap.from(card, {
-            scrollTrigger: {
-                trigger: card,
-                start: 'top 85%'
-            },
-            opacity: 0,
-            y: 30,
-            duration: 0.6,
-            delay: index * 0.1
-        });
-    });
-}
-
-/**
- * Render skills section
- */
-function renderSkillsSection(): void {
-    const container = document.getElementById('skills-container');
-    if (!container) return;
-    
-    // Use data from saedyousef.com/datasets/skills.json
-    const skillsObj = skillsData?.skills || {};
-    
-    if (Object.keys(skillsObj).length === 0) {
-        container.innerHTML = '<p class="text-slate text-center col-span-3">Skills data will be loaded here.</p>';
+    if (!nav || !siteData) {
         return;
     }
-    
-    // Convert the skills object to array format for rendering
-    const skillCategories = Object.entries(skillsObj).map(([category, items]) => ({
-        category: category,
-        items: items
-    }));
-    
-    renderSkillCategories(container, skillCategories);
+
+    clearElement(nav);
+
+    siteData.navigation.forEach((item) => {
+        const anchor = createAnchor(item.label, `#${item.target}`, '');
+        nav.appendChild(anchor);
+    });
+}
+
+function updateHeroSection(): void {
+    if (!profileData || !siteData) {
+        return;
+    }
+
+    setOptionalText('hero-greeting', siteData.hero.eyebrow || '');
+    setText('hero-name', profileData.name);
+    setText('hero-subtitle', profileData.subtitle || profileData.title);
+    setText('hero-description', profileData.about[0] || '');
+
+    const actions = getElement('hero-actions');
+    if (actions) {
+        clearElement(actions);
+        siteData.hero.actions.forEach(action => {
+            const href = resolveLinkUrl(action);
+            const anchor = createAnchor(action.label, href, `button-link ${action.variant === 'primary' ? 'primary' : ''}`.trim());
+            actions.appendChild(anchor);
+        });
+    }
+
+    renderHeroTerminal();
+}
+
+function renderHeroTerminal(): void {
+    const terminal = getElement('hero-meta');
+
+    if (!terminal || !profileData || !siteData) {
+        return;
+    }
+
+    const rows: Array<{ label: string; value: string; href?: string }> = [
+        { label: 'name', value: profileData.name },
+        { label: 'title', value: profileData.title },
+        { label: 'experience', value: '9+ years' },
+        { label: 'domain', value: siteData.canonicalDomain, href: profileData.contact.website },
+        { label: 'email', value: profileData.contact.email, href: `mailto:${profileData.contact.email}` },
+        { label: 'source', value: 'GitHub repository', href: siteData.sourceRepository }
+    ];
+
+    clearElement(terminal);
+
+    rows.forEach(({ label, value, href }) => {
+        const row = document.createElement('dl');
+        row.className = 'terminal-row';
+        appendTextElement(row, 'dt', '', label);
+
+        const description = document.createElement('dd');
+        if (href) {
+            description.appendChild(createAnchor(value, href, 'terminal-link'));
+        } else {
+            description.textContent = value;
+        }
+
+        row.appendChild(description);
+        terminal.appendChild(row);
+    });
+}
+
+function updateSocialLinks(): void {
+    if (!profileData || !siteData) {
+        return;
+    }
+
+    const leftSidebar = getElement('social-links-left');
+    const mobileSocial = getElement('social-links-mobile');
+    const rightSidebar = getElement('social-links-right');
+    const socialLinks = siteData.socialLinks;
+
+    [leftSidebar, mobileSocial].forEach(container => {
+        if (!container) {
+            return;
+        }
+
+        clearElement(container);
+        socialLinks.forEach(link => container.appendChild(createIconAnchor(link)));
+    });
+
+    if (rightSidebar) {
+        clearElement(rightSidebar);
+        const anchor = createAnchor(profileData.contact.email, `mailto:${profileData.contact.email}`, '');
+        rightSidebar.appendChild(anchor);
+    }
+}
+
+function updateFooter(): void {
+    const footer = getElement('footer-text');
+
+    if (!footer || !profileData || !siteData) {
+        return;
+    }
+
+    clearElement(footer);
+
+    const footerConfig = profileData.footer || { text: 'Designed & Built by', showName: true };
+    footer.append(document.createTextNode(`${footerConfig.text}${footerConfig.showName ? ` ${profileData.name}` : ''} | `));
+
+    const websiteDomain = profileData.contact.website.replace(/^https?:\/\//, '');
+    footer.appendChild(createAnchor(websiteDomain, profileData.contact.website, ''));
+    if (siteData.footerNote) {
+        footer.append(document.createTextNode(` | ${siteData.footerNote}`));
+    }
+}
+
+function renderAboutSection(): void {
+    const aboutContent = getElement('about-content');
+    const techIntro = getElement('tech-intro');
+    const techList = getElement('tech-list');
+
+    renderSectionHeader('about-header', siteData?.sections.about);
+
+    if (aboutContent && profileData) {
+        clearElement(aboutContent);
+        profileData.about.forEach(paragraph => appendTextElement(aboutContent, 'p', '', paragraph));
+    }
+
+    if (techIntro) {
+        techIntro.textContent = siteData?.sections.about.techIntro || 'Technologies';
+    }
+
+    if (!techList) {
+        return;
+    }
+
+    clearElement(techList);
+
+    const skillBuckets = skillsData?.skills || {};
+    const technologies = Array.from(new Set(Object.values(skillBuckets).flat().filter(Boolean))).slice(0, 14);
+
+    if (technologies.length === 0) {
+        appendTextElement(techList, 'li', '', 'Technologies data will be available soon.');
+        return;
+    }
+
+    technologies.forEach(technology => appendTextElement(techList, 'li', '', technology));
+}
+
+function renderExperienceSection(): void {
+    const container = getElement('experience-container');
+
+    renderSectionHeader('experience-header', siteData?.sections.experience);
+
+    if (!container) {
+        return;
+    }
+
+    clearElement(container);
+
+    experiencesData.forEach(experience => {
+        const item = document.createElement('article');
+        item.className = 'timeline-item';
+
+        const meta = document.createElement('div');
+        meta.className = 'timeline-meta';
+        meta.appendChild(createMetaChip('calendar', `${experience.start} - ${experience.end || 'Present'}`));
+
+        const content = document.createElement('div');
+        content.className = 'timeline-content';
+
+        appendTextElement(content, 'h3', '', experience.position);
+
+        const metaList = document.createElement('div');
+        metaList.className = 'meta-list';
+        metaList.appendChild(createMetaChip('briefcase', experience.company));
+        if (experience.location) {
+            metaList.appendChild(createMetaChip('location', experience.location));
+        }
+        if (experience.workType) {
+            metaList.appendChild(createMetaChip('remote', experience.workType));
+        }
+        content.appendChild(metaList);
+
+        appendTextElement(content, 'p', 'timeline-description', experience.description);
+
+        if (experience.responsibilities.length > 0) {
+            const list = document.createElement('ul');
+            list.className = 'bullet-list';
+            experience.responsibilities.forEach(responsibility => appendTextElement(list, 'li', '', responsibility));
+            content.appendChild(list);
+        }
+
+        item.append(meta, content);
+        container.appendChild(item);
+    });
+}
+
+function renderEducationSection(): void {
+    const container = getElement('education-container');
+
+    renderSectionHeader('education-header', siteData?.sections.education);
+
+    if (!container) {
+        return;
+    }
+
+    clearElement(container);
+
+    educationData.forEach(education => {
+        const card = document.createElement('article');
+        card.className = 'info-card';
+        const heading = document.createElement('div');
+        heading.className = 'card-heading';
+        heading.appendChild(createUiIcon('school'));
+        appendTextElement(heading, 'h3', '', education.institution);
+        card.appendChild(heading);
+        appendTextElement(card, 'p', 'info-meta', `${education.degree} / ${education.field}`);
+        appendTextElement(card, 'p', 'timeline-description', `${education.start} - ${education.end} / ${education.location}`);
+        container.appendChild(card);
+    });
+}
+
+function renderSkillsSection(): void {
+    const container = getElement('skills-container');
+
+    renderSectionHeader('skills-header', siteData?.sections.skills);
+
+    if (!container) {
+        return;
+    }
+
+    clearElement(container);
+
+    const skillBuckets = skillsData?.skills || {};
+
+    Object.entries(skillBuckets).forEach(([category, skills]) => {
+        const card = document.createElement('article');
+        card.className = 'skill-card';
+        appendTextElement(card, 'h3', '', category);
+
+        const list = document.createElement('ul');
+        list.className = 'tag-list';
+        skills.forEach(skill => appendTextElement(list, 'li', 'tag-pill', skill));
+        card.appendChild(list);
+        container.appendChild(card);
+    });
+
+    if (Object.keys(skillBuckets).length === 0) {
+        appendTextElement(container, 'p', 'section-summary', 'Skills data will be available soon.');
+    }
+}
+
+function renderProjectsSection(): void {
+    const container = getElement('projects-container');
+
+    renderSectionHeader('projects-header', siteData?.sections.projects);
+
+    if (!container) {
+        return;
+    }
+
+    clearElement(container);
+
+    if (projectsData.length === 0) {
+        const card = document.createElement('article');
+        card.className = 'project-card coming-soon-card';
+        const icon = document.createElement('div');
+        icon.className = 'coming-soon-icon';
+        icon.appendChild(createUiIcon('spark'));
+        card.appendChild(icon);
+        appendTextElement(card, 'h3', 'coming-soon-title', 'Coming soon..');
+        appendTextElement(card, 'p', 'project-description', 'Projects will be added here soon.');
+        container.appendChild(card);
+        return;
+    }
+
+    projectsData.forEach(project => {
+        const card = document.createElement('article');
+        card.className = 'project-card';
+        appendTextElement(card, 'p', 'project-status', project.status || 'Project');
+        appendTextElement(card, 'h3', '', project.title);
+        appendTextElement(card, 'p', 'project-description', project.description);
+
+        const tags = document.createElement('ul');
+        tags.className = 'tag-list';
+        project.technologies.forEach(technology => appendTextElement(tags, 'li', 'tag-pill', technology));
+        card.appendChild(tags);
+
+        if (project.links && project.links.length > 0) {
+            const links = document.createElement('div');
+            links.className = 'hero-actions';
+            project.links.forEach(link => links.appendChild(createAnchor(link.label, link.href, 'button-link')));
+            card.appendChild(links);
+        }
+
+        container.appendChild(card);
+    });
 }
 
 function renderGitHubActivities(): void {
-    const container = document.getElementById('github-activities-container');
-    if (!container) return;
+    const container = getElement('github-activities-container');
 
-    container.innerHTML = '';
-    container.className = 'flex flex-col gap-8';
+    renderSectionHeader('github-header', siteData?.sections.github);
+
+    if (!container) {
+        return;
+    }
+
+    clearElement(container);
 
     if (!githubCalendarData || githubCalendarData.weeks.length === 0) {
-        container.innerHTML = '<p class="col-span-full text-center text-slate">GitHub activity will appear here once available.</p>';
+        appendTextElement(container, 'p', 'section-summary', 'GitHub activity will appear here once available.');
         return;
     }
 
     const { totalContributions, weeks } = githubCalendarData;
-
-    const lastWeek = weeks[weeks.length - 1];
-    const lastDay = lastWeek?.contributionDays[lastWeek.contributionDays.length - 1];
-    const lastUpdatedDate = lastDay ? new Date(`${lastDay.date}T00:00:00`) : new Date();
+    const latestDay = [...weeks].reverse().flatMap(week => [...week.contributionDays].reverse())[0];
+    const latestDate = latestDay ? formatDate(latestDay.date) : 'Unknown';
 
     const summary = document.createElement('div');
-    summary.className = 'flex flex-wrap items-center justify-between mb-6 gap-4';
-    summary.innerHTML = `
-        <div>
-            <span class="text-lightest-slate text-xl font-semibold">${totalContributions.toLocaleString()}</span>
-            <span class="text-slate text-sm ml-2">contributions in the last year</span>
-        </div>
-    <div class="text-sm text-slate">Updated ${lastUpdatedDate.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</div>
-    `;
+    summary.className = 'github-summary';
+
+    const summaryCopy = document.createElement('div');
+    appendTextElement(summaryCopy, 'div', 'github-total', totalContributions.toLocaleString());
+    appendTextElement(summaryCopy, 'div', 'github-caption', 'contributions in the last year');
+    appendTextElement(summary, 'div', 'github-updated', `Updated ${latestDate}`);
+    summary.prepend(summaryCopy);
     container.appendChild(summary);
 
-    const calendarWrapper = document.createElement('div');
-    calendarWrapper.className = 'overflow-x-auto pb-4 w-full';
+    const scroll = document.createElement('div');
+    scroll.className = 'github-scroll';
 
-    const calendarInner = document.createElement('div');
-    calendarInner.className = 'inline-block min-w-full';
-
-    const monthsRow = document.createElement('div');
-    monthsRow.className = 'grid grid-flow-col auto-cols-max text-xs text-slate mb-2 ml-8 gap-1';
-
-    const monthLabels: string[] = [];
+    const months = document.createElement('div');
+    months.className = 'calendar-months';
     weeks.forEach((week, index) => {
         const currentDate = new Date(`${week.firstDay}T00:00:00`);
-        const label = currentDate.toLocaleString(undefined, { month: 'short' });
-        if (index === 0) {
-            monthLabels.push(label);
-            return;
-        }
-
-        const previousDate = new Date(`${weeks[index - 1].firstDay}T00:00:00`);
-        if (currentDate.getMonth() !== previousDate.getMonth()) {
-            monthLabels.push(label);
-        } else {
-            monthLabels.push('');
-        }
+        const previousDate = index > 0 ? new Date(`${weeks[index - 1].firstDay}T00:00:00`) : null;
+        const monthChanged = !previousDate || currentDate.getMonth() !== previousDate.getMonth();
+        appendTextElement(months, 'div', 'month-cell', monthChanged ? currentDate.toLocaleString(undefined, { month: 'short' }) : '');
     });
 
-    monthLabels.forEach((label) => {
-        const cell = document.createElement('div');
-        cell.className = 'flex items-center justify-center h-4';
-        cell.style.width = '0.75rem';
-        cell.textContent = label;
-        monthsRow.appendChild(cell);
-    });
-
-    const gridLayout = document.createElement('div');
-    gridLayout.className = 'flex gap-3';
+    const layout = document.createElement('div');
+    layout.className = 'calendar-layout';
 
     const dayLabels = document.createElement('div');
-    dayLabels.className = 'flex flex-col justify-between text-xs text-slate pt-4 pb-3';
-    ['Mon', 'Wed', 'Fri'].forEach((label) => {
-        const span = document.createElement('span');
-        span.textContent = label;
-        dayLabels.appendChild(span);
-    });
+    dayLabels.className = 'day-labels';
+    ['Mon', 'Wed', 'Fri'].forEach(label => appendTextElement(dayLabels, 'span', '', label));
 
-    const weeksGrid = document.createElement('div');
-    weeksGrid.className = 'grid grid-flow-col auto-cols-max gap-1';
-    weeksGrid.setAttribute('data-role', 'github-calendar-grid');
-
-    const levelColorMap: Record<string, string> = {
-        NONE: '#112240',
-        FIRST_QUARTILE: '#1b6a5d',
-        SECOND_QUARTILE: '#239b7f',
-        THIRD_QUARTILE: '#2dc6a3',
-        FOURTH_QUARTILE: '#64ffda'
-    };
+    const grid = document.createElement('div');
+    grid.className = 'calendar-grid';
+    grid.setAttribute('data-role', 'github-calendar-grid');
 
     weeks.forEach((week: ContributionWeek) => {
         const column = document.createElement('div');
-        column.className = 'flex flex-col gap-1';
+        column.className = 'week-column';
 
-        week.contributionDays.forEach((day: ContributionDay) => {
-            const block = document.createElement('div');
-            block.className = 'w-3 h-3 rounded-sm transition-transform duration-150 ease-out hover:scale-110';
-            block.style.backgroundColor = levelColorMap[day.contributionLevel] || levelColorMap.NONE;
-            block.setAttribute('data-activity-day', day.date);
-            block.style.border = '1px solid rgba(17, 34, 64, 0.4)';
-
-            const contributionText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${new Date(`${day.date}T00:00:00`).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}`;
-            block.setAttribute('title', contributionText);
-            block.setAttribute('aria-label', contributionText);
-
-            column.appendChild(block);
-        });
-
-        weeksGrid.appendChild(column);
+        week.contributionDays.forEach((day: ContributionDay) => column.appendChild(createContributionCell(day)));
+        grid.appendChild(column);
     });
 
-    gridLayout.appendChild(dayLabels);
-    gridLayout.appendChild(weeksGrid);
+    layout.append(dayLabels, grid);
+    scroll.append(months, layout);
+    container.appendChild(scroll);
+    container.appendChild(createGitHubLegend());
+}
 
-    calendarInner.appendChild(monthsRow);
-    calendarInner.appendChild(gridLayout);
-    calendarWrapper.appendChild(calendarInner);
-    container.appendChild(calendarWrapper);
+function createContributionCell(day: ContributionDay): HTMLDivElement {
+    const block = document.createElement('div');
+    const contributionText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`;
 
+    block.className = 'day-cell';
+    block.style.backgroundColor = contributionColor(day.contributionLevel);
+    block.setAttribute('data-activity-day', day.date);
+    block.setAttribute('title', contributionText);
+    block.setAttribute('aria-label', contributionText);
+
+    return block;
+}
+
+function createGitHubLegend(): HTMLDivElement {
     const legend = document.createElement('div');
-    legend.className = 'flex items-center gap-3 text-xs text-slate';
-    const legendColors = [
-        levelColorMap.NONE,
-        levelColorMap.FIRST_QUARTILE,
-        levelColorMap.SECOND_QUARTILE,
-        levelColorMap.THIRD_QUARTILE,
-        levelColorMap.FOURTH_QUARTILE
-    ];
+    legend.className = 'github-legend';
+    appendTextElement(legend, 'span', '', 'Less');
 
-    legend.innerHTML = `
-        <span>Less</span>
-        <div class="flex items-center gap-1">
-            ${legendColors.map((color) => `
-                <span class="w-3 h-3 rounded-sm" style="background-color: ${color}; border: 1px solid rgba(17, 34, 64, 0.4);"></span>
-            `).join('')}
-        </div>
-        <span>More</span>
-    `;
-    container.appendChild(legend);
-
-    gsap.from(weeksGrid.children, {
-        scrollTrigger: {
-            trigger: container,
-            start: 'top 85%'
-        },
-        opacity: 0,
-        y: 30,
-        duration: 0.6,
-        stagger: 0.01
+    const colors = document.createElement('div');
+    colors.className = 'legend-colors';
+    ['NONE', 'FIRST_QUARTILE', 'SECOND_QUARTILE', 'THIRD_QUARTILE', 'FOURTH_QUARTILE'].forEach(level => {
+        const square = document.createElement('span');
+        square.className = 'day-cell';
+        square.style.backgroundColor = contributionColor(level);
+        colors.appendChild(square);
     });
+
+    legend.appendChild(colors);
+    appendTextElement(legend, 'span', '', 'More');
+    return legend;
 }
 
-function renderSkillCategories(container: HTMLElement, skillsData: Array<{category: string, items: string[]}>): void {
-    container.innerHTML = '';
-    
-    // Map categories to appropriate icons
-    const iconMap: Record<string, string> = {
-        'Skills': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>',
-        'Development Tools & Frameworks': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>',
-        'Databases & Search': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path>',
-        'IDEs & Text Editors': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>',
-        'Cloud Providers': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path>',
-        'Web & Front-End Technologies': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path>',
-        'Operating Systems & Environments': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>',
-        'Software Methodologies': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>',
-        'Project & Task Management': '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>'
+function contributionColor(level: string): string {
+    const levelColorMap: Record<string, string> = {
+        NONE: '#111827',
+        FIRST_QUARTILE: '#0f766e',
+        SECOND_QUARTILE: '#0891b2',
+        THIRD_QUARTILE: '#22d3ee',
+        FOURTH_QUARTILE: '#a78bfa'
     };
-    
-    // Default icon for categories not in the map
-    const defaultIcon = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>';
-    
-    skillsData.forEach((category, index) => {
-        const categoryDiv = document.createElement('div');
-        categoryDiv.className = 'bg-light-navy/30 border border-green/20 rounded-lg p-6 hover:border-green/50 hover:bg-light-navy/50 transition-all duration-300';
-        
-        const iconPath = iconMap[category.category] || defaultIcon;
-        
-        categoryDiv.innerHTML = `
-            <div class="flex items-center gap-3 mb-4">
-                <svg class="w-6 h-6 text-green flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    ${iconPath}
-                </svg>
-                <h3 class="text-lg font-bold text-lightest-slate">${category.category}</h3>
-            </div>
-            <div class="flex flex-wrap gap-2">
-                ${category.items.map(skill => `
-                    <span class="px-3 py-1 bg-navy border border-green/30 text-slate rounded text-sm font-mono hover:border-green hover:text-green transition-all duration-300">
-                        ${skill}
-                    </span>
-                `).join('')}
-            </div>
-        `;
-        
-        container.appendChild(categoryDiv);
-        
-        // Animate on scroll
-        gsap.from(categoryDiv, {
-            scrollTrigger: {
-                trigger: categoryDiv,
-                start: 'top 85%'
-            },
-            opacity: 0,
-            y: 30,
-            duration: 0.6,
-            delay: index * 0.1
-        });
+
+    return levelColorMap[level] || levelColorMap.NONE;
+}
+
+function formatDate(date: string): string {
+    return new Date(`${date}T00:00:00`).toLocaleDateString(undefined, {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
 }
 
-// Initialize on DOM ready
-document.addEventListener('DOMContentLoaded', async () => {
-    console.log('Portfolio initializing...');
-    
-    await loadAllData();
-    
-    // Update dynamic content
+function renderContactSection(): void {
+    if (!siteData) {
+        return;
+    }
+
+    setText('contact-eyebrow', siteData.contact.eyebrow);
+    setText('contact-title', siteData.contact.title);
+    setText('contact-body', siteData.contact.body);
+
+    const actions = getElement('contact-actions');
+
+    if (!actions) {
+        return;
+    }
+
+    clearElement(actions);
+    siteData.contact.actions.forEach(action => {
+        const href = resolveLinkUrl(action);
+        const anchor = createAnchor(action.label, href, `button-link ${action.variant === 'primary' ? 'primary' : ''}`.trim());
+        actions.appendChild(anchor);
+    });
+}
+
+function initPointerEffects(): void {
+    if (!isCursorEffectSupported()) {
+        stopPointerEffects();
+        return;
+    }
+
+    cursorTrailCleanup?.();
+    cursorTrailCleanup = null;
+    void initChromaFlowTrail();
+}
+
+function stopPointerEffects(): void {
+    cursorTrailCleanup?.();
+    cursorTrailCleanup = null;
+
+    const canvas = getElement<HTMLCanvasElement>('cursor-trail');
+
+    if (canvas) {
+        canvas.hidden = true;
+    }
+}
+
+function isCursorEffectSupported(): boolean {
+    const isReducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
+    const hasWebGPU = 'gpu' in navigator;
+    const deviceMemory = 'deviceMemory' in navigator ? Number(navigator.deviceMemory) : undefined;
+    const isLowMemory = deviceMemory !== undefined && deviceMemory < 4;
+    const isLowCore = navigator.hardwareConcurrency !== undefined && navigator.hardwareConcurrency < 4;
+
+    return hasWebGPU && !isReducedMotion && !isMobile && !isLowMemory && !isLowCore;
+}
+
+async function initChromaFlowTrail(): Promise<void> {
+    const existingCanvas = getElement<HTMLCanvasElement>('cursor-trail');
+
+    if (!existingCanvas) {
+        return;
+    }
+
+    if (!isCursorEffectSupported()) {
+        existingCanvas.hidden = true;
+        return;
+    }
+
+    const canvas = existingCanvas.cloneNode(false) as HTMLCanvasElement;
+    canvas.hidden = false;
+    existingCanvas.replaceWith(canvas);
+
+    try {
+        const { createShader } = await import('shaders/js');
+        const shader = await createShader(canvas, {
+            components: [
+                {
+                    type: 'ChromaFlow',
+                    id: 'cursorChromaFlow',
+                    props: {
+                        baseColor: 'oklch(71.2% 0.194 13.428)',
+                        upColor: 'oklch(70.2% 0.183 293.541)',
+                        downColor: 'oklch(70.2% 0.183 293.541)',
+                        rightColor: 'oklch(70.2% 0.183 293.541)',
+                        leftColor: 'oklch(70.2% 0.183 293.541)',
+                        opacity: 0.5,
+                        intensity: 0.7
+                    }
+                }
+            ]
+        }, {
+            colorSpace: 'p3-linear',
+            disableTelemetry: true,
+            enablePerformanceTracking: false
+        });
+
+        cursorTrailCleanup = () => {
+            shader.destroy();
+            cursorTrailCleanup = null;
+        };
+
+        window.addEventListener('pagehide', () => {
+            cursorTrailCleanup?.();
+        }, { once: true });
+    } catch (error) {
+        console.error('Failed to initialize ChromaFlow cursor effect.', error);
+        canvas.hidden = true;
+    }
+}
+
+function getPreferredEffectsEnabled(): boolean {
+    try {
+        const storage = window.localStorage;
+        return typeof storage?.getItem === 'function' && storage.getItem('cursorEffects') === 'enabled';
+    } catch {
+        return false;
+    }
+}
+
+function updateEffectsToggle(enabled: boolean, supported = isCursorEffectSupported()): void {
+    const toggle = getElement<HTMLButtonElement>('effects-toggle');
+    const label = getElement('effects-toggle-label');
+    const icon = getElement('effects-toggle-icon');
+
+    if (!toggle) {
+        return;
+    }
+
+    toggle.disabled = !supported;
+    toggle.setAttribute('aria-pressed', enabled && supported ? 'true' : 'false');
+    toggle.setAttribute('aria-label', `${enabled && supported ? 'Disable' : 'Enable'} cursor effects`);
+    toggle.title = supported ? 'Toggle cursor effects' : 'Cursor effects require WebGPU on a desktop browser.';
+
+    if (label) {
+        label.textContent = enabled && supported ? 'Effects On' : 'Effects Off';
+    }
+
+    if (icon) {
+        icon.innerHTML = uiIconMap.spark;
+    }
+}
+
+function setEffectsEnabled(enabled: boolean): void {
+    const supported = isCursorEffectSupported();
+
+    try {
+        const storage = window.localStorage;
+        if (typeof storage?.setItem === 'function') {
+            storage.setItem('cursorEffects', enabled ? 'enabled' : 'disabled');
+        }
+    } catch {
+        // The toggle still works for the current page load if storage is unavailable.
+    }
+
+    if (enabled && supported) {
+        initPointerEffects();
+    } else {
+        stopPointerEffects();
+    }
+
+    updateEffectsToggle(enabled, supported);
+}
+
+function initEffectsToggle(): void {
+    const toggle = getElement<HTMLButtonElement>('effects-toggle');
+    const enabled = getPreferredEffectsEnabled();
+
+    setEffectsEnabled(enabled);
+
+    if (!toggle || toggle.dataset.bound === 'true') {
+        return;
+    }
+
+    toggle.dataset.bound = 'true';
+    toggle.addEventListener('click', () => {
+        const nextEnabled = toggle.getAttribute('aria-pressed') !== 'true';
+        setEffectsEnabled(nextEnabled);
+    });
+}
+
+function getPreferredTheme(): 'dark' | 'light' {
+    try {
+        const storage = window.localStorage;
+        const storedTheme = typeof storage?.getItem === 'function' ? storage.getItem('theme') : null;
+        return storedTheme === 'light' ? 'light' : 'dark';
+    } catch {
+        return 'dark';
+    }
+}
+
+function updateThemeToggle(theme: 'dark' | 'light'): void {
+    const toggle = getElement<HTMLButtonElement>('theme-toggle');
+    const label = getElement('theme-toggle-label');
+    const icon = getElement('theme-toggle-icon');
+
+    if (!toggle) {
+        return;
+    }
+
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    toggle.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
+    toggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+
+    if (label) {
+        label.textContent = theme === 'dark' ? 'Dark' : 'Light';
+    }
+
+    if (icon) {
+        icon.innerHTML = uiIconMap[theme === 'dark' ? 'moon' : 'sun'];
+    }
+}
+
+function applyTheme(theme: 'dark' | 'light'): void {
+    document.documentElement.dataset.theme = theme;
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#050816' : '#f8fafc');
+    try {
+        const storage = window.localStorage;
+        if (typeof storage?.setItem === 'function') {
+            storage.setItem('theme', theme);
+        }
+    } catch {
+        document.documentElement.dataset.theme = theme;
+    }
+    updateThemeToggle(theme);
+}
+
+function initThemeToggle(): void {
+    const toggle = getElement<HTMLButtonElement>('theme-toggle');
+    applyTheme(getPreferredTheme());
+
+    if (!toggle || toggle.dataset.bound === 'true') {
+        return;
+    }
+
+    toggle.dataset.bound = 'true';
+    toggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+}
+
+function initScrollEffects(): void {
+    const revealElements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+
+    if (!('IntersectionObserver' in window)) {
+        revealElements.forEach(element => element.classList.add('is-visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            }
+
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+
+    revealElements.forEach(element => observer.observe(element));
+}
+
+function renderPortfolio(): void {
     updatePageTitle();
+    renderNavigation();
     updateHeroSection();
     updateSocialLinks();
-    updateFooter();
-    
-    // Render sections
-    initScrollAnimations();
     renderAboutSection();
     renderExperienceSection();
     renderEducationSection();
     renderSkillsSection();
-    renderTechList();
+    renderProjectsSection();
     renderGitHubActivities();
-    
-    console.log('Portfolio ready!');
-});
+    renderContactSection();
+    updateFooter();
+    initThemeToggle();
+    initEffectsToggle();
+}
 
-// Export for testing
+async function initPortfolio(): Promise<void> {
+    await loadAllData();
+    renderPortfolio();
+    initScrollEffects();
+}
+
+function isTestRuntime(): boolean {
+    const meta = import.meta as ImportMeta & { vitest?: unknown };
+    const runtime = globalThis as typeof globalThis & {
+        process?: {
+            env?: Record<string, string | undefined>;
+        };
+    };
+
+    return Boolean(meta.vitest || runtime.process?.env?.VITEST);
+}
+
+if (!isTestRuntime()) {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => {
+            void initPortfolio();
+        });
+    } else {
+        void initPortfolio();
+    }
+}
+
 export {
     loadAllData,
-    initScrollAnimations,
+    initPointerEffects,
+    initScrollEffects,
     renderAboutSection,
     renderExperienceSection,
     renderEducationSection,
     renderSkillsSection,
-    renderTechList,
+    renderProjectsSection,
     renderGitHubActivities,
+    renderContactSection,
+    renderPortfolio,
     updatePageTitle,
     updateHeroSection,
     updateSocialLinks,

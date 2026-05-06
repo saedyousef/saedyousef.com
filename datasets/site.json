@@ -1,0 +1,69 @@
+{
+  "canonicalDomain": "saedyousef.com",
+  "sourceRepository": "https://github.com/saedyousef/saedyousef.com",
+  "theme": "Nitro-inspired portfolio",
+  "navigation": [
+    { "label": "About", "target": "about" },
+    { "label": "Experience", "target": "experience" },
+    { "label": "Skills", "target": "skills" },
+    { "label": "Projects", "target": "projects" },
+    { "label": "GitHub", "target": "github-activity" },
+    { "label": "Contact", "target": "contact" }
+  ],
+  "hero": {
+    "eyebrow": "",
+    "terminalTitle": "profile.json",
+    "actions": [
+      { "label": "View experience", "href": "#experience", "variant": "primary" },
+      { "label": "GitHub activity", "href": "#github-activity", "variant": "secondary" }
+    ]
+  },
+  "sections": {
+    "about": {
+      "number": "01",
+      "title": "About",
+      "eyebrow": "Backend systems, architecture, and stability",
+      "techIntro": "Current working set"
+    },
+    "experience": {
+      "number": "02",
+      "title": "Experience",
+      "eyebrow": "Production work"
+    },
+    "education": {
+      "number": "03",
+      "title": "Education",
+      "eyebrow": "Foundation"
+    },
+    "skills": {
+      "number": "04",
+      "title": "Skills",
+      "eyebrow": "Toolbox"
+    },
+    "projects": {
+      "number": "05",
+      "title": "Projects",
+      "eyebrow": "Selected work"
+    },
+    "github": {
+      "number": "06",
+      "title": "GitHub Activity",
+      "eyebrow": "Contribution signal"
+    }
+  },
+  "socialLinks": [
+    { "id": "github", "label": "GitHub", "urlKey": "github", "icon": "github" },
+    { "id": "repository", "label": "Source", "url": "https://github.com/saedyousef/saedyousef.com", "icon": "code" },
+    { "id": "linkedin", "label": "LinkedIn", "urlKey": "linkedin", "icon": "linkedin" },
+    { "id": "email", "label": "Email", "urlKey": "email", "icon": "email" }
+  ],
+  "contact": {
+    "eyebrow": "Available for focused technical conversations",
+    "title": "Let us build reliable systems.",
+    "body": "If you want to discuss backend architecture, integrations, DevOps automation, or technical leadership, send a message and I will get back to you.",
+    "actions": [
+      { "label": "Say hello", "urlKey": "email", "variant": "primary" },
+      { "label": "View source", "url": "https://github.com/saedyousef/saedyousef.com", "variant": "secondary" }
+    ]
+  }
+}
