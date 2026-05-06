@@ -33,7 +33,8 @@ jobs:
 
       - name: Refresh GitHub activity dataset
         env:
-          GH_CONTRIBUTION_TOKEN: ${{ secrets.GH_CONTRIBUTION_TOKEN || github.token }}
+          GH_CONTRIBUTION_TOKEN: ${{ secrets.GH_CONTRIBUTION_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
           GITHUB_LOGIN: saedyousef
         run: node scripts/fetch-github-activity.mjs
 
@@ -47,7 +48,8 @@ jobs:
         run: npm run build
 
       - name: Verify custom domain artifact
-        run: node -e "const fs = require('fs'); const value = fs.readFileSync('dist/CNAME', 'utf8').trim(); if (value !== 'saedyousef.com') { throw new Error('Invalid CNAME: ' + value); }"
+        run: |
+          node -e "const fs = require('fs'); const value = fs.readFileSync('dist/CNAME', 'utf8').trim(); if (value !== 'saedyousef.com') { throw new Error('Invalid CNAME: ' + value); }"
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4

@@ -4,11 +4,11 @@ import { fileURLToPath } from 'node:url';
 
 const rootDir = dirname(dirname(fileURLToPath(import.meta.url)));
 const outputPath = resolve(rootDir, 'datasets/github_activities.json');
-const token = process.env.GH_CONTRIBUTION_TOKEN;
+const token = process.env.GH_CONTRIBUTION_TOKEN || process.env.GITHUB_TOKEN;
 const login = process.env.GITHUB_LOGIN || 'saedyousef';
 
 if (!token) {
-    throw new Error('GH_CONTRIBUTION_TOKEN is required to refresh GitHub activity.');
+    throw new Error('GH_CONTRIBUTION_TOKEN or GITHUB_TOKEN is required to refresh GitHub activity.');
 }
 
 const query = `
