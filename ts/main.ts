@@ -114,7 +114,7 @@ const iconMap: Record<SocialLink['icon'], string> = {
     code: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m14 5-4 14"/></svg>'
 };
 
-type UiIconName = 'briefcase' | 'calendar' | 'location' | 'remote' | 'school' | 'spark' | 'sun' | 'moon';
+type UiIconName = 'briefcase' | 'calendar' | 'location' | 'remote' | 'school' | 'spark' | 'sun' | 'moon' | 'waves';
 
 const uiIconMap: Record<UiIconName, string> = {
     briefcase: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/><path d="M3 8h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><path d="M3 13h18"/><path d="M10 13v2h4v-2"/></svg>',
@@ -124,7 +124,8 @@ const uiIconMap: Record<UiIconName, string> = {
     school: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11.5V16c0 1.7 2.2 3 5 3s5-1.3 5-3v-4.5"/></svg>',
     spark: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 9.8 8.8 4 11l5.8 2.2L12 19l2.2-5.8L20 11l-5.8-2.2L12 3Z"/></svg>',
     sun: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
-    moon: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z"/></svg>'
+    moon: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z"/></svg>',
+    waves: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M3 14c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M3 20c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/></svg>'
 };
 
 async function fetchJson<T>(path: string): Promise<T> {
@@ -276,14 +277,10 @@ function renderSectionHeader(containerId: string, section?: SiteSection): void {
     const title = document.createElement('h2');
     title.className = 'section-title';
 
-    const number = document.createElement('span');
-    number.className = 'section-number';
-    number.textContent = section.number;
-
     const label = document.createElement('span');
     label.textContent = section.title;
 
-    title.append(number, label);
+    title.appendChild(label);
     container.appendChild(title);
     if (section.summary) {
         appendTextElement(container, 'p', 'section-summary', section.summary);
@@ -322,6 +319,46 @@ function renderNavigation(): void {
     siteData.navigation.forEach((item) => {
         const anchor = createAnchor(item.label, `#${item.target}`, '');
         nav.appendChild(anchor);
+    });
+}
+
+function setNavigationOpen(open: boolean): void {
+    const nav = getElement('site-nav');
+    const toggle = getElement<HTMLButtonElement>('menu-toggle');
+
+    if (nav) {
+        nav.dataset.open = open ? 'true' : 'false';
+    }
+
+    if (toggle) {
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+    }
+}
+
+function initNavigationToggle(): void {
+    const nav = getElement('site-nav');
+    const toggle = getElement<HTMLButtonElement>('menu-toggle');
+
+    setNavigationOpen(false);
+
+    if (!nav || !toggle || toggle.dataset.bound === 'true') {
+        return;
+    }
+
+    toggle.dataset.bound = 'true';
+    toggle.addEventListener('click', () => {
+        setNavigationOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+    nav.addEventListener('click', event => {
+        if (event.target instanceof HTMLAnchorElement) {
+            setNavigationOpen(false);
+        }
+    });
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape') {
+            setNavigationOpen(false);
+        }
     });
 }
 
@@ -388,44 +425,23 @@ function updateSocialLinks(): void {
         return;
     }
 
-    const leftSidebar = getElement('social-links-left');
     const mobileSocial = getElement('social-links-mobile');
-    const rightSidebar = getElement('social-links-right');
     const socialLinks = siteData.socialLinks;
 
-    [leftSidebar, mobileSocial].forEach(container => {
-        if (!container) {
-            return;
-        }
-
-        clearElement(container);
-        socialLinks.forEach(link => container.appendChild(createIconAnchor(link)));
-    });
-
-    if (rightSidebar) {
-        clearElement(rightSidebar);
-        const anchor = createAnchor(profileData.contact.email, `mailto:${profileData.contact.email}`, '');
-        rightSidebar.appendChild(anchor);
+    if (mobileSocial) {
+        clearElement(mobileSocial);
+        socialLinks.forEach(link => mobileSocial.appendChild(createIconAnchor(link)));
     }
 }
 
 function updateFooter(): void {
     const footer = getElement('footer-text');
 
-    if (!footer || !profileData || !siteData) {
+    if (!footer) {
         return;
     }
 
     clearElement(footer);
-
-    const footerConfig = profileData.footer || { text: 'Designed & Built by', showName: true };
-    footer.append(document.createTextNode(`${footerConfig.text}${footerConfig.showName ? ` ${profileData.name}` : ''} | `));
-
-    const websiteDomain = profileData.contact.website.replace(/^https?:\/\//, '');
-    footer.appendChild(createAnchor(websiteDomain, profileData.contact.website, ''));
-    if (siteData.footerNote) {
-        footer.append(document.createTextNode(` | ${siteData.footerNote}`));
-    }
 }
 
 function renderAboutSection(): void {
@@ -577,14 +593,9 @@ function renderProjectsSection(): void {
     clearElement(container);
 
     if (projectsData.length === 0) {
-        const card = document.createElement('article');
-        card.className = 'project-card coming-soon-card';
-        const icon = document.createElement('div');
-        icon.className = 'coming-soon-icon';
-        icon.appendChild(createUiIcon('spark'));
-        card.appendChild(icon);
-        appendTextElement(card, 'h3', 'coming-soon-title', 'Coming soon..');
-        appendTextElement(card, 'p', 'project-description', 'Projects will be added here soon.');
+        const card = document.createElement('div');
+        card.className = 'coming-soon-card';
+        appendTextElement(card, 'p', 'coming-soon-title', 'Coming soon..');
         container.appendChild(card);
         return;
     }
@@ -715,9 +726,9 @@ function contributionColor(level: string): string {
     const levelColorMap: Record<string, string> = {
         NONE: '#111827',
         FIRST_QUARTILE: '#0f766e',
-        SECOND_QUARTILE: '#0891b2',
-        THIRD_QUARTILE: '#22d3ee',
-        FOURTH_QUARTILE: '#a78bfa'
+        SECOND_QUARTILE: '#FF637E',
+        THIRD_QUARTILE: '#ff8aa0',
+        FOURTH_QUARTILE: '#ffb0be'
     };
 
     return levelColorMap[level] || levelColorMap.NONE;
@@ -811,11 +822,11 @@ async function initChromaFlowTrail(): Promise<void> {
                     type: 'ChromaFlow',
                     id: 'cursorChromaFlow',
                     props: {
-                        baseColor: 'oklch(71.2% 0.194 13.428)',
-                        upColor: 'oklch(70.2% 0.183 293.541)',
-                        downColor: 'oklch(70.2% 0.183 293.541)',
-                        rightColor: 'oklch(70.2% 0.183 293.541)',
-                        leftColor: 'oklch(70.2% 0.183 293.541)',
+                        baseColor: '#FF637E',
+                        upColor: '#ff8aa0',
+                        downColor: '#ff8aa0',
+                        rightColor: '#ff8aa0',
+                        leftColor: '#ff8aa0',
                         opacity: 0.5,
                         intensity: 0.7
                     }
@@ -860,16 +871,18 @@ function updateEffectsToggle(enabled: boolean, supported = isCursorEffectSupport
     }
 
     toggle.disabled = !supported;
+    toggle.hidden = !supported;
     toggle.setAttribute('aria-pressed', enabled && supported ? 'true' : 'false');
     toggle.setAttribute('aria-label', `${enabled && supported ? 'Disable' : 'Enable'} cursor effects`);
-    toggle.title = supported ? 'Toggle cursor effects' : 'Cursor effects require WebGPU on a desktop browser.';
+    toggle.dataset.tooltip = 'Enabling this loads a WebGL/WebGPU shader library for the cursor trail. It is heavier than the static site and may affect battery life or performance.';
+    toggle.title = supported ? toggle.dataset.tooltip : 'Cursor effects require WebGPU on a desktop browser.';
 
     if (label) {
         label.textContent = enabled && supported ? 'Effects On' : 'Effects Off';
     }
 
     if (icon) {
-        icon.innerHTML = uiIconMap.spark;
+        icon.innerHTML = uiIconMap.waves;
     }
 }
 
@@ -945,7 +958,7 @@ function updateThemeToggle(theme: 'dark' | 'light'): void {
 
 function applyTheme(theme: 'dark' | 'light'): void {
     document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#050816' : '#f8fafc');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#09101E' : '#fff7f9');
     try {
         const storage = window.localStorage;
         if (typeof storage?.setItem === 'function') {
@@ -994,6 +1007,46 @@ function initScrollEffects(): void {
     revealElements.forEach(element => observer.observe(element));
 }
 
+function initScrollToTopButton(): void {
+    const button = getElement<HTMLButtonElement>('scroll-top');
+
+    if (!button) {
+        return;
+    }
+
+    const updateVisibility = (): void => {
+        const isVisible = window.scrollY > 480;
+        button.dataset.visible = isVisible ? 'true' : 'false';
+        button.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+        button.tabIndex = isVisible ? 0 : -1;
+    };
+
+    updateVisibility();
+
+    if (button.dataset.bound === 'true') {
+        return;
+    }
+
+    let frame = 0;
+    const onScroll = (): void => {
+        if (frame) {
+            return;
+        }
+
+        frame = window.requestAnimationFrame(() => {
+            frame = 0;
+            updateVisibility();
+        });
+    };
+
+    button.dataset.bound = 'true';
+    button.addEventListener('click', () => {
+        const reducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+    });
+    window.addEventListener('scroll', onScroll, { passive: true });
+}
+
 function renderPortfolio(): void {
     updatePageTitle();
     renderNavigation();
@@ -1007,8 +1060,10 @@ function renderPortfolio(): void {
     renderGitHubActivities();
     renderContactSection();
     updateFooter();
+    initNavigationToggle();
     initThemeToggle();
     initEffectsToggle();
+    initScrollToTopButton();
 }
 
 async function initPortfolio(): Promise<void> {

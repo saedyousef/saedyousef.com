@@ -7,7 +7,7 @@ import { defineConfig, type Plugin } from 'vite';
 const rootDir = dirname(fileURLToPath(import.meta.url));
 
 function copyStaticSiteFiles(): Plugin {
-    const entries = ['assets/icons', 'datasets', 'CNAME', 'favicon.ico'];
+    const entries = ['assets/icons', 'datasets', 'CNAME'];
 
     return {
         name: 'copy-static-site-files',

@@ -57,8 +57,7 @@ function mountPortfolioDom(): void {
             <span id="effects-toggle-icon"></span>
             <span id="effects-toggle-label"></span>
         </button>
-        <aside id="social-links-left"></aside>
-        <aside id="social-links-right"></aside>
+        <button id="menu-toggle" type="button" aria-expanded="false"></button>
         <main>
             <p id="hero-greeting"></p>
             <h1 id="hero-name"></h1>
@@ -86,9 +85,9 @@ function mountPortfolioDom(): void {
             <div id="contact-actions"></div>
         </main>
         <footer>
-            <p id="footer-text"></p>
             <div id="social-links-mobile"></div>
         </footer>
+        <button id="scroll-top" type="button"></button>
     `;
 }
 
@@ -161,15 +160,20 @@ describe('portfolio renderer', () => {
         expect(document.getElementById('experience-container')?.querySelectorAll('article')).toHaveLength(experiencesJson.length);
         expect(document.getElementById('education-container')?.querySelectorAll('article')).toHaveLength(educationJson.length);
         expect(document.getElementById('skills-container')?.querySelectorAll('article')).toHaveLength(Object.keys(skillsJson.skills).length);
-        expect(document.getElementById('projects-container')?.querySelectorAll('article')).toHaveLength(1);
+        expect(document.getElementById('projects-container')?.querySelectorAll('article')).toHaveLength(0);
+        expect(document.getElementById('projects-container')?.querySelector('.coming-soon-card')).not.toBeNull();
         expect(document.getElementById('projects-container')?.textContent).toContain('Coming soon..');
         expect(document.getElementById('contact-title')?.textContent).toBe(siteJson.contact.title);
         expect(document.getElementById('theme-toggle')).not.toBeNull();
         expect(document.getElementById('effects-toggle')).not.toBeNull();
         expect(document.getElementById('effects-toggle-label')?.textContent).toBe('Effects Off');
+        expect(document.getElementById('menu-toggle')).not.toBeNull();
+        expect(document.getElementById('scroll-top')).not.toBeNull();
+        expect(document.getElementById('scroll-top')?.getAttribute('aria-hidden')).toBe('true');
+        expect(document.querySelectorAll('.section-number')).toHaveLength(0);
         expect(document.body.textContent?.toLowerCase()).not.toMatch(/portfolio v\d|\bv\d\b/);
         expect(document.body.textContent?.toLowerCase()).not.toMatch(/technical\s+resume/);
-        expect(document.getElementById('footer-text')?.textContent).toContain('First version');
+        expect(document.body.textContent).not.toContain('First version designed & built by Saed Yousef | saedyousef.com');
     });
 
     it('renders hero actions and social links with profile URLs', async () => {
@@ -180,7 +184,7 @@ describe('portfolio renderer', () => {
         const heroLinks = document.getElementById('hero-actions')?.querySelectorAll('a');
         expect(heroLinks?.length).toBe(siteJson.hero.actions.length);
 
-        const socialHtml = document.getElementById('social-links-left')?.innerHTML || '';
+        const socialHtml = document.getElementById('social-links-mobile')?.innerHTML || '';
         expect(socialHtml).toContain(profileJson.contact.github);
         expect(socialHtml).toContain(profileJson.contact.linkedin);
         expect(socialHtml).toContain(`mailto:${profileJson.contact.email}`);

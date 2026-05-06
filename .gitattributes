@@ -1,13 +1,17 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Auto-detect text files and keep source files normalized to LF.
+* text=auto eol=lf
 
 # Source code
 *.ts text
 *.js text
+*.cjs text
+*.mjs text
 *.json text
 *.html text
 *.css text
 *.scss text
+*.yml text
+*.yaml text
 
 # Documentation
 *.md text
@@ -16,6 +20,8 @@
 .gitignore text
 .gitattributes text
 *.config.js text
+*.config.cjs text
+*.config.ts text
 *.config.json text
 
 # Binary files

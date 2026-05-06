@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#050816">
+    <meta name="theme-color" content="#09101E">
     <meta name="description" content="Saed Yousef personal portfolio">
     <title id="page-title">Saed Yousef</title>
     <link rel="icon" type="image/svg+xml" href="/assets/icons/favicon.svg">
@@ -26,11 +26,13 @@
                 <span id="theme-toggle-icon" class="theme-toggle-icon" aria-hidden="true"></span>
                 <span id="theme-toggle-label">Dark</span>
             </button>
+            <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
-
-    <aside id="social-links-left" class="desktop-social" aria-label="Social links"></aside>
-    <aside id="social-links-right" class="desktop-email" aria-label="Email link"></aside>
 
     <main>
         <section id="home" class="hero-section">
@@ -100,9 +102,14 @@
     </main>
 
     <footer class="site-footer">
-        <p id="footer-text"></p>
         <div id="social-links-mobile" class="mobile-social" aria-label="Social links"></div>
     </footer>
+
+    <button id="scroll-top" class="scroll-top-button" type="button" aria-label="Scroll to top" aria-hidden="true" tabindex="-1">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 15 6-6 6 6"></path>
+        </svg>
+    </button>
 
     <script type="module" src="/ts/main.ts"></script>
 </body>
