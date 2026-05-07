@@ -88,7 +88,7 @@ const fallbackSiteData: SiteData = {
         },
         github: {
             number: '06',
-            title: 'GitHub Activity',
+            title: 'Contributions',
             eyebrow: 'Contributions'
         }
     },
@@ -635,7 +635,7 @@ function renderGitHubActivities(): void {
     clearElement(container);
 
     if (!githubCalendarData || githubCalendarData.weeks.length === 0) {
-        appendTextElement(container, 'p', 'section-summary', 'GitHub activity will appear here once available.');
+        appendTextElement(container, 'p', 'section-summary', 'Contributions will appear here once available.');
         return;
     }
 
@@ -724,11 +724,11 @@ function createGitHubLegend(): HTMLDivElement {
 
 function contributionColor(level: string): string {
     const levelColorMap: Record<string, string> = {
-        NONE: '#111827',
-        FIRST_QUARTILE: '#0f766e',
-        SECOND_QUARTILE: '#FF637E',
-        THIRD_QUARTILE: '#ff8aa0',
-        FOURTH_QUARTILE: '#ffb0be'
+        NONE: 'var(--github-none)',
+        FIRST_QUARTILE: 'var(--github-first-quartile)',
+        SECOND_QUARTILE: 'var(--github-second-quartile)',
+        THIRD_QUARTILE: 'var(--github-third-quartile)',
+        FOURTH_QUARTILE: 'var(--github-fourth-quartile)'
     };
 
     return levelColorMap[level] || levelColorMap.NONE;
@@ -822,11 +822,7 @@ async function initChromaFlowTrail(): Promise<void> {
                     type: 'ChromaFlow',
                     id: 'cursorChromaFlow',
                     props: {
-                        baseColor: '#FF637E',
-                        upColor: '#ff8aa0',
-                        downColor: '#ff8aa0',
-                        rightColor: '#ff8aa0',
-                        leftColor: '#ff8aa0',
+                        ...getCursorTrailColors(),
                         opacity: 0.5,
                         intensity: 0.7
                     }
@@ -850,6 +846,26 @@ async function initChromaFlowTrail(): Promise<void> {
         console.error('Failed to initialize ChromaFlow cursor effect.', error);
         canvas.hidden = true;
     }
+}
+
+function getCursorTrailColors(): { baseColor: string; upColor: string; downColor: string; rightColor: string; leftColor: string } {
+    if (document.documentElement.dataset.theme === 'light') {
+        return {
+            baseColor: '#2563eb',
+            upColor: '#60a5fa',
+            downColor: '#1d4ed8',
+            rightColor: '#2563eb',
+            leftColor: '#1e40af'
+        };
+    }
+
+    return {
+        baseColor: '#FF637E',
+        upColor: '#ff8aa0',
+        downColor: '#ff8aa0',
+        rightColor: '#ff8aa0',
+        leftColor: '#ff8aa0'
+    };
 }
 
 function getPreferredEffectsEnabled(): boolean {
@@ -958,7 +974,7 @@ function updateThemeToggle(theme: 'dark' | 'light'): void {
 
 function applyTheme(theme: 'dark' | 'light'): void {
     document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#09101E' : '#fff7f9');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#09101E' : '#f7f9fc');
     try {
         const storage = window.localStorage;
         if (typeof storage?.setItem === 'function') {
@@ -968,6 +984,10 @@ function applyTheme(theme: 'dark' | 'light'): void {
         document.documentElement.dataset.theme = theme;
     }
     updateThemeToggle(theme);
+
+    if (cursorTrailCleanup) {
+        initPointerEffects();
+    }
 }
 
 function initThemeToggle(): void {

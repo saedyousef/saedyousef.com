@@ -7,7 +7,7 @@
     { "label": "Experience", "target": "experience" },
     { "label": "Skills", "target": "skills" },
     { "label": "Projects", "target": "projects" },
-    { "label": "GitHub", "target": "github-activity" },
+    { "label": "Contributions", "target": "github-activity" },
     { "label": "Contact", "target": "contact" }
   ],
   "hero": {
@@ -15,7 +15,7 @@
     "terminalTitle": "profile.json",
     "actions": [
       { "label": "View experience", "href": "#experience", "variant": "primary" },
-      { "label": "GitHub activity", "href": "#github-activity", "variant": "secondary" }
+      { "label": "Contributions", "href": "#github-activity", "variant": "secondary" }
     ]
   },
   "sections": {
@@ -47,7 +47,7 @@
     },
     "github": {
       "number": "06",
-      "title": "GitHub Activity",
+      "title": "Contributions",
       "eyebrow": "Contribution signal"
     }
   },

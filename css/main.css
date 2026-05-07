@@ -61,6 +61,7 @@
     --text: #f8fafc;
     --muted: #a7adb7;
     --muted-strong: #d7dce4;
+    --accent-rgb: 255, 99, 126;
     --cyan: #FF637E;
     --blue: #ff8aa0;
     --violet: #ff637e;
@@ -77,35 +78,46 @@
     --chip-bg: rgba(255, 99, 126, 0.09);
     --chip-border: rgba(255, 99, 126, 0.24);
     --terminal-bar-bg: rgba(9, 16, 30, 0.5);
+    --github-none: #111827;
+    --github-first-quartile: #0f766e;
+    --github-second-quartile: #FF637E;
+    --github-third-quartile: #ff8aa0;
+    --github-fourth-quartile: #ffb0be;
 }
 
 :root[data-theme='light'] {
     color-scheme: light;
-    --bg: #fff7f9;
-    --bg-soft: #fff0f3;
+    --bg: #f7f9fc;
+    --bg-soft: #eef3f8;
     --panel: rgba(255, 255, 255, 0.74);
     --panel-strong: rgba(255, 255, 255, 0.9);
     --border: rgba(23, 23, 23, 0.14);
-    --border-strong: rgba(255, 99, 126, 0.5);
+    --border-strong: rgba(37, 99, 235, 0.5);
     --text: #171717;
     --muted: #6b7280;
     --muted-strong: #303743;
-    --cyan: #FF637E;
+    --accent-rgb: 37, 99, 235;
+    --cyan: #2563eb;
     --blue: #09101E;
-    --violet: #ff637e;
+    --violet: #1d4ed8;
     --green: #171717;
     --shadow: rgba(9, 16, 30, 0.12);
     --page-bg:
-        radial-gradient(circle at 16% 0%, rgba(255, 99, 126, 0.17), transparent 30rem),
+        radial-gradient(circle at 16% 0%, rgba(37, 99, 235, 0.12), transparent 30rem),
         radial-gradient(circle at 84% 10%, rgba(9, 16, 30, 0.08), transparent 32rem),
-        linear-gradient(180deg, #fff7f9 0%, #fff0f3 44%, #ffffff 100%);
-    --header-bg: rgba(255, 247, 249, 0.82);
-    --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 240, 243, 0.76));
+        linear-gradient(180deg, #f7f9fc 0%, #eef3f8 44%, #ffffff 100%);
+    --header-bg: rgba(247, 249, 252, 0.82);
+    --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(238, 243, 248, 0.76));
     --soft-bg: rgba(255, 255, 255, 0.55);
     --button-bg: rgba(255, 255, 255, 0.66);
-    --chip-bg: rgba(255, 99, 126, 0.08);
-    --chip-border: rgba(255, 99, 126, 0.24);
+    --chip-bg: rgba(37, 99, 235, 0.08);
+    --chip-border: rgba(37, 99, 235, 0.24);
     --terminal-bar-bg: rgba(255, 255, 255, 0.48);
+    --github-none: #e5eaf2;
+    --github-first-quartile: #bfdbfe;
+    --github-second-quartile: #60a5fa;
+    --github-third-quartile: #2563eb;
+    --github-fourth-quartile: #1e40af;
 }
 
 * {
@@ -139,7 +151,7 @@ button:focus-visible {
 }
 
 ::selection {
-    background: rgba(255, 99, 126, 0.24);
+    background: rgba(var(--accent-rgb), 0.24);
     color: var(--text);
 }
 
@@ -158,7 +170,7 @@ button:focus-visible {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #FF637E;
+    background: var(--cyan);
 }
 
 .site-backdrop {
@@ -189,7 +201,7 @@ button:focus-visible {
     position: absolute;
     inset: 0;
     z-index: 0;
-    background: linear-gradient(115deg, transparent 0%, rgba(255, 99, 126, 0.08) 32%, transparent 58%);
+    background: linear-gradient(115deg, transparent 0%, rgba(var(--accent-rgb), 0.08) 32%, transparent 58%);
     filter: blur(20px);
 }
 
@@ -217,11 +229,11 @@ button:focus-visible {
     height: 2.75rem;
     border: 1px solid var(--border-strong);
     border-radius: 0.9rem;
-    background: linear-gradient(135deg, rgba(255, 99, 126, 0.2), rgba(9, 16, 30, 0.3));
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2), rgba(9, 16, 30, 0.3));
     color: var(--text);
     font-weight: 800;
     letter-spacing: -0.04em;
-    box-shadow: 0 16px 36px rgba(255, 99, 126, 0.14);
+    box-shadow: 0 16px 36px rgba(var(--accent-rgb), 0.14);
 }
 
 .site-nav {
@@ -442,7 +454,7 @@ main {
 }
 
 :root[data-theme='light'] .hero-subtitle {
-    background: linear-gradient(90deg, #171717, #09101E 46%, #FF637E 82%);
+    background: linear-gradient(90deg, #171717, #09101E 46%, var(--cyan) 82%);
     background-clip: text;
 }
 
@@ -476,8 +488,8 @@ main {
 }
 
 .button-link.primary {
-    border-color: rgba(255, 99, 126, 0.55);
-    background: linear-gradient(135deg, rgba(255, 99, 126, 0.2), rgba(9, 16, 30, 0.18));
+    border-color: rgba(var(--accent-rgb), 0.55);
+    background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.2), rgba(9, 16, 30, 0.18));
     color: var(--text);
 }
 
@@ -910,7 +922,7 @@ main {
 
 .day-cell:hover {
     transform: scale(1.25);
-    box-shadow: 0 0 18px rgba(255, 99, 126, 0.24);
+    box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.24);
 }
 
 .github-legend {
