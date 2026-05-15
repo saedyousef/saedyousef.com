@@ -43,7 +43,7 @@ npm run build
 - `datasets/experiences.json`: experience timeline
 - `datasets/education.json`: education cards
 - `datasets/skills.json`: grouped skills and technologies
-- `datasets/projects.json`: project cards, currently empty to show the coming-soon state
+- `datasets/projects.json`: selected project cards and links
 - `datasets/github_activities.json`: local fallback contribution calendar
 
 ## Deployment

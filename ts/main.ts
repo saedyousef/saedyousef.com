@@ -23,6 +23,48 @@ let projectsData: Project[] = [];
 let githubCalendarData: GitHubContributionCalendar | null = null;
 let cursorTrailCleanup: (() => void) | null = null;
 
+const boundElements = new WeakSet<Element>();
+
+const selectors = {
+    siteBrand: '.site-brand',
+    siteNav: '.site-nav',
+    menuToggle: '.menu-toggle',
+    heroGreeting: '.hero-copy .eyebrow',
+    heroName: '.hero-title',
+    heroSubtitle: '.hero-subtitle',
+    heroDescription: '.hero-description',
+    heroActions: '.hero-copy .hero-actions',
+    heroMeta: '.terminal-body',
+    socialLinks: '.mobile-social',
+    footerText: '.footer-text',
+    aboutHeader: '.about-section .section-heading',
+    aboutContent: '.about-card .prose-copy',
+    techIntro: '.tech-snapshot .tech-intro',
+    techList: '.tech-snapshot .tech-list',
+    experienceHeader: '.experience-section .section-heading',
+    experienceContainer: '.experience-section .timeline',
+    educationHeader: '.education-section .section-heading',
+    educationContainer: '.education-section .card-grid',
+    skillsHeader: '.skills-section .section-heading',
+    skillsContainer: '.skills-section .skills-grid',
+    projectsHeader: '.projects-section .section-heading',
+    projectsContainer: '.projects-section .project-grid',
+    githubHeader: '.github-section .section-heading',
+    githubContainer: '.github-section .github-card',
+    contactEyebrow: '.contact-section .contact-eyebrow',
+    contactTitle: '.contact-section .contact-title',
+    contactBody: '.contact-section .contact-body',
+    contactActions: '.contact-section .contact-actions',
+    cursorTrail: '.cursor-trail',
+    effectsToggle: '.effects-toggle',
+    effectsLabel: '.effects-toggle .effects-toggle-label',
+    effectsIcon: '.effects-toggle .effects-toggle-icon',
+    themeToggle: '.theme-toggle',
+    themeLabel: '.theme-toggle .theme-toggle-label',
+    themeIcon: '.theme-toggle .site-theme-toggle-icon',
+    scrollTop: '.scroll-top-button'
+} as const;
+
 const fallbackProfileData: ProfileData = {
     name: 'Saed Yousef',
     title: 'Software Engineer',
@@ -170,8 +212,8 @@ async function loadAllData(): Promise<void> {
     githubCalendarData = github;
 }
 
-function getElement<T extends HTMLElement>(id: string): T | null {
-    return document.getElementById(id) as T | null;
+function selectElement<T extends Element = HTMLElement>(selector: string, root: ParentNode = document): T | null {
+    return root.querySelector<T>(selector);
 }
 
 function clearElement(element: HTMLElement): void {
@@ -180,16 +222,16 @@ function clearElement(element: HTMLElement): void {
     }
 }
 
-function setText(id: string, value: string): void {
-    const element = getElement(id);
+function setText(selector: string, value: string): void {
+    const element = selectElement<HTMLElement>(selector);
 
     if (element) {
         element.textContent = value;
     }
 }
 
-function setOptionalText(id: string, value: string): void {
-    const element = getElement(id);
+function setOptionalText(selector: string, value: string): void {
+    const element = selectElement<HTMLElement>(selector);
 
     if (!element) {
         return;
@@ -257,15 +299,24 @@ function createUiIcon(name: UiIconName): HTMLSpanElement {
     return icon;
 }
 
-function createMetaChip(icon: UiIconName, text: string): HTMLSpanElement {
+function createMetaChip(icon: UiIconName, text: string, href?: string): HTMLSpanElement {
     const chip = document.createElement('span');
     chip.className = 'meta-chip';
-    chip.append(createUiIcon(icon), document.createTextNode(text));
+    chip.append(createUiIcon(icon), href ? createAnchor(text, href, 'meta-chip-link') : document.createTextNode(text));
     return chip;
 }
 
-function renderSectionHeader(containerId: string, section?: SiteSection): void {
-    const container = getElement(containerId);
+function bindOnce(element: Element): boolean {
+    if (boundElements.has(element)) {
+        return false;
+    }
+
+    boundElements.add(element);
+    return true;
+}
+
+function renderSectionHeader(headerSelector: string, section?: SiteSection): void {
+    const container = selectElement<HTMLElement>(headerSelector);
 
     if (!container || !section) {
         return;
@@ -293,13 +344,12 @@ function updatePageTitle(): void {
     }
 
     const titleText = profileData.title ? `${profileData.name} | ${profileData.title}` : profileData.name;
-    setText('page-title', titleText);
     document.title = titleText;
 }
 
 function renderNavigation(): void {
-    const nav = getElement('site-nav');
-    const brand = getElement('site-brand');
+    const nav = selectElement<HTMLElement>(selectors.siteNav);
+    const brand = selectElement<HTMLElement>(selectors.siteBrand);
 
     if (brand && profileData) {
         brand.textContent = profileData.name
@@ -323,11 +373,11 @@ function renderNavigation(): void {
 }
 
 function setNavigationOpen(open: boolean): void {
-    const nav = getElement('site-nav');
-    const toggle = getElement<HTMLButtonElement>('menu-toggle');
+    const nav = selectElement<HTMLElement>(selectors.siteNav);
+    const toggle = selectElement<HTMLButtonElement>(selectors.menuToggle);
 
     if (nav) {
-        nav.dataset.open = open ? 'true' : 'false';
+        nav.classList.toggle('is-open', open);
     }
 
     if (toggle) {
@@ -337,16 +387,15 @@ function setNavigationOpen(open: boolean): void {
 }
 
 function initNavigationToggle(): void {
-    const nav = getElement('site-nav');
-    const toggle = getElement<HTMLButtonElement>('menu-toggle');
+    const nav = selectElement<HTMLElement>(selectors.siteNav);
+    const toggle = selectElement<HTMLButtonElement>(selectors.menuToggle);
 
     setNavigationOpen(false);
 
-    if (!nav || !toggle || toggle.dataset.bound === 'true') {
+    if (!nav || !toggle || !bindOnce(toggle)) {
         return;
     }
 
-    toggle.dataset.bound = 'true';
     toggle.addEventListener('click', () => {
         setNavigationOpen(toggle.getAttribute('aria-expanded') !== 'true');
     });
@@ -367,12 +416,12 @@ function updateHeroSection(): void {
         return;
     }
 
-    setOptionalText('hero-greeting', siteData.hero.eyebrow || '');
-    setText('hero-name', profileData.name);
-    setText('hero-subtitle', profileData.subtitle || profileData.title);
-    setText('hero-description', profileData.about[0] || '');
+    setOptionalText(selectors.heroGreeting, siteData.hero.eyebrow || '');
+    setText(selectors.heroName, profileData.name);
+    setText(selectors.heroSubtitle, profileData.subtitle || profileData.title);
+    setText(selectors.heroDescription, profileData.about[0] || '');
 
-    const actions = getElement('hero-actions');
+    const actions = selectElement<HTMLElement>(selectors.heroActions);
     if (actions) {
         clearElement(actions);
         siteData.hero.actions.forEach(action => {
@@ -386,7 +435,7 @@ function updateHeroSection(): void {
 }
 
 function renderHeroTerminal(): void {
-    const terminal = getElement('hero-meta');
+    const terminal = selectElement<HTMLElement>(selectors.heroMeta);
 
     if (!terminal || !profileData || !siteData) {
         return;
@@ -425,7 +474,7 @@ function updateSocialLinks(): void {
         return;
     }
 
-    const mobileSocial = getElement('social-links-mobile');
+    const mobileSocial = selectElement<HTMLElement>(selectors.socialLinks);
     const socialLinks = siteData.socialLinks;
 
     if (mobileSocial) {
@@ -435,7 +484,7 @@ function updateSocialLinks(): void {
 }
 
 function updateFooter(): void {
-    const footer = getElement('footer-text');
+    const footer = selectElement<HTMLElement>(selectors.footerText);
 
     if (!footer) {
         return;
@@ -445,11 +494,11 @@ function updateFooter(): void {
 }
 
 function renderAboutSection(): void {
-    const aboutContent = getElement('about-content');
-    const techIntro = getElement('tech-intro');
-    const techList = getElement('tech-list');
+    const aboutContent = selectElement<HTMLElement>(selectors.aboutContent);
+    const techIntro = selectElement<HTMLElement>(selectors.techIntro);
+    const techList = selectElement<HTMLElement>(selectors.techList);
 
-    renderSectionHeader('about-header', siteData?.sections.about);
+    renderSectionHeader(selectors.aboutHeader, siteData?.sections.about);
 
     if (aboutContent && profileData) {
         clearElement(aboutContent);
@@ -478,9 +527,9 @@ function renderAboutSection(): void {
 }
 
 function renderExperienceSection(): void {
-    const container = getElement('experience-container');
+    const container = selectElement<HTMLElement>(selectors.experienceContainer);
 
-    renderSectionHeader('experience-header', siteData?.sections.experience);
+    renderSectionHeader(selectors.experienceHeader, siteData?.sections.experience);
 
     if (!container) {
         return;
@@ -503,7 +552,7 @@ function renderExperienceSection(): void {
 
         const metaList = document.createElement('div');
         metaList.className = 'meta-list';
-        metaList.appendChild(createMetaChip('briefcase', experience.company));
+        metaList.appendChild(createMetaChip('briefcase', experience.company, experience.url));
         if (experience.location) {
             metaList.appendChild(createMetaChip('location', experience.location));
         }
@@ -527,9 +576,9 @@ function renderExperienceSection(): void {
 }
 
 function renderEducationSection(): void {
-    const container = getElement('education-container');
+    const container = selectElement<HTMLElement>(selectors.educationContainer);
 
-    renderSectionHeader('education-header', siteData?.sections.education);
+    renderSectionHeader(selectors.educationHeader, siteData?.sections.education);
 
     if (!container) {
         return;
@@ -552,9 +601,9 @@ function renderEducationSection(): void {
 }
 
 function renderSkillsSection(): void {
-    const container = getElement('skills-container');
+    const container = selectElement<HTMLElement>(selectors.skillsContainer);
 
-    renderSectionHeader('skills-header', siteData?.sections.skills);
+    renderSectionHeader(selectors.skillsHeader, siteData?.sections.skills);
 
     if (!container) {
         return;
@@ -582,9 +631,9 @@ function renderSkillsSection(): void {
 }
 
 function renderProjectsSection(): void {
-    const container = getElement('projects-container');
+    const container = selectElement<HTMLElement>(selectors.projectsContainer);
 
-    renderSectionHeader('projects-header', siteData?.sections.projects);
+    renderSectionHeader(selectors.projectsHeader, siteData?.sections.projects);
 
     if (!container) {
         return;
@@ -624,9 +673,9 @@ function renderProjectsSection(): void {
 }
 
 function renderGitHubActivities(): void {
-    const container = getElement('github-activities-container');
+    const container = selectElement<HTMLElement>(selectors.githubContainer);
 
-    renderSectionHeader('github-header', siteData?.sections.github);
+    renderSectionHeader(selectors.githubHeader, siteData?.sections.github);
 
     if (!container) {
         return;
@@ -674,7 +723,6 @@ function renderGitHubActivities(): void {
 
     const grid = document.createElement('div');
     grid.className = 'calendar-grid';
-    grid.setAttribute('data-role', 'github-calendar-grid');
 
     weeks.forEach((week: ContributionWeek) => {
         const column = document.createElement('div');
@@ -694,9 +742,8 @@ function createContributionCell(day: ContributionDay): HTMLDivElement {
     const block = document.createElement('div');
     const contributionText = `${day.contributionCount} contribution${day.contributionCount === 1 ? '' : 's'} on ${formatDate(day.date)}`;
 
-    block.className = 'day-cell';
+    block.className = 'day-cell activity-day';
     block.style.backgroundColor = contributionColor(day.contributionLevel);
-    block.setAttribute('data-activity-day', day.date);
     block.setAttribute('title', contributionText);
     block.setAttribute('aria-label', contributionText);
 
@@ -747,11 +794,11 @@ function renderContactSection(): void {
         return;
     }
 
-    setText('contact-eyebrow', siteData.contact.eyebrow);
-    setText('contact-title', siteData.contact.title);
-    setText('contact-body', siteData.contact.body);
+    setText(selectors.contactEyebrow, siteData.contact.eyebrow);
+    setText(selectors.contactTitle, siteData.contact.title);
+    setText(selectors.contactBody, siteData.contact.body);
 
-    const actions = getElement('contact-actions');
+    const actions = selectElement<HTMLElement>(selectors.contactActions);
 
     if (!actions) {
         return;
@@ -780,7 +827,7 @@ function stopPointerEffects(): void {
     cursorTrailCleanup?.();
     cursorTrailCleanup = null;
 
-    const canvas = getElement<HTMLCanvasElement>('cursor-trail');
+    const canvas = selectElement<HTMLCanvasElement>(selectors.cursorTrail);
 
     if (canvas) {
         canvas.hidden = true;
@@ -799,7 +846,7 @@ function isCursorEffectSupported(): boolean {
 }
 
 async function initChromaFlowTrail(): Promise<void> {
-    const existingCanvas = getElement<HTMLCanvasElement>('cursor-trail');
+    const existingCanvas = selectElement<HTMLCanvasElement>(selectors.cursorTrail);
 
     if (!existingCanvas) {
         return;
@@ -878,9 +925,9 @@ function getPreferredEffectsEnabled(): boolean {
 }
 
 function updateEffectsToggle(enabled: boolean, supported = isCursorEffectSupported()): void {
-    const toggle = getElement<HTMLButtonElement>('effects-toggle');
-    const label = getElement('effects-toggle-label');
-    const icon = getElement('effects-toggle-icon');
+    const toggle = selectElement<HTMLButtonElement>(selectors.effectsToggle);
+    const label = selectElement<HTMLElement>(selectors.effectsLabel);
+    const icon = selectElement<HTMLElement>(selectors.effectsIcon);
 
     if (!toggle) {
         return;
@@ -924,16 +971,15 @@ function setEffectsEnabled(enabled: boolean): void {
 }
 
 function initEffectsToggle(): void {
-    const toggle = getElement<HTMLButtonElement>('effects-toggle');
+    const toggle = selectElement<HTMLButtonElement>(selectors.effectsToggle);
     const enabled = getPreferredEffectsEnabled();
 
     setEffectsEnabled(enabled);
 
-    if (!toggle || toggle.dataset.bound === 'true') {
+    if (!toggle || !bindOnce(toggle)) {
         return;
     }
 
-    toggle.dataset.bound = 'true';
     toggle.addEventListener('click', () => {
         const nextEnabled = toggle.getAttribute('aria-pressed') !== 'true';
         setEffectsEnabled(nextEnabled);
@@ -951,9 +997,9 @@ function getPreferredTheme(): 'dark' | 'light' {
 }
 
 function updateThemeToggle(theme: 'dark' | 'light'): void {
-    const toggle = getElement<HTMLButtonElement>('theme-toggle');
-    const label = getElement('theme-toggle-label');
-    const icon = getElement('theme-toggle-icon');
+    const toggle = selectElement<HTMLButtonElement>(selectors.themeToggle);
+    const label = selectElement<HTMLElement>(selectors.themeLabel);
+    const icon = selectElement<HTMLElement>(selectors.themeIcon);
 
     if (!toggle) {
         return;
@@ -991,14 +1037,13 @@ function applyTheme(theme: 'dark' | 'light'): void {
 }
 
 function initThemeToggle(): void {
-    const toggle = getElement<HTMLButtonElement>('theme-toggle');
+    const toggle = selectElement<HTMLButtonElement>(selectors.themeToggle);
     applyTheme(getPreferredTheme());
 
-    if (!toggle || toggle.dataset.bound === 'true') {
+    if (!toggle || !bindOnce(toggle)) {
         return;
     }
 
-    toggle.dataset.bound = 'true';
     toggle.addEventListener('click', () => {
         const currentTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
         applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
@@ -1028,7 +1073,7 @@ function initScrollEffects(): void {
 }
 
 function initScrollToTopButton(): void {
-    const button = getElement<HTMLButtonElement>('scroll-top');
+    const button = selectElement<HTMLButtonElement>(selectors.scrollTop);
 
     if (!button) {
         return;
@@ -1036,14 +1081,14 @@ function initScrollToTopButton(): void {
 
     const updateVisibility = (): void => {
         const isVisible = window.scrollY > 480;
-        button.dataset.visible = isVisible ? 'true' : 'false';
+        button.classList.toggle('is-visible', isVisible);
         button.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
         button.tabIndex = isVisible ? 0 : -1;
     };
 
     updateVisibility();
 
-    if (button.dataset.bound === 'true') {
+    if (!bindOnce(button)) {
         return;
     }
 
@@ -1059,7 +1104,6 @@ function initScrollToTopButton(): void {
         });
     };
 
-    button.dataset.bound = 'true';
     button.addEventListener('click', () => {
         const reducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });

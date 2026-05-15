@@ -1,1 +1,53 @@
-[]
+[
+    {
+        "title": "PHP n8n Client",
+        "description": "A strongly typed, PSR-compliant PHP client for triggering n8n webhooks and tracking workflow executions, with a dedicated documentation site at php-n8n.com.",
+        "status": "Open source · v1.0.0",
+        "technologies": [
+            "PHP 8.2+",
+            "n8n",
+            "PSR-7",
+            "PSR-17",
+            "PSR-18",
+            "Composer",
+            "PHPUnit"
+        ],
+        "links": [
+            {
+                "label": "GitHub",
+                "href": "https://github.com/php-n8n/client"
+            },
+            {
+                "label": "Docs",
+                "href": "https://php-n8n.com"
+            },
+            {
+                "label": "Packagist",
+                "href": "https://packagist.org/packages/php-n8n/client"
+            }
+        ]
+    },
+    {
+        "title": "SaedYousef.com Portfolio",
+        "description": "The personal portfolio site you are viewing now, built as a fast static site with JSON-backed content, a GitHub contribution heatmap, responsive sections, and a deployable Vite build.",
+        "status": "Live · saedyousef.com",
+        "technologies": [
+            "TypeScript",
+            "Vite",
+            "CSS3",
+            "JSON",
+            "GitHub Actions",
+            "Vitest"
+        ],
+        "links": [
+            {
+                "label": "Website",
+                "href": "https://saedyousef.com"
+            },
+            {
+                "label": "Source",
+                "href": "https://github.com/saedyousef/saedyousef.com"
+            }
+        ]
+    }
+]

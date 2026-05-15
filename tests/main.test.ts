@@ -47,48 +47,74 @@ function mockFetch(): void {
 
 function mountPortfolioDom(): void {
     document.body.innerHTML = `
-        <a id="site-brand"></a>
-        <nav id="site-nav"></nav>
-        <button id="theme-toggle" type="button">
-            <span id="theme-toggle-icon"></span>
-            <span id="theme-toggle-label"></span>
+        <a class="site-brand"></a>
+        <nav class="site-nav"></nav>
+        <button class="theme-toggle" type="button">
+            <span class="site-theme-toggle-icon"></span>
+            <span class="theme-toggle-label"></span>
         </button>
-        <button id="effects-toggle" type="button">
-            <span id="effects-toggle-icon"></span>
-            <span id="effects-toggle-label"></span>
+        <button class="effects-toggle" type="button">
+            <span class="effects-toggle-icon"></span>
+            <span class="effects-toggle-label"></span>
         </button>
-        <button id="menu-toggle" type="button" aria-expanded="false"></button>
+        <button class="menu-toggle" type="button" aria-expanded="false"></button>
         <main>
-            <p id="hero-greeting"></p>
-            <h1 id="hero-name"></h1>
-            <p id="hero-subtitle"></p>
-            <p id="hero-description"></p>
-            <div id="hero-actions"></div>
-            <div id="hero-meta"></div>
-            <div id="about-header"></div>
-            <div id="about-content"></div>
-            <p id="tech-intro"></p>
-            <ul id="tech-list"></ul>
-            <div id="experience-header"></div>
-            <div id="experience-container"></div>
-            <div id="education-header"></div>
-            <div id="education-container"></div>
-            <div id="skills-header"></div>
-            <div id="skills-container"></div>
-            <div id="projects-header"></div>
-            <div id="projects-container"></div>
-            <div id="github-header"></div>
-            <div id="github-activities-container"></div>
-            <p id="contact-eyebrow"></p>
-            <h2 id="contact-title"></h2>
-            <p id="contact-body"></p>
-            <div id="contact-actions"></div>
+            <section class="hero-section home-section">
+                <div class="hero-copy">
+                    <p class="eyebrow"></p>
+                    <h1 class="hero-title"></h1>
+                    <p class="hero-subtitle"></p>
+                    <p class="hero-description"></p>
+                    <div class="hero-actions"></div>
+                </div>
+                <div class="terminal-body"></div>
+            </section>
+            <section class="about-section">
+                <div class="section-heading"></div>
+                <div class="about-card">
+                    <div class="prose-copy"></div>
+                    <div class="tech-snapshot">
+                        <p class="tech-intro"></p>
+                        <ul class="tech-list"></ul>
+                    </div>
+                </div>
+            </section>
+            <section class="experience-section">
+                <div class="section-heading"></div>
+                <div class="timeline"></div>
+            </section>
+            <section class="education-section">
+                <div class="section-heading"></div>
+                <div class="card-grid"></div>
+            </section>
+            <section class="skills-section">
+                <div class="section-heading"></div>
+                <div class="skills-grid"></div>
+            </section>
+            <section class="projects-section">
+                <div class="section-heading"></div>
+                <div class="project-grid"></div>
+            </section>
+            <section class="github-section">
+                <div class="section-heading"></div>
+                <div class="github-card"></div>
+            </section>
+            <section class="contact-section">
+                <p class="contact-eyebrow"></p>
+                <h2 class="contact-title"></h2>
+                <p class="contact-body"></p>
+                <div class="contact-actions"></div>
+            </section>
         </main>
         <footer>
-            <div id="social-links-mobile"></div>
+            <div class="mobile-social"></div>
         </footer>
-        <button id="scroll-top" type="button"></button>
+        <button class="scroll-top-button" type="button"></button>
     `;
+}
+
+function select<T extends Element = HTMLElement>(selector: string): T | null {
+    return document.querySelector<T>(selector);
 }
 
 describe('portfolio datasets', () => {
@@ -109,9 +135,19 @@ describe('portfolio datasets', () => {
 
     it('has structured resume sections', () => {
         expect(experiencesJson.length).toBeGreaterThan(0);
+        expect(experiencesJson).toEqual(expect.arrayContaining([
+            expect.objectContaining({ company: 'Awardit DACH', end: 'Present' }),
+            expect.objectContaining({ company: 'Jordan Offers', position: 'Technical Director', url: 'https://jordanoffers.net' }),
+            expect.objectContaining({ company: 'Joshops', position: 'Software Architect', url: 'https://joshops.com' })
+        ]));
         expect(educationJson.length).toBeGreaterThan(0);
         expect(Object.keys(skillsJson.skills).length).toBeGreaterThan(0);
-        expect(projectsJson).toHaveLength(0);
+        expect(projectsJson.length).toBeGreaterThan(0);
+        expect(projectsJson[0].title).toBe('PHP n8n Client');
+        expect(projectsJson[0].links?.map(link => link.href)).toContain('https://php-n8n.com');
+        expect(projectsJson).toEqual(expect.arrayContaining([
+            expect.objectContaining({ title: 'SaedYousef.com Portfolio', status: 'Live · saedyousef.com' })
+        ]));
         expect(skillsJson.skills['Development Tools & Frameworks']).toContain('PHP');
         expect(skillsJson.skills['Development Tools & Frameworks']).toContain('TypeScript');
         expect(skillsJson.skills['Development Tools & Frameworks']).toContain('Nuxt');
@@ -150,28 +186,33 @@ describe('portfolio renderer', () => {
         renderPortfolio();
 
         expect(document.title).toContain(profileJson.name);
-        expect(document.getElementById('site-nav')?.querySelectorAll('a')).toHaveLength(siteJson.navigation.length);
-        expect(document.getElementById('site-nav')?.textContent).not.toMatch(/\d{2}\./);
-        expect(document.getElementById('hero-name')?.textContent).toBe(profileJson.name);
-        expect(document.getElementById('hero-subtitle')?.textContent).toBe(profileJson.subtitle);
-        expect(document.getElementById('hero-meta')?.textContent).not.toContain('version');
-        expect(document.getElementById('hero-meta')?.textContent).toContain('9+ years');
-        expect(document.getElementById('about-content')?.querySelectorAll('p')).toHaveLength(profileJson.about.length);
-        expect(document.getElementById('experience-container')?.querySelectorAll('article')).toHaveLength(experiencesJson.length);
-        expect(document.getElementById('education-container')?.querySelectorAll('article')).toHaveLength(educationJson.length);
-        expect(document.getElementById('skills-container')?.querySelectorAll('article')).toHaveLength(Object.keys(skillsJson.skills).length);
-        expect(document.getElementById('projects-container')?.querySelectorAll('article')).toHaveLength(0);
-        expect(document.getElementById('projects-container')?.querySelector('.coming-soon-card')).not.toBeNull();
-        expect(document.getElementById('projects-container')?.textContent).toContain('Coming soon..');
-        expect(document.getElementById('contact-title')?.textContent).toBe(siteJson.contact.title);
-        expect(document.getElementById('theme-toggle')).not.toBeNull();
-        expect(document.getElementById('effects-toggle')).not.toBeNull();
-        expect(document.getElementById('effects-toggle-label')?.textContent).toBe('Effects Off');
-        expect(document.getElementById('menu-toggle')).not.toBeNull();
-        expect(document.getElementById('scroll-top')).not.toBeNull();
-        expect(document.getElementById('scroll-top')?.getAttribute('aria-hidden')).toBe('true');
+        expect(select('.site-nav')?.querySelectorAll('a')).toHaveLength(siteJson.navigation.length);
+        expect(select('.site-nav')?.textContent).not.toMatch(/\d{2}\./);
+        expect(select('.hero-title')?.textContent).toBe(profileJson.name);
+        expect(select('.hero-subtitle')?.textContent).toBe(profileJson.subtitle);
+        expect(select('.terminal-body')?.textContent).not.toContain('version');
+        expect(select('.terminal-body')?.textContent).toContain('9+ years');
+        expect(select('.about-card .prose-copy')?.querySelectorAll('p')).toHaveLength(profileJson.about.length);
+        expect(select('.experience-section .timeline')?.querySelectorAll('article')).toHaveLength(experiencesJson.length);
+        expect(select('.experience-section .timeline')?.innerHTML).toContain('https://jordanoffers.net');
+        expect(select('.experience-section .timeline')?.innerHTML).toContain('https://joshops.com');
+        expect(select('.education-section .card-grid')?.querySelectorAll('article')).toHaveLength(educationJson.length);
+        expect(select('.skills-section .skills-grid')?.querySelectorAll('article')).toHaveLength(Object.keys(skillsJson.skills).length);
+        expect(select('.projects-section .project-grid')?.querySelectorAll('article')).toHaveLength(projectsJson.length);
+        expect(select('.projects-section .project-grid')?.querySelector('.coming-soon-card')).toBeNull();
+        expect(select('.projects-section .project-grid')?.textContent).toContain('PHP n8n Client');
+        expect(select('.projects-section .project-grid')?.textContent).toContain('SaedYousef.com Portfolio');
+        expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://php-n8n.com');
+        expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://github.com/saedyousef/saedyousef.com');
+        expect(select('.contact-section .contact-title')?.textContent).toBe(siteJson.contact.title);
+        expect(select('.theme-toggle')).not.toBeNull();
+        expect(select('.effects-toggle')).not.toBeNull();
+        expect(select('.effects-toggle .effects-toggle-label')?.textContent).toBe('Effects Off');
+        expect(select('.menu-toggle')).not.toBeNull();
+        expect(select('.scroll-top-button')).not.toBeNull();
+        expect(select('.scroll-top-button')?.getAttribute('aria-hidden')).toBe('true');
         expect(document.querySelectorAll('.section-number')).toHaveLength(0);
-        expect(document.body.textContent?.toLowerCase()).not.toMatch(/portfolio v\d|\bv\d\b/);
+        expect(document.body.textContent?.toLowerCase()).not.toMatch(/portfolio v\d/);
         expect(document.body.textContent?.toLowerCase()).not.toMatch(/technical\s+resume/);
         expect(document.body.textContent).not.toContain('First version designed & built by Saed Yousef | saedyousef.com');
     });
@@ -181,10 +222,10 @@ describe('portfolio renderer', () => {
         updateHeroSection();
         updateSocialLinks();
 
-        const heroLinks = document.getElementById('hero-actions')?.querySelectorAll('a');
+        const heroLinks = select('.hero-copy .hero-actions')?.querySelectorAll('a');
         expect(heroLinks?.length).toBe(siteJson.hero.actions.length);
 
-        const socialHtml = document.getElementById('social-links-mobile')?.innerHTML || '';
+        const socialHtml = select('.mobile-social')?.innerHTML || '';
         expect(socialHtml).toContain(profileJson.contact.github);
         expect(socialHtml).toContain(profileJson.contact.linkedin);
         expect(socialHtml).toContain(`mailto:${profileJson.contact.email}`);
@@ -195,9 +236,9 @@ describe('portfolio renderer', () => {
         renderGitHubActivities();
 
         const expectedDayCount = githubActivitiesJson.weeks.reduce((sum, week) => sum + week.contributionDays.length, 0);
-        expect(document.querySelector('[data-role="github-calendar-grid"]')).not.toBeNull();
-        expect(document.querySelectorAll('[data-activity-day]')).toHaveLength(expectedDayCount);
-        expect(document.getElementById('github-activities-container')?.textContent).toContain(
+        expect(select('.calendar-grid')).not.toBeNull();
+        expect(document.querySelectorAll('.calendar-grid .activity-day')).toHaveLength(expectedDayCount);
+        expect(select('.github-section .github-card')?.textContent).toContain(
             githubActivitiesJson.totalContributions.toLocaleString()
         );
     });

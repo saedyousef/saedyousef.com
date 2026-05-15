@@ -72,6 +72,7 @@ export interface SiteData {
 
 export interface Experience {
     company: string;
+    url?: string;
     position: string;
     location: string;
     start: string;

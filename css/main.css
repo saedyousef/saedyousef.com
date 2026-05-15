@@ -720,6 +720,10 @@ main {
     font-weight: 650;
 }
 
+.meta-chip-link:hover {
+    color: var(--cyan);
+}
+
 .timeline-meta .meta-chip {
     color: var(--cyan);
     font-family: 'SF Mono', 'Fira Code', ui-monospace, monospace;
@@ -1032,7 +1036,7 @@ main {
     transition: opacity 180ms ease, transform 180ms ease, border-color 180ms ease, color 180ms ease, background 180ms ease;
 }
 
-.scroll-top-button[data-visible='true'] {
+.scroll-top-button.is-visible {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0) scale(1);
@@ -1085,7 +1089,7 @@ main {
         transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
     }
 
-    .site-nav[data-open='true'] {
+    .site-nav.is-open {
         opacity: 1;
         pointer-events: auto;
         transform: translateY(0) scale(1);
