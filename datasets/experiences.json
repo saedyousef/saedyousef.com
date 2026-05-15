@@ -1,9 +1,57 @@
 [
     {
+        "company": "Awardit DACH",
+        "url": "https://www.awardit-solutions.com",
+        "position": "Development Team Lead",
+        "start": "Feb 2026",
+        "end": "Present",
+        "location": "Bruchsal, Germany",
+        "workType": "Hybrid",
+        "description": "Lead backend development for loyalty, rewards, and automation platforms across the DACH business. Focus on stable PHP services, integrations, architecture decisions, and delivery coordination.",
+        "responsibilities": [
+            "Lead backend architecture and implementation for loyalty and rewards systems.",
+            "Build and maintain PHP services, APIs, and third-party integrations.",
+            "Improve system reliability, deployment workflows, and technical delivery processes.",
+            "Coordinate development work through code reviews, technical decisions, and team support."
+        ]
+    },
+    {
+        "company": "Jordan Offers",
+        "url": "https://jordanoffers.net",
+        "position": "Technical Director",
+        "start": "Mar 2026",
+        "end": "Present",
+        "location": "Amman, Jordan",
+        "workType": "Remote",
+        "description": "Set technical direction for Jordan Offers' ecommerce platform, supporting custom signage, handcrafted products, and storefront operations with reliable commerce workflows.",
+        "responsibilities": [
+            "Guide technical decisions for the ecommerce storefront and customer ordering flows.",
+            "Improve platform stability, product catalog structure, and operational automation.",
+            "Support integrations for payments, delivery, customer communication, and internal workflows.",
+            "Translate business needs into maintainable technical plans and delivery priorities."
+        ]
+    },
+    {
+        "company": "Joshops",
+        "url": "https://joshops.com",
+        "position": "Software Architect",
+        "start": "Apr 2026",
+        "end": "Present",
+        "location": "Remote",
+        "workType": "Remote",
+        "description": "Design the architecture for an ecommerce platform, focusing on maintainable backend structure, scalability, integrations, and reliable delivery foundations.",
+        "responsibilities": [
+            "Define software architecture and service boundaries for ecommerce platform features.",
+            "Design backend flows for catalog, ordering, integrations, and operational tooling.",
+            "Review implementation approaches to keep the platform maintainable as it grows.",
+            "Establish practical technical standards for stability, performance, and future development."
+        ]
+    },
+    {
         "company": "IPO Solutions",
         "position": "Development Team Lead",
         "start": "Feb 2024",
-        "end": "Present",
+        "end": "Feb 2026",
         "location": "Bruchsal, Germany",
         "workType": "Hybrid",
         "description": "Lead a team of engineers delivering scalable PHP services. Set architecture standards, perform code reviews, and coordinate DevOps automation to ensure smooth releases.",
