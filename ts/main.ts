@@ -907,11 +907,11 @@ function getCursorTrailColors(): { baseColor: string; upColor: string; downColor
     }
 
     return {
-        baseColor: '#FF637E',
-        upColor: '#ff8aa0',
-        downColor: '#ff8aa0',
-        rightColor: '#ff8aa0',
-        leftColor: '#ff8aa0'
+        baseColor: '#b91c1c',
+        upColor: '#dc2626',
+        downColor: '#7f1d1d',
+        rightColor: '#991b1b',
+        leftColor: '#ef4444'
     };
 }
 

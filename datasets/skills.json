@@ -18,6 +18,11 @@
       "Spoken & Written English"
     ],
 
+    "Project & Task Management": [
+      "ClickUp",
+      "Jira"
+    ],
+
     "Development Tools & Frameworks": [
       "PHP",
       "Laravel",
@@ -79,11 +84,6 @@
       "Scrum",
       "Continuous Integration (CI)",
       "Continuous Delivery (CD)"
-    ],
-
-    "Project & Task Management": [
-      "ClickUp",
-      "Jira"
     ],
 
     "AI Tools & Assistants": [

@@ -56,33 +56,34 @@
     --bg-soft: #171717;
     --panel: rgba(9, 16, 30, 0.78);
     --panel-strong: rgba(23, 23, 23, 0.9);
-    --border: rgba(255, 99, 126, 0.16);
-    --border-strong: rgba(255, 99, 126, 0.5);
+    --border: rgba(185, 28, 28, 0.18);
+    --border-strong: rgba(220, 38, 38, 0.52);
     --text: #f8fafc;
     --muted: #a7adb7;
     --muted-strong: #d7dce4;
-    --accent-rgb: 255, 99, 126;
-    --cyan: #FF637E;
-    --blue: #ff8aa0;
-    --violet: #ff637e;
-    --green: #ffb0be;
-    --shadow: rgba(9, 16, 30, 0.5);
-    --page-bg:
-        radial-gradient(circle at 20% 0%, rgba(255, 99, 126, 0.16), transparent 30rem),
-        radial-gradient(circle at 84% 10%, rgba(23, 23, 23, 0.55), transparent 32rem),
-        linear-gradient(180deg, #09101E 0%, #10131b 45%, #171717 100%);
+    --accent-rgb: 185, 28, 28;
+    --cyan: #dc2626;
+    --blue: #ef4444;
+    --violet: #991b1b;
+    --green: #f87171;
+    --shadow: rgba(2, 6, 23, 0.18);
+    --shadow-hover: rgba(2, 6, 23, 0.22);
+    --card-shadow: 0 1px 2px var(--shadow);
+    --card-shadow-hover: 0 4px 10px var(--shadow-hover);
+    --floating-shadow: 0 14px 32px var(--shadow);
+    --page-bg: linear-gradient(180deg, #09101E 0%, #0f1420 100%);
     --header-bg: rgba(9, 16, 30, 0.76);
-    --card-bg: linear-gradient(180deg, rgba(23, 23, 23, 0.74), rgba(9, 16, 30, 0.68));
+    --card-bg: rgba(12, 17, 27, 0.94);
     --soft-bg: rgba(23, 23, 23, 0.28);
     --button-bg: rgba(23, 23, 23, 0.62);
-    --chip-bg: rgba(255, 99, 126, 0.09);
-    --chip-border: rgba(255, 99, 126, 0.24);
+    --chip-bg: rgba(185, 28, 28, 0.1);
+    --chip-border: rgba(220, 38, 38, 0.26);
     --terminal-bar-bg: rgba(9, 16, 30, 0.5);
     --github-none: #111827;
-    --github-first-quartile: #0f766e;
-    --github-second-quartile: #FF637E;
-    --github-third-quartile: #ff8aa0;
-    --github-fourth-quartile: #ffb0be;
+    --github-first-quartile: #4a2f14;
+    --github-second-quartile: #854d0e;
+    --github-third-quartile: #991b1b;
+    --github-fourth-quartile: #dc2626;
 }
 
 :root[data-theme='light'] {
@@ -101,11 +102,12 @@
     --blue: #09101E;
     --violet: #1d4ed8;
     --green: #171717;
-    --shadow: rgba(9, 16, 30, 0.12);
-    --page-bg:
-        radial-gradient(circle at 16% 0%, rgba(37, 99, 235, 0.12), transparent 30rem),
-        radial-gradient(circle at 84% 10%, rgba(9, 16, 30, 0.08), transparent 32rem),
-        linear-gradient(180deg, #f7f9fc 0%, #eef3f8 44%, #ffffff 100%);
+    --shadow: rgba(9, 16, 30, 0.08);
+    --shadow-hover: rgba(9, 16, 30, 0.1);
+    --card-shadow: 0 1px 2px var(--shadow);
+    --card-shadow-hover: 0 4px 10px var(--shadow-hover);
+    --floating-shadow: 0 14px 32px var(--shadow);
+    --page-bg: linear-gradient(180deg, #f7f9fc 0%, #ffffff 100%);
     --header-bg: rgba(247, 249, 252, 0.82);
     --card-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(238, 243, 248, 0.76));
     --soft-bg: rgba(255, 255, 255, 0.55);
@@ -198,11 +200,7 @@ button:focus-visible {
 }
 
 .grid-glow {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background: linear-gradient(115deg, transparent 0%, rgba(var(--accent-rgb), 0.08) 32%, transparent 58%);
-    filter: blur(20px);
+    display: none;
 }
 
 .site-header {
@@ -345,7 +343,7 @@ button:focus-visible {
     border-radius: 0.9rem;
     background: var(--panel-strong);
     color: var(--muted-strong);
-    box-shadow: 0 18px 48px var(--shadow);
+    box-shadow: var(--floating-shadow);
     font-size: 0.74rem;
     font-weight: 600;
     line-height: 1.45;
@@ -444,7 +442,7 @@ main {
 .hero-subtitle {
     max-width: 900px;
     margin: 1.25rem 0 0;
-    background: linear-gradient(90deg, #f8fafc, #ffb0be 42%, #ff637e 78%);
+    background: linear-gradient(90deg, #f8fafc, #dc2626 42%, #7f1d1d 78%);
     background-clip: text;
     color: transparent;
     font-size: clamp(1.65rem, 4.5vw, 4.25rem);
@@ -505,10 +503,11 @@ main {
 .info-card,
 .skill-card,
 .project-card,
-.github-card {
+.github-card,
+.coming-soon-card {
     border: 1px solid var(--border);
     background: var(--card-bg);
-    box-shadow: 0 24px 80px var(--shadow);
+    box-shadow: var(--card-shadow);
     backdrop-filter: blur(18px);
 }
 
@@ -680,7 +679,7 @@ main {
     gap: 1.5rem;
     padding: clamp(1.15rem, 3vw, 1.6rem);
     border-radius: 1.35rem;
-    transition: border-color 180ms ease, transform 180ms ease;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .timeline-item:hover,
@@ -688,6 +687,7 @@ main {
 .project-card:hover,
 .info-card:hover {
     border-color: var(--border-strong);
+    box-shadow: var(--card-shadow-hover);
     transform: translateY(-2px);
 }
 
@@ -799,12 +799,19 @@ main {
     gap: 1rem;
 }
 
+.skills-grid {
+    display: block;
+    column-count: 3;
+    column-gap: 1rem;
+}
+
 .info-card,
 .skill-card,
-.project-card {
+.project-card,
+.coming-soon-card {
     border-radius: 1.25rem;
     padding: 1.2rem;
-    transition: border-color 180ms ease, transform 180ms ease;
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .skill-card,
@@ -812,6 +819,11 @@ main {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+.skill-card {
+    break-inside: avoid;
+    margin-bottom: 1rem;
 }
 
 .github-card {
@@ -1028,7 +1040,7 @@ main {
     border-radius: 999px;
     background: var(--panel-strong);
     color: var(--muted-strong);
-    box-shadow: 0 18px 50px var(--shadow);
+    box-shadow: var(--floating-shadow);
     cursor: pointer;
     opacity: 0;
     pointer-events: none;
@@ -1080,7 +1092,7 @@ main {
         border: 1px solid var(--border);
         border-radius: 1.1rem;
         background: var(--panel-strong);
-        box-shadow: 0 20px 56px var(--shadow);
+        box-shadow: var(--floating-shadow);
         backdrop-filter: blur(18px);
         opacity: 0;
         pointer-events: none;
@@ -1123,9 +1135,12 @@ main {
     }
 
     .card-grid,
-    .skills-grid,
     .project-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .skills-grid {
+        column-count: 2;
     }
 
     .hero-section {
@@ -1156,9 +1171,12 @@ main {
     }
 
     .card-grid,
-    .skills-grid,
     .project-grid {
         grid-template-columns: 1fr;
+    }
+
+    .skills-grid {
+        column-count: 1;
     }
 
     .terminal-row {
