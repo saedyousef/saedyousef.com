@@ -49,7 +49,7 @@ jobs:
 
       - name: Verify custom domain artifact
         run: |
-          node -e "const fs = require('fs'); const value = fs.readFileSync('dist/CNAME', 'utf8').trim(); if (value !== 'saedyousef.com') { throw new Error('Invalid CNAME: ' + value); }"
+          node -e "const fs = require('fs'); const value = fs.readFileSync('dist/CNAME', 'utf8').trim(); if (value !== 'v1.saedyousef.com') { throw new Error('Invalid CNAME: ' + value); }"
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
@@ -57,5 +57,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: dist
           publish_branch: gh-pages
-          cname: saedyousef.com
+          cname: v1.saedyousef.com
           exclude_assets: ''
