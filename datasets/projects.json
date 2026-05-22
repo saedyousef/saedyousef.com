@@ -28,6 +28,46 @@
         ]
     },
     {
+        "title": "Repository Dispatch GitHub Action",
+        "description": "A reusable composite GitHub Action for triggering repository_dispatch events in another repository, useful for cross-repository workflows, staging deployments, and multi-service automation.",
+        "status": "Open source · GitHub Action",
+        "technologies": [
+            "GitHub Actions",
+            "Composite Actions",
+            "Bash",
+            "Repository Dispatch API",
+            "CI/CD Automation"
+        ],
+        "links": [
+            {
+                "label": "GitHub",
+                "href": "https://github.com/saedyousef/repository-dispatch"
+            }
+        ]
+    },
+    {
+        "title": "Workflow Dispatcher",
+        "description": "A browser-based interface for triggering GitHub Actions workflows with custom inputs, local dispatch history, optional PAT storage, and light/dark theme support.",
+        "status": "Live · workflow-dispatcher.saedyousef.com",
+        "technologies": [
+            "TypeScript",
+            "GitHub Actions",
+            "GitHub REST API",
+            "GitHub Pages",
+            "Local Storage"
+        ],
+        "links": [
+            {
+                "label": "Website",
+                "href": "https://workflow-dispatcher.saedyousef.com/"
+            },
+            {
+                "label": "Source",
+                "href": "https://github.com/saedyousef/workflow-dispatcher"
+            }
+        ]
+    },
+    {
         "title": "SaedYousef.com Portfolio",
         "description": "The personal portfolio site you are viewing now, built as a fast static site with JSON-backed content, a GitHub contribution heatmap, responsive sections, and a deployable Vite build.",
         "status": "Live · saedyousef.com",

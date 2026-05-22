@@ -6,7 +6,7 @@
     { "label": "About", "target": "about" },
     { "label": "Experience", "target": "experience" },
     { "label": "Skills", "target": "skills" },
-    { "label": "Projects", "target": "projects" },
+    { "label": "Work", "target": "projects" },
     { "label": "Contributions", "target": "github-activity" },
     { "label": "Contact", "target": "contact" }
   ],
@@ -41,8 +41,8 @@
     },
     "projects": {
       "number": "05",
-      "title": "Projects",
-      "eyebrow": "Selected work"
+      "title": "Selected Work",
+      "eyebrow": "Projects, tools, and open source"
     },
     "github": {
       "number": "06",

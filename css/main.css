@@ -128,6 +128,7 @@
 
 html {
     background: var(--bg);
+    font-size: 17px;
     scroll-padding-top: 120px;
 }
 
@@ -137,7 +138,7 @@ body {
     overflow-x: hidden;
     background: var(--page-bg);
     color: var(--text);
-    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Aptos', 'Segoe UI Variable', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
 }
 
@@ -617,7 +618,7 @@ main {
 }
 
 .about-card {
-    max-width: 860px;
+    width: 100%;
 }
 
 .prose-copy {

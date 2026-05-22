@@ -142,6 +142,8 @@ describe('portfolio datasets', () => {
         expect(projectsJson[0].title).toBe('PHP n8n Client');
         expect(projectsJson[0].links?.map(link => link.href)).toContain('https://php-n8n.com');
         expect(projectsJson).toEqual(expect.arrayContaining([
+            expect.objectContaining({ title: 'Repository Dispatch GitHub Action', status: 'Open source · GitHub Action' }),
+            expect.objectContaining({ title: 'Workflow Dispatcher', status: 'Live · workflow-dispatcher.saedyousef.com' }),
             expect.objectContaining({ title: 'SaedYousef.com Portfolio', status: 'Live · saedyousef.com' })
         ]));
         expect(skillsJson.skills['Development Tools & Frameworks']).toContain('PHP');
@@ -198,8 +200,12 @@ describe('portfolio renderer', () => {
         expect(select('.projects-section .project-grid')?.querySelectorAll('article')).toHaveLength(projectsJson.length);
         expect(select('.projects-section .project-grid')?.querySelector('.coming-soon-card')).toBeNull();
         expect(select('.projects-section .project-grid')?.textContent).toContain('PHP n8n Client');
+        expect(select('.projects-section .project-grid')?.textContent).toContain('Repository Dispatch GitHub Action');
+        expect(select('.projects-section .project-grid')?.textContent).toContain('Workflow Dispatcher');
         expect(select('.projects-section .project-grid')?.textContent).toContain('SaedYousef.com Portfolio');
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://php-n8n.com');
+        expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://workflow-dispatcher.saedyousef.com/');
+        expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://github.com/saedyousef/repository-dispatch');
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://github.com/saedyousef/saedyousef.com');
         expect(select('.contact-section .contact-title')?.textContent).toBe(siteJson.contact.title);
         expect(select('.theme-toggle')).not.toBeNull();
