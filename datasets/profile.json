@@ -1,12 +1,15 @@
 {
     "name": "Saed Yousef",
-    "title": "Software Engineer | Backend Specialist | Development Team Lead",
-    "subtitle": "I build stable backend systems and technical foundations.",
+    "title": "Lead Developer | Backend Systems | Infrastructure & Automation",
+    "subtitle": "I build reliable backend systems, integrations, automation, and technical foundations.",
     "greeting": "Hi, my name is",
     "about": [
-        "As a Development Team Lead with 9+ years of experience, I specialize in backend systems, software architecture, RESTful APIs, third-party integrations, and technical decisions that keep products maintainable as they grow.",
-        "My main focus is performance, stability, clean service boundaries, and pragmatic delivery. I work primarily with PHP and Laravel, and I also use TypeScript, Nuxt, Go, Docker, Kubernetes, AWS, databases, queues, and automation when they fit the problem.",
-        "I care about useful UI and frontend quality, but UI design is not my strongest skill. I am strongest when designing backend architecture, improving system reliability, making technical tradeoffs, and helping teams ship stable software."
+        "I've been working in software engineering for the past decade, mostly around backend systems, integrations, infrastructure, automation, and internal platforms.",
+        "My career started with building features and applications, but over time my work moved more toward system design, architecture, technical decision-making, and making systems easier to operate and maintain. I've worked on projects involving APIs, third-party integrations, deployment processes, cloud infrastructure, performance improvements, data flows, and automation between different systems.",
+        "Today I work as a Lead Developer, where I'm responsible for both technical direction and day-to-day engineering work. I'm still very close to the code and the systems we run. A normal week can include architecture discussions, reviewing technical decisions, debugging production issues, improving deployment workflows, planning integrations, supporting developers, and removing bottlenecks from the team's work.",
+        "I care a lot about building systems that are practical, reliable, and understandable. I prefer simple solutions that solve the real problem over complicated designs that look good only on paper. I also enjoy improving existing systems, especially when there is a chance to reduce manual work, automate repetitive processes, or make the development workflow smoother.",
+        "Most of my experience is around backend platforms, APIs, integrations, automation, scalability, infrastructure, and technical leadership. I enjoy working on problems where engineering has a direct impact on how the business operates.",
+        "I'm always open to connecting with people who work on software systems, automation, architecture, infrastructure, or engineering leadership."
     ],
     "contact": {
         "email": "me@saedyousef.com",

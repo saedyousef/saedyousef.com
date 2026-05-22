@@ -4,15 +4,30 @@
       "Object-Oriented Programming (OOP)",
       "Design Patterns",
       "RESTful API Development",
+      "API Integrations",
+      "System-to-System Integrations",
       "Software Architecture",
+      "System Design",
+      "Technical Planning",
+      "RFC Ownership",
+      "Architecture Reviews",
       "Technical Decision Making",
       "Performance Engineering",
+      "Database Query Optimization",
+      "Production Debugging",
       "System Stability",
+      "Scalability Planning",
+      "Application Upgrades & Migrations",
+      "Framework & Library Migrations",
       "Full-Stack Web Development",
       "Database Design & Indexing",
       "Workflow Automation",
+      "Internal Tooling",
       "DevOps & Deployment",
+      "Release Visibility",
       "Code Review & Quality Assurance",
+      "Technical Documentation",
+      "Developer Onboarding",
       "Analytical Thinking",
       "Team Leadership",
       "Spoken & Written English"
@@ -31,15 +46,24 @@
       "Go",
       "Composer",
       "Docker",
+      "Dockerfile Optimization",
       "Git & GitHub",
       "GitHub Actions",
       "Kubernetes",
+      "Container Registry Workflows",
+      "Microsoft Teams Integrations",
       "n8n Workflow Automation"
     ],
 
     "Cloud & Infrastructure": [
       "AWS",
+      "AWS CodeBuild",
+      "AWS CodePipeline",
+      "AWS CloudFormation",
       "DigitalOcean",
+      "Infrastructure as Code (IaC)",
+      "Containerized Applications",
+      "Resource Usage Optimization",
       "Rancher (Kubernetes Management)"
     ],
 
@@ -83,7 +107,10 @@
       "Agile",
       "Scrum",
       "Continuous Integration (CI)",
-      "Continuous Delivery (CD)"
+      "Continuous Delivery (CD)",
+      "CI/CD Migration",
+      "Technical RFCs",
+      "Knowledge Sharing"
     ],
 
     "AI Tools & Assistants": [

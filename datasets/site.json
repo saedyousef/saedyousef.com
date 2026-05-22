@@ -22,8 +22,7 @@
     "about": {
       "number": "01",
       "title": "About",
-      "eyebrow": "Backend systems, architecture, and stability",
-      "techIntro": "Current working set"
+      "eyebrow": "Backend systems, architecture, and stability"
     },
     "experience": {
       "number": "02",
