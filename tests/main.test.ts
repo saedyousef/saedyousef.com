@@ -73,10 +73,6 @@ function mountPortfolioDom(): void {
                 <div class="section-heading"></div>
                 <div class="about-card">
                     <div class="prose-copy"></div>
-                    <div class="tech-snapshot">
-                        <p class="tech-intro"></p>
-                        <ul class="tech-list"></ul>
-                    </div>
                 </div>
             </section>
             <section class="experience-section">
@@ -191,8 +187,9 @@ describe('portfolio renderer', () => {
         expect(select('.hero-title')?.textContent).toBe(profileJson.name);
         expect(select('.hero-subtitle')?.textContent).toBe(profileJson.subtitle);
         expect(select('.terminal-body')?.textContent).not.toContain('version');
-        expect(select('.terminal-body')?.textContent).toContain('9+ years');
+        expect(select('.terminal-body')?.textContent).toContain('10+ years');
         expect(select('.about-card .prose-copy')?.querySelectorAll('p')).toHaveLength(profileJson.about.length);
+        expect(select('.about-card .tech-snapshot')).toBeNull();
         expect(select('.experience-section .timeline')?.querySelectorAll('article')).toHaveLength(experiencesJson.length);
         expect(select('.experience-section .timeline')?.innerHTML).toContain('https://jordanoffers.net');
         expect(select('.experience-section .timeline')?.innerHTML).toContain('https://joshops.com');

@@ -38,7 +38,6 @@ export interface SiteSection {
     title: string;
     eyebrow: string;
     summary?: string;
-    techIntro?: string;
 }
 
 export interface SocialLink {

@@ -39,8 +39,6 @@ const selectors = {
     footerText: '.footer-text',
     aboutHeader: '.about-section .section-heading',
     aboutContent: '.about-card .prose-copy',
-    techIntro: '.tech-snapshot .tech-intro',
-    techList: '.tech-snapshot .tech-list',
     experienceHeader: '.experience-section .section-heading',
     experienceContainer: '.experience-section .timeline',
     educationHeader: '.education-section .section-heading',
@@ -105,8 +103,7 @@ const fallbackSiteData: SiteData = {
         about: {
             number: '01',
             title: 'About',
-            eyebrow: 'Profile',
-            techIntro: 'Current working set'
+            eyebrow: 'Profile'
         },
         experience: {
             number: '02',
@@ -444,7 +441,7 @@ function renderHeroTerminal(): void {
     const rows: Array<{ label: string; value: string; href?: string }> = [
         { label: 'name', value: profileData.name },
         { label: 'title', value: profileData.title },
-        { label: 'experience', value: '9+ years' },
+        { label: 'experience', value: '10+ years' },
         { label: 'domain', value: siteData.canonicalDomain, href: profileData.contact.website },
         { label: 'email', value: profileData.contact.email, href: `mailto:${profileData.contact.email}` },
         { label: 'source', value: 'GitHub repository', href: siteData.sourceRepository }
@@ -495,8 +492,6 @@ function updateFooter(): void {
 
 function renderAboutSection(): void {
     const aboutContent = selectElement<HTMLElement>(selectors.aboutContent);
-    const techIntro = selectElement<HTMLElement>(selectors.techIntro);
-    const techList = selectElement<HTMLElement>(selectors.techList);
 
     renderSectionHeader(selectors.aboutHeader, siteData?.sections.about);
 
@@ -504,26 +499,6 @@ function renderAboutSection(): void {
         clearElement(aboutContent);
         profileData.about.forEach(paragraph => appendTextElement(aboutContent, 'p', '', paragraph));
     }
-
-    if (techIntro) {
-        techIntro.textContent = siteData?.sections.about.techIntro || 'Technologies';
-    }
-
-    if (!techList) {
-        return;
-    }
-
-    clearElement(techList);
-
-    const skillBuckets = skillsData?.skills || {};
-    const technologies = Array.from(new Set(Object.values(skillBuckets).flat().filter(Boolean))).slice(0, 14);
-
-    if (technologies.length === 0) {
-        appendTextElement(techList, 'li', '', 'Technologies data will be available soon.');
-        return;
-    }
-
-    technologies.forEach(technology => appendTextElement(techList, 'li', '', technology));
 }
 
 function renderExperienceSection(): void {
