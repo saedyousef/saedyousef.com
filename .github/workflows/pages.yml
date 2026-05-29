@@ -6,6 +6,11 @@ on:
   schedule:
     - cron: '0 */4 * * *'
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Optional immutable version snapshot to create, for example v1 or v2'
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -50,6 +55,27 @@ jobs:
       - name: Verify custom domain artifact
         run: |
           node -e "const fs = require('fs'); const value = fs.readFileSync('dist/CNAME', 'utf8').trim(); if (value !== 'saedyousef.com') { throw new Error('Invalid CNAME: ' + value); }"
+
+      - name: Create version snapshot
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version != '' }}
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: npm run snapshot -- "$VERSION"
+
+      - name: Commit version snapshot
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version != '' }}
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "$VERSION"
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit."
+          else
+            git commit -m "archive website $VERSION [skip ci]"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
 
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
