@@ -69,8 +69,8 @@
     },
     {
         "title": "SaedYousef.com Portfolio",
-        "description": "The latest personal portfolio site you are viewing now, built as a fast static site with JSON-backed content, a GitHub contribution heatmap, responsive sections, and a deployable Vite build.",
-        "status": "Latest · saedyousef.com",
+        "description": "The personal portfolio site you are viewing now, built as a fast static site with JSON-backed content, a GitHub contribution heatmap, responsive sections, and a deployable Vite build.",
+        "status": "Live · saedyousef.com",
         "technologies": [
             "TypeScript",
             "Vite",
@@ -83,29 +83,6 @@
             {
                 "label": "Website",
                 "href": "https://saedyousef.com"
-            },
-            {
-                "label": "Source",
-                "href": "https://github.com/saedyousef/saedyousef.com"
-            }
-        ]
-    },
-    {
-        "title": "SaedYousef.com Portfolio v1",
-        "description": "The first archived version of my personal portfolio, preserved as a static snapshot at v1.saedyousef.com.",
-        "status": "Archived · v1.saedyousef.com",
-        "technologies": [
-            "TypeScript",
-            "Vite",
-            "CSS3",
-            "JSON",
-            "GitHub Pages",
-            "GitHub Actions"
-        ],
-        "links": [
-            {
-                "label": "Website",
-                "href": "https://v1.saedyousef.com"
             },
             {
                 "label": "Source",

@@ -1,0 +1,124 @@
+{
+  "skills": {
+    "Core Software Skills": [
+      "Object-Oriented Programming (OOP)",
+      "Design Patterns",
+      "RESTful API Development",
+      "API Integrations",
+      "System-to-System Integrations",
+      "Software Architecture",
+      "System Design",
+      "Technical Planning",
+      "RFC Ownership",
+      "Architecture Reviews",
+      "Technical Decision Making",
+      "Performance Engineering",
+      "Database Query Optimization",
+      "Production Debugging",
+      "System Stability",
+      "Scalability Planning",
+      "Application Upgrades & Migrations",
+      "Framework & Library Migrations",
+      "Full-Stack Web Development",
+      "Database Design & Indexing",
+      "Workflow Automation",
+      "Internal Tooling",
+      "DevOps & Deployment",
+      "Release Visibility",
+      "Code Review & Quality Assurance",
+      "Technical Documentation",
+      "Developer Onboarding",
+      "Analytical Thinking",
+      "Team Leadership",
+      "Spoken & Written English"
+    ],
+
+    "Project & Task Management": [
+      "ClickUp",
+      "Jira"
+    ],
+
+    "Development Tools & Frameworks": [
+      "PHP",
+      "Laravel",
+      "TypeScript",
+      "Nuxt",
+      "Go",
+      "Composer",
+      "Docker",
+      "Dockerfile Optimization",
+      "Git & GitHub",
+      "GitHub Actions",
+      "Kubernetes",
+      "Container Registry Workflows",
+      "Microsoft Teams Integrations",
+      "n8n Workflow Automation"
+    ],
+
+    "Cloud & Infrastructure": [
+      "AWS",
+      "AWS CodeBuild",
+      "AWS CodePipeline",
+      "AWS CloudFormation",
+      "DigitalOcean",
+      "Infrastructure as Code (IaC)",
+      "Containerized Applications",
+      "Resource Usage Optimization",
+      "Rancher (Kubernetes Management)"
+    ],
+
+    "Data & Search Technologies": [
+      "MySQL",
+      "SQLite",
+      "Redis",
+      "Algolia"
+    ],
+
+    "Frontend Development": [
+      "HTML5",
+      "CSS3 / SASS",
+      "JavaScript (ES6+)",
+      "TypeScript",
+      "Nuxt",
+      "jQuery",
+      "MVC Architecture"
+    ],
+
+    "Operating Systems & Web Servers": [
+      "Linux",
+      "Ubuntu",
+      "Unix",
+      "Nginx",
+      "Apache"
+    ],
+
+    "IDEs & Text Editors": [
+      "VS Code",
+      "PhpStorm",
+      "WebStorm",
+      "Android Studio",
+      "Xcode",
+      "Cursor",
+      "Sublime Text",
+      "Vim"
+    ],
+
+    "Software Methodologies": [
+      "Agile",
+      "Scrum",
+      "Continuous Integration (CI)",
+      "Continuous Delivery (CD)",
+      "CI/CD Migration",
+      "Technical RFCs",
+      "Knowledge Sharing"
+    ],
+
+    "AI Tools & Assistants": [
+      "ChatGPT",
+      "OpenAI Codex",
+      "GitHub Copilot",
+      "Cursor AI Editor",
+      "Claude Code"
+    ]
+  }
+}

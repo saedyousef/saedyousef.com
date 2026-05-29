@@ -1,0 +1,121 @@
+[
+    {
+        "company": "Awardit DACH",
+        "url": "https://www.awardit-solutions.com",
+        "position": "Lead Developer",
+        "start": "Feb 2026",
+        "end": "Present",
+        "location": "Bruchsal, Germany",
+        "workType": "Hybrid",
+        "description": "Work as a Lead Developer on business-critical systems within Awardit DACH, with a focus on software engineering, system stability, automation, infrastructure, and long-term technical improvements.",
+        "responsibilities": [
+            "Initiate technical planning, lead RFCs, review architecture decisions, and make practical technical tradeoffs.",
+            "Improve existing systems, fix production issues, and make the platform more stable, scalable, and easier to operate.",
+            "Reduce technical friction and manual effort through CI/CD improvements, infrastructure support, debugging, and code reviews.",
+            "Build automation and workflow improvements for internal teams and client-facing processes.",
+            "Improve user-facing workflows and UI where better interaction design makes operational tasks simpler and faster."
+        ]
+    },
+    {
+        "company": "Jordan Offers",
+        "url": "https://jordanoffers.net",
+        "position": "Technical Director",
+        "start": "Mar 2026",
+        "end": "Present",
+        "location": "Amman, Jordan",
+        "workType": "Remote",
+        "description": "Set technical direction for Jordan Offers' ecommerce platform, supporting custom signage, handcrafted products, and storefront operations with reliable commerce workflows.",
+        "responsibilities": [
+            "Guide technical decisions for the ecommerce storefront and customer ordering flows.",
+            "Improve platform stability, product catalog structure, and operational automation.",
+            "Support integrations for payments, delivery, customer communication, and internal workflows.",
+            "Translate business needs into maintainable technical plans and delivery priorities."
+        ]
+    },
+    {
+        "company": "Joshops",
+        "url": "https://joshops.com",
+        "position": "Software Architect",
+        "start": "Apr 2026",
+        "end": "Present",
+        "location": "Remote",
+        "workType": "Remote",
+        "description": "Design the architecture for an ecommerce platform, focusing on maintainable backend structure, scalability, integrations, and reliable delivery foundations.",
+        "responsibilities": [
+            "Define software architecture and service boundaries for ecommerce platform features.",
+            "Design backend flows for catalog, ordering, integrations, and operational tooling.",
+            "Review implementation approaches to keep the platform maintainable as it grows.",
+            "Establish practical technical standards for stability, performance, and future development."
+        ]
+    },
+    {
+        "company": "IPO Solutions",
+        "position": "Development Team Lead",
+        "start": "Aug 2021",
+        "end": "Feb 2026",
+        "location": "Weingarten & Bruchsal, Germany",
+        "workType": "Remote / On-site / Hybrid",
+        "description": "Progressed from Software Engineer to Senior Software Engineer and later Development Team Lead, working on business-critical systems while combining hands-on software engineering with technical planning, architecture decisions, infrastructure improvements, automation, and production stability.",
+        "responsibilities": [
+            "Built and improved backend services, RESTful APIs, integrations, JSON-based data flows, and application logic across multiple products.",
+            "Contributed to architecture discussions, code reviews, mentoring, agile delivery, documentation, and test coverage improvements.",
+            "Improved existing systems through performance work, database query optimization, application upgrades, dependency modernization, deployment workflow improvements, and long-term maintainability work.",
+            "Optimized key application flows and reduced homepage loading time from around 4 seconds to under 500ms.",
+            "Upgraded older applications to newer runtime and framework versions, modernized dependencies, and migrated one application to a more maintainable framework.",
+            "Managed and improved infrastructure using Laravel, Docker, Kubernetes, AWS, and REST API delivery practices.",
+            "Rewrote CloudFormation templates for containerized applications, redesigned Dockerfiles, and reduced wasted resource usage by around 35%.",
+            "Migrated CI/CD from AWS CodeBuild and CodePipeline to GitHub Actions, including moving the container registry workflow to GitHub.",
+            "Resolved a critical deployment issue caused by GitHub rate limits around a private internal package, making deployments more reliable.",
+            "Reduced deployment pipeline time from around 27 minutes to about 7 minutes.",
+            "Built internal tools and Microsoft Teams integrations to improve visibility around build, test, deployment, and release status.",
+            "Created documentation for local development, infrastructure changes, CloudFormation migration, and CI/CD workflows, including a one-command local container setup."
+        ]
+    },
+    {
+        "company": "Freelance",
+        "position": "Freelance Software Engineer",
+        "start": "May 2020",
+        "end": "Jun 2021",
+        "location": "Remote",
+        "workType": "Remote",
+        "description": "Delivered freelance backend and full-stack projects for clients, focusing on API design, integrations, PHP applications, AWS-backed deployments, and independent project delivery.",
+        "responsibilities": [
+            "Designed and integrated APIs for client applications and internal workflows.",
+            "Built full-stack PHP applications and supported deployment to AWS-based environments.",
+            "Managed project scope, communication, milestones, and delivery priorities independently.",
+            "Applied maintainable code structure, design patterns, and automated testing where appropriate."
+        ]
+    },
+    {
+        "company": "Plexable",
+        "position": "Senior Software Engineer",
+        "start": "Aug 2019",
+        "end": "Jan 2020",
+        "location": "Amman, Jordan",
+        "workType": "On-site",
+        "description": "Worked as a Senior Software Engineer on core backend systems and integration-heavy APIs, with a focus on delivery workflows, client support, operational fixes, and maintainable service behavior.",
+        "responsibilities": [
+            "Developed and maintained backend services and APIs used by client-facing delivery workflows.",
+            "Built and improved SDKs and integration layers for delivery providers and external systems.",
+            "Investigated production issues, shipped fixes, and supported client onboarding and technical questions.",
+            "Improved API reliability, data handling, and integration documentation.",
+            "Helped train new team members through code reviews, knowledge sharing, and implementation guidance."
+        ]
+    },
+    {
+        "company": "Classera",
+        "position": "Software Engineer",
+        "start": "Jul 2016",
+        "end": "Jul 2019",
+        "location": "Amman, Jordan",
+        "workType": "On-site",
+        "description": "Worked on education platform systems across APIs, integrations, payment gateways, and infrastructure, eventually leading backend API development for multiple projects and coordinating releases with other teams.",
+        "responsibilities": [
+            "Led backend API development and integration work across multiple learning platform modules.",
+            "Designed and maintained RESTful APIs, data flows, and third-party integrations.",
+            "Set up and maintained payment gateway integrations and related operational workflows.",
+            "Managed servers, application environments, deployments, and release coordination.",
+            "Supported project planning, reviewed implementation work, and mentored junior developers."
+        ]
+    }
+]
