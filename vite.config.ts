@@ -1,5 +1,5 @@
 import { existsSync } from 'node:fs';
-import { cp, copyFile, mkdir } from 'node:fs/promises';
+import { cp, copyFile, mkdir, readdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { defineConfig, type Plugin } from 'vite';
@@ -14,8 +14,11 @@ function copyStaticSiteFiles(): Plugin {
         apply: 'build',
         async closeBundle() {
             const outDir = resolve(rootDir, 'dist');
+            const versionEntries = (await readdir(rootDir, { withFileTypes: true }))
+                .filter(entry => entry.isDirectory() && /^v\d+$/.test(entry.name))
+                .map(entry => entry.name);
 
-            await Promise.all(entries.map(async entry => {
+            await Promise.all([...entries, ...versionEntries].map(async entry => {
                 const source = resolve(rootDir, entry);
                 const destination = resolve(outDir, entry);
 
@@ -36,7 +39,7 @@ function copyStaticSiteFiles(): Plugin {
 }
 
 export default defineConfig({
-    base: '/',
+    base: './',
     build: {
         outDir: 'dist',
         emptyOutDir: true,

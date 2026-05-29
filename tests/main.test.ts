@@ -144,7 +144,8 @@ describe('portfolio datasets', () => {
         expect(projectsJson).toEqual(expect.arrayContaining([
             expect.objectContaining({ title: 'Repository Dispatch GitHub Action', status: 'Open source · GitHub Action' }),
             expect.objectContaining({ title: 'Workflow Dispatcher', status: 'Live · workflow-dispatcher.saedyousef.com' }),
-            expect.objectContaining({ title: 'SaedYousef.com Portfolio', status: 'Live · saedyousef.com' })
+            expect.objectContaining({ title: 'SaedYousef.com Portfolio', status: 'Latest · saedyousef.com' }),
+            expect.objectContaining({ title: 'SaedYousef.com Portfolio v1', status: 'Archived · v1.saedyousef.com' })
         ]));
         expect(skillsJson.skills['Development Tools & Frameworks']).toContain('PHP');
         expect(skillsJson.skills['Development Tools & Frameworks']).toContain('TypeScript');
@@ -203,10 +204,12 @@ describe('portfolio renderer', () => {
         expect(select('.projects-section .project-grid')?.textContent).toContain('Repository Dispatch GitHub Action');
         expect(select('.projects-section .project-grid')?.textContent).toContain('Workflow Dispatcher');
         expect(select('.projects-section .project-grid')?.textContent).toContain('SaedYousef.com Portfolio');
+        expect(select('.projects-section .project-grid')?.textContent).toContain('SaedYousef.com Portfolio v1');
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://php-n8n.com');
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://workflow-dispatcher.saedyousef.com/');
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://github.com/saedyousef/repository-dispatch');
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://github.com/saedyousef/saedyousef.com');
+        expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://v1.saedyousef.com');
         expect(select('.contact-section .contact-title')?.textContent).toBe(siteJson.contact.title);
         expect(select('.theme-toggle')).not.toBeNull();
         expect(select('.effects-toggle')).not.toBeNull();
@@ -215,7 +218,6 @@ describe('portfolio renderer', () => {
         expect(select('.scroll-top-button')).not.toBeNull();
         expect(select('.scroll-top-button')?.getAttribute('aria-hidden')).toBe('true');
         expect(document.querySelectorAll('.section-number')).toHaveLength(0);
-        expect(document.body.textContent?.toLowerCase()).not.toMatch(/portfolio v\d/);
         expect(document.body.textContent?.toLowerCase()).not.toMatch(/technical\s+resume/);
         expect(document.body.textContent).not.toContain('First version designed & built by Saed Yousef | saedyousef.com');
     });
