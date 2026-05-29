@@ -47,33 +47,31 @@ function mockFetch(): void {
 
 function mountPortfolioDom(): void {
     document.body.innerHTML = `
-        <a class="site-brand"></a>
-        <nav class="site-nav"></nav>
-        <button class="theme-toggle" type="button">
-            <span class="site-theme-toggle-icon"></span>
-            <span class="theme-toggle-label"></span>
-        </button>
-        <button class="effects-toggle" type="button">
-            <span class="effects-toggle-icon"></span>
-            <span class="effects-toggle-label"></span>
-        </button>
-        <button class="menu-toggle" type="button" aria-expanded="false"></button>
-        <main>
-            <section class="hero-section home-section">
-                <div class="hero-copy">
-                    <p class="eyebrow"></p>
+        <div class="above-fold">
+            <nav class="site-nav" aria-label="Primary navigation">
+                <div class="nav-left">
+                    <a class="nav-logo" href="#home"></a>
+                    <a class="nav-logo-text site-brand" href="#home"></a>
+                    <div class="nav-links"></div>
+                </div>
+                <div class="nav-right">
+                    <a class="nav-login" href="#contact">Contact</a>
+                </div>
+            </nav>
+            <header id="home" class="hero">
+                <div class="hero-headline">
+                    <p class="hero-kicker"></p>
                     <h1 class="hero-title"></h1>
                     <p class="hero-subtitle"></p>
-                    <p class="hero-description"></p>
                     <div class="hero-actions"></div>
                 </div>
-                <div class="terminal-body"></div>
-            </section>
+                <div class="term-player hero-terminal"></div>
+            </header>
+        </div>
+        <main>
             <section class="about-section">
                 <div class="section-heading"></div>
-                <div class="about-card">
-                    <div class="prose-copy"></div>
-                </div>
+                <div class="prose-copy"></div>
             </section>
             <section class="experience-section">
                 <div class="section-heading"></div>
@@ -105,7 +103,6 @@ function mountPortfolioDom(): void {
         <footer>
             <div class="mobile-social"></div>
         </footer>
-        <button class="scroll-top-button" type="button"></button>
     `;
 }
 
@@ -114,10 +111,11 @@ function select<T extends Element = HTMLElement>(selector: string): T | null {
 }
 
 describe('portfolio datasets', () => {
-    it('keeps the correct canonical domain without visible version branding', () => {
+    it('keeps the correct canonical domain and v2 theme metadata', () => {
         expect(siteJson.canonicalDomain).toBe('saedyousef.com');
-        expect(JSON.stringify(siteJson).toLowerCase()).not.toMatch(/portfolio v\d|\bv\d\b/);
+        expect(siteJson.theme).toContain('v2 minimal');
         expect(JSON.stringify(siteJson).toLowerCase()).not.toMatch(/technical\s+resume/);
+        expect(profileJson.footer.text).not.toContain('First version');
     });
 
     it('contains the required profile contact URLs', () => {
@@ -185,14 +183,17 @@ describe('portfolio renderer', () => {
         renderPortfolio();
 
         expect(document.title).toContain(profileJson.name);
-        expect(select('.site-nav')?.querySelectorAll('a')).toHaveLength(siteJson.navigation.length);
-        expect(select('.site-nav')?.textContent).not.toMatch(/\d{2}\./);
+        expect(select('.site-brand')?.textContent).toBe(profileJson.name);
+        expect(select('.nav-links')?.querySelectorAll('a')).toHaveLength(siteJson.navigation.length);
         expect(select('.hero-title')?.textContent).toBe(profileJson.name);
         expect(select('.hero-subtitle')?.textContent).toBe(profileJson.subtitle);
-        expect(select('.terminal-body')?.textContent).not.toContain('version');
-        expect(select('.terminal-body')?.textContent).toContain('10+ years');
-        expect(select('.about-card .prose-copy')?.querySelectorAll('p')).toHaveLength(profileJson.about.length);
-        expect(select('.about-card .tech-snapshot')).toBeNull();
+        expect(select('.hero-terminal')?.textContent).toContain(profileJson.name);
+        expect(select('.hero-terminal')?.textContent).toContain(profileJson.title);
+        expect(select('.hero-terminal')?.textContent).toContain('10+ years');
+        expect(select('.hero-terminal')?.textContent).toContain('PHP n8n Client');
+        expect(select('.hero-terminal')?.querySelectorAll('.tp-kv-line').length).toBeGreaterThan(0);
+        expect(select('.hero-terminal')?.querySelectorAll('.tp-type').length).toBeGreaterThan(0);
+        expect(select('.about-section .prose-copy')?.querySelectorAll('p')).toHaveLength(profileJson.about.length);
         expect(select('.experience-section .timeline')?.querySelectorAll('article')).toHaveLength(experiencesJson.length);
         expect(select('.experience-section .timeline')?.innerHTML).toContain('https://jordanoffers.net');
         expect(select('.experience-section .timeline')?.innerHTML).toContain('https://joshops.com');
@@ -211,12 +212,10 @@ describe('portfolio renderer', () => {
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://github.com/saedyousef/saedyousef.com');
         expect(select('.projects-section .project-grid')?.innerHTML).toContain('https://v1.saedyousef.com');
         expect(select('.contact-section .contact-title')?.textContent).toBe(siteJson.contact.title);
-        expect(select('.theme-toggle')).not.toBeNull();
-        expect(select('.effects-toggle')).not.toBeNull();
-        expect(select('.effects-toggle .effects-toggle-label')?.textContent).toBe('Effects Off');
-        expect(select('.menu-toggle')).not.toBeNull();
-        expect(select('.scroll-top-button')).not.toBeNull();
-        expect(select('.scroll-top-button')?.getAttribute('aria-hidden')).toBe('true');
+        expect(select('.theme-toggle')).toBeNull();
+        expect(select('.effects-toggle')).toBeNull();
+        expect(select('.menu-toggle')).toBeNull();
+        expect(select('.scroll-top-button')).toBeNull();
         expect(document.querySelectorAll('.section-number')).toHaveLength(0);
         expect(document.body.textContent?.toLowerCase()).not.toMatch(/technical\s+resume/);
         expect(document.body.textContent).not.toContain('First version designed & built by Saed Yousef | saedyousef.com');
@@ -227,7 +226,7 @@ describe('portfolio renderer', () => {
         updateHeroSection();
         updateSocialLinks();
 
-        const heroLinks = select('.hero-copy .hero-actions')?.querySelectorAll('a');
+        const heroLinks = select('.hero .hero-actions')?.querySelectorAll('a');
         expect(heroLinks?.length).toBe(siteJson.hero.actions.length);
 
         const socialHtml = select('.mobile-social')?.innerHTML || '';

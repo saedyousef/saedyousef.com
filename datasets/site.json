@@ -1,28 +1,27 @@
 {
   "canonicalDomain": "saedyousef.com",
   "sourceRepository": "https://github.com/saedyousef/saedyousef.com",
-  "theme": "Nitro-inspired portfolio",
+  "theme": "v2 minimal exe.dev-inspired portfolio",
   "navigation": [
-    { "label": "About", "target": "about" },
-    { "label": "Experience", "target": "experience" },
-    { "label": "Skills", "target": "skills" },
-    { "label": "Work", "target": "projects" },
-    { "label": "Contributions", "target": "github-activity" },
-    { "label": "Contact", "target": "contact" }
+    { "label": "about", "target": "about" },
+    { "label": "experience", "target": "experience" },
+    { "label": "skills", "target": "skills" },
+    { "label": "work", "target": "projects" },
+    { "label": "activity", "target": "github-activity" }
   ],
   "hero": {
-    "eyebrow": "",
-    "terminalTitle": "profile.json",
+    "eyebrow": "backend systems / infrastructure / automation",
+    "terminalTitle": "saedyousef.com",
     "actions": [
       { "label": "View experience", "href": "#experience", "variant": "primary" },
-      { "label": "Contributions", "href": "#github-activity", "variant": "secondary" }
+      { "label": "GitHub activity", "href": "#github-activity", "variant": "secondary" }
     ]
   },
   "sections": {
     "about": {
       "number": "01",
       "title": "About",
-      "eyebrow": "Backend systems, architecture, and stability"
+      "eyebrow": "It is just software that has to work"
     },
     "experience": {
       "number": "02",
@@ -47,7 +46,7 @@
     "github": {
       "number": "06",
       "title": "Contributions",
-      "eyebrow": "Contribution signal"
+      "eyebrow": "GitHub activity"
     }
   },
   "socialLinks": [

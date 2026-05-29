@@ -1,111 +1,102 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth" data-theme="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#09101E">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
     <meta name="description" content="Saed Yousef portfolio focused on backend systems, integrations, infrastructure, automation, and technical leadership.">
     <title>Saed Yousef</title>
     <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="site-backdrop" aria-hidden="true">
-        <div class="grid-glow"></div>
-    </div>
-    <canvas class="cursor-trail" aria-hidden="true"></canvas>
+    <div class="above-fold">
+        <nav class="site-nav" aria-label="Primary navigation">
+            <div class="nav-left">
+                <a class="nav-logo" href="#home" aria-label="Home">SY</a>
+                <a class="nav-logo-text site-brand" href="#home">Saed Yousef</a>
+                <div class="nav-links"></div>
+            </div>
+            <div class="nav-right">
+                <a class="nav-login" href="#contact">
+                    <span class="nav-login-full">Contact / Email</span>
+                    <span class="nav-login-short">Contact</span>
+                </a>
+            </div>
+        </nav>
 
-    <header class="site-header">
-        <a class="site-brand" href="#home" aria-label="Home">SY</a>
-        <div class="header-actions">
-            <nav id="site-nav" class="site-nav" aria-label="Primary navigation"></nav>
-            <button class="effects-toggle" type="button" aria-label="Enable cursor effects" aria-pressed="false">
-                <span class="theme-toggle-icon effects-toggle-icon" aria-hidden="true"></span>
-                <span class="effects-toggle-label">Effects Off</span>
-            </button>
-            <button class="theme-toggle" type="button" aria-label="Switch to light theme" aria-pressed="false">
-                <span class="theme-toggle-icon site-theme-toggle-icon" aria-hidden="true"></span>
-                <span class="theme-toggle-label">Dark</span>
-            </button>
-            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-nav">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
+        <header id="home" class="hero">
+            <div class="hero-headline">
+                <div class="hero-spacer"></div>
+                <p class="hero-kicker"></p>
+                <h1 class="hero-title"></h1>
+                <p class="hero-subtitle"></p>
+                <div class="hero-actions"></div>
+                <div class="hero-spacer"></div>
+            </div>
+            <div class="term-player hero-terminal"></div>
+        </header>
+    </div>
 
     <main>
-        <section id="home" class="hero-section home-section">
-            <div class="hero-grid">
-                <div class="hero-copy reveal">
-                    <p class="eyebrow"></p>
-                    <h1 class="hero-title"></h1>
-                    <p class="hero-subtitle"></p>
-                    <p class="hero-description"></p>
-                    <div class="hero-actions"></div>
-                </div>
-
-                <div class="hero-terminal reveal">
-                    <div class="terminal-bar">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                    <div class="terminal-body"></div>
-                </div>
-            </div>
-
-        </section>
-
-        <section id="about" class="section-shell about-section reveal">
-            <div class="section-heading"></div>
-            <div class="content-card about-card">
+        <section id="about" class="feature-section about-section">
+            <div class="feature-inner">
+                <div class="section-heading"></div>
                 <div class="prose-copy"></div>
             </div>
         </section>
 
-        <section id="experience" class="section-shell experience-section reveal">
-            <div class="section-heading"></div>
-            <div class="timeline"></div>
+        <section id="experience" class="feature-section experience-section">
+            <div class="feature-inner">
+                <div class="section-heading"></div>
+                <div class="timeline"></div>
+            </div>
         </section>
 
-        <section id="education" class="section-shell education-section reveal">
-            <div class="section-heading"></div>
-            <div class="card-grid"></div>
+        <section id="education" class="feature-section education-section compact-section">
+            <div class="feature-inner">
+                <div class="section-heading"></div>
+                <div class="card-grid"></div>
+            </div>
         </section>
 
-        <section id="skills" class="section-shell skills-section reveal">
-            <div class="section-heading"></div>
-            <div class="skills-grid"></div>
+        <section id="skills" class="feature-section skills-section compact-section">
+            <div class="feature-inner">
+                <div class="section-heading"></div>
+                <div class="skills-grid"></div>
+            </div>
         </section>
 
-        <section id="projects" class="section-shell projects-section reveal">
-            <div class="section-heading"></div>
-            <div class="project-grid"></div>
+        <section id="projects" class="feature-section projects-section">
+            <div class="feature-inner">
+                <div class="section-heading"></div>
+                <div class="project-grid"></div>
+            </div>
         </section>
 
-        <section id="github-activity" class="section-shell github-section reveal">
-            <div class="section-heading"></div>
-            <div class="github-card"></div>
+        <section id="github-activity" class="feature-section github-section">
+            <div class="feature-inner">
+                <div class="section-heading"></div>
+                <div class="github-card"></div>
+            </div>
         </section>
 
-        <section id="contact" class="contact-section reveal">
-            <p class="eyebrow contact-eyebrow"></p>
-            <h2 class="contact-title"></h2>
-            <p class="contact-body"></p>
-            <div class="hero-actions center-actions contact-actions"></div>
+        <section id="contact" class="feature-section contact-section">
+            <div class="feature-inner contact-inner">
+                <p class="contact-eyebrow"></p>
+                <h2 class="contact-title"></h2>
+                <p class="contact-body"></p>
+                <div class="contact-actions"></div>
+            </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="mobile-social" aria-label="Social links"></div>
+        <div class="mobile-social footer-links" aria-label="Social links"></div>
     </footer>
-
-    <button class="scroll-top-button" type="button" aria-label="Scroll to top" aria-hidden="true" tabindex="-1">
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m6 15 6-6 6 6"></path>
-        </svg>
-    </button>
 
     <script type="module" src="./ts/main.ts"></script>
 </body>

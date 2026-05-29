@@ -1,6 +1,6 @@
 # SaedYousef.com Portfolio
 
-This repository contains Saed Yousef's personal portfolio site. It is a fast static site with a dark-by-default Nitro-inspired UI, a light theme option, JSON-backed content, and a GitHub contribution heatmap.
+This repository contains Saed Yousef's personal portfolio site. It is a fast static site with an exe.dev-inspired minimal UI, system light/dark color scheme, JSON-backed content, and a GitHub contribution heatmap.
 
 ## Local Development
 
@@ -45,6 +45,8 @@ npm run build
 - `datasets/skills.json`: grouped skills and technologies
 - `datasets/projects.json`: selected project cards and links
 - `datasets/github_activities.json`: local fallback contribution calendar
+
+The current root site is v2. The v1 static snapshot is preserved in `v1/` and should not be edited.
 
 ## Deployment
 

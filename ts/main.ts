@@ -21,24 +21,20 @@ let experiencesData: Experience[] = [];
 let educationData: Education[] = [];
 let projectsData: Project[] = [];
 let githubCalendarData: GitHubContributionCalendar | null = null;
-let cursorTrailCleanup: (() => void) | null = null;
-
-const boundElements = new WeakSet<Element>();
 
 const selectors = {
     siteBrand: '.site-brand',
-    siteNav: '.site-nav',
-    menuToggle: '.menu-toggle',
-    heroGreeting: '.hero-copy .eyebrow',
+    siteLogo: '.nav-logo',
+    siteNav: '.nav-links',
+    heroGreeting: '.hero-kicker',
     heroName: '.hero-title',
     heroSubtitle: '.hero-subtitle',
-    heroDescription: '.hero-description',
-    heroActions: '.hero-copy .hero-actions',
-    heroMeta: '.terminal-body',
+    heroActions: '.hero .hero-actions',
+    heroMeta: '.hero-terminal',
     socialLinks: '.mobile-social',
     footerText: '.footer-text',
     aboutHeader: '.about-section .section-heading',
-    aboutContent: '.about-card .prose-copy',
+    aboutContent: '.about-section .prose-copy',
     experienceHeader: '.experience-section .section-heading',
     experienceContainer: '.experience-section .timeline',
     educationHeader: '.education-section .section-heading',
@@ -52,22 +48,14 @@ const selectors = {
     contactEyebrow: '.contact-section .contact-eyebrow',
     contactTitle: '.contact-section .contact-title',
     contactBody: '.contact-section .contact-body',
-    contactActions: '.contact-section .contact-actions',
-    cursorTrail: '.cursor-trail',
-    effectsToggle: '.effects-toggle',
-    effectsLabel: '.effects-toggle .effects-toggle-label',
-    effectsIcon: '.effects-toggle .effects-toggle-icon',
-    themeToggle: '.theme-toggle',
-    themeLabel: '.theme-toggle .theme-toggle-label',
-    themeIcon: '.theme-toggle .site-theme-toggle-icon',
-    scrollTop: '.scroll-top-button'
+    contactActions: '.contact-section .contact-actions'
 } as const;
 
 const fallbackProfileData: ProfileData = {
     name: 'Saed Yousef',
     title: 'Software Engineer',
     subtitle: 'I build reliable backend systems.',
-    greeting: 'Backend systems',
+    greeting: 'Hi, my name is',
     about: ['Profile data is currently unavailable.'],
     contact: {
         email: 'me@saedyousef.com',
@@ -76,7 +64,7 @@ const fallbackProfileData: ProfileData = {
         website: 'https://saedyousef.com'
     },
     footer: {
-        text: 'Designed & Built by',
+        text: 'Designed and built by',
         showName: true
     }
 };
@@ -84,52 +72,28 @@ const fallbackProfileData: ProfileData = {
 const fallbackSiteData: SiteData = {
     canonicalDomain: 'saedyousef.com',
     sourceRepository: 'https://github.com/saedyousef/saedyousef.com',
-    theme: 'Nitro-inspired portfolio',
+    theme: 'v2 minimal portfolio',
     navigation: [
-        { label: 'About', target: 'about' },
-        { label: 'Experience', target: 'experience' },
-        { label: 'Skills', target: 'skills' },
-        { label: 'Contact', target: 'contact' }
+        { label: 'about', target: 'about' },
+        { label: 'experience', target: 'experience' },
+        { label: 'work', target: 'projects' },
+        { label: 'contact', target: 'contact' }
     ],
     hero: {
-        eyebrow: '',
-        terminalTitle: 'profile.json',
+        eyebrow: 'Backend systems / infrastructure / automation',
+        terminalTitle: 'saedyousef.com',
         actions: [
             { label: 'View experience', href: '#experience', variant: 'primary' },
             { label: 'Say hello', urlKey: 'email', variant: 'secondary' }
         ]
     },
     sections: {
-        about: {
-            number: '01',
-            title: 'About',
-            eyebrow: 'Profile'
-        },
-        experience: {
-            number: '02',
-            title: 'Experience',
-            eyebrow: 'Work'
-        },
-        education: {
-            number: '03',
-            title: 'Education',
-            eyebrow: 'Foundation'
-        },
-        skills: {
-            number: '04',
-            title: 'Skills',
-            eyebrow: 'Toolbox'
-        },
-        projects: {
-            number: '05',
-            title: 'Projects',
-            eyebrow: 'Selected work'
-        },
-        github: {
-            number: '06',
-            title: 'Contributions',
-            eyebrow: 'Contributions'
-        }
+        about: { number: '01', title: 'About', eyebrow: 'It is just software that has to work' },
+        experience: { number: '02', title: 'Experience', eyebrow: 'Production work' },
+        education: { number: '03', title: 'Education', eyebrow: 'Foundation' },
+        skills: { number: '04', title: 'Skills', eyebrow: 'Toolbox' },
+        projects: { number: '05', title: 'Selected Work', eyebrow: 'Projects and open source' },
+        github: { number: '06', title: 'Contributions', eyebrow: 'GitHub activity' }
     },
     socialLinks: [
         { id: 'github', label: 'GitHub', urlKey: 'github', icon: 'github' },
@@ -137,34 +101,13 @@ const fallbackSiteData: SiteData = {
         { id: 'email', label: 'Email', urlKey: 'email', icon: 'email' }
     ],
     contact: {
-        eyebrow: 'Contact',
+        eyebrow: 'Available for focused technical conversations',
         title: 'Let us build reliable systems.',
         body: 'Send a message and I will get back to you.',
         actions: [
             { label: 'Say hello', urlKey: 'email', variant: 'primary' }
         ]
     }
-};
-
-const iconMap: Record<SocialLink['icon'], string> = {
-    github: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a12 12 0 0 0-3.79 23.39c.6.11.82-.26.82-.58v-2.05c-3.34.73-4.04-1.42-4.04-1.42-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.2.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.53.12-3.18 0 0 1-.32 3.3 1.23a11.48 11.48 0 0 1 6 0C14.3 4.63 15.3 4.95 15.3 4.95c.66 1.65.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.62-5.49 5.92.43.37.82 1.1.82 2.23v3.31c0 .32.21.7.83.58A12 12 0 0 0 12 .5Z"/></svg>',
-    linkedin: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05a3.75 3.75 0 0 1 3.37-1.85c3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.32 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.54V9H7.1v11.45ZM22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0Z"/></svg>',
-    email: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></svg>',
-    code: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m8 9-4 3 4 3"/><path d="m16 9 4 3-4 3"/><path d="m14 5-4 14"/></svg>'
-};
-
-type UiIconName = 'briefcase' | 'calendar' | 'location' | 'remote' | 'school' | 'spark' | 'sun' | 'moon' | 'waves';
-
-const uiIconMap: Record<UiIconName, string> = {
-    briefcase: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6V5a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v1"/><path d="M3 8h18v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><path d="M3 13h18"/><path d="M10 13v2h4v-2"/></svg>',
-    calendar: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3v4"/><path d="M17 3v4"/><path d="M4 8h16"/><path d="M5 5h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/></svg>',
-    location: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.3"/></svg>',
-    remote: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H4z"/><path d="M8 19h8"/><path d="M12 15v4"/></svg>',
-    school: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-5 9 5-9 5-9-5Z"/><path d="M7 11.5V16c0 1.7 2.2 3 5 3s5-1.3 5-3v-4.5"/></svg>',
-    spark: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 9.8 8.8 4 11l5.8 2.2L12 19l2.2-5.8L20 11l-5.8-2.2L12 3Z"/></svg>',
-    sun: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>',
-    moon: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z"/></svg>',
-    waves: '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M3 14c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/><path d="M3 20c2 0 2-2 4-2s2 2 4 2 2-2 4-2 2 2 4 2"/></svg>'
 };
 
 async function fetchJson<T>(path: string): Promise<T> {
@@ -268,7 +211,7 @@ function resolveLinkUrl(link: SiteLink | SocialLink): string {
     return link.urlKey === 'email' ? `mailto:${value}` : value;
 }
 
-function createAnchor(label: string, href: string, className: string): HTMLAnchorElement {
+function createAnchor(label: string, href: string, className = ''): HTMLAnchorElement {
     const anchor = document.createElement('a');
     anchor.className = className;
     anchor.href = href;
@@ -282,36 +225,6 @@ function createAnchor(label: string, href: string, className: string): HTMLAncho
     return anchor;
 }
 
-function createIconAnchor(link: SocialLink): HTMLAnchorElement {
-    const anchor = createAnchor('', resolveLinkUrl(link), 'icon-link');
-    anchor.setAttribute('aria-label', link.label);
-    anchor.innerHTML = iconMap[link.icon];
-    return anchor;
-}
-
-function createUiIcon(name: UiIconName): HTMLSpanElement {
-    const icon = document.createElement('span');
-    icon.className = 'meta-icon';
-    icon.innerHTML = uiIconMap[name];
-    return icon;
-}
-
-function createMetaChip(icon: UiIconName, text: string, href?: string): HTMLSpanElement {
-    const chip = document.createElement('span');
-    chip.className = 'meta-chip';
-    chip.append(createUiIcon(icon), href ? createAnchor(text, href, 'meta-chip-link') : document.createTextNode(text));
-    return chip;
-}
-
-function bindOnce(element: Element): boolean {
-    if (boundElements.has(element)) {
-        return false;
-    }
-
-    boundElements.add(element);
-    return true;
-}
-
 function renderSectionHeader(headerSelector: string, section?: SiteSection): void {
     const container = selectElement<HTMLElement>(headerSelector);
 
@@ -321,15 +234,8 @@ function renderSectionHeader(headerSelector: string, section?: SiteSection): voi
 
     clearElement(container);
     appendTextElement(container, 'p', 'section-kicker', section.eyebrow);
+    appendTextElement(container, 'h2', 'section-title', section.title);
 
-    const title = document.createElement('h2');
-    title.className = 'section-title';
-
-    const label = document.createElement('span');
-    label.textContent = section.title;
-
-    title.appendChild(label);
-    container.appendChild(title);
     if (section.summary) {
         appendTextElement(container, 'p', 'section-summary', section.summary);
     }
@@ -340,16 +246,20 @@ function updatePageTitle(): void {
         return;
     }
 
-    const titleText = profileData.title ? `${profileData.name} | ${profileData.title}` : profileData.name;
-    document.title = titleText;
+    document.title = profileData.title ? `${profileData.name} - ${profileData.title}` : profileData.name;
 }
 
 function renderNavigation(): void {
     const nav = selectElement<HTMLElement>(selectors.siteNav);
-    const brand = selectElement<HTMLElement>(selectors.siteBrand);
+    const brand = selectElement<HTMLAnchorElement>(selectors.siteBrand);
+    const logo = selectElement<HTMLAnchorElement>(selectors.siteLogo);
 
     if (brand && profileData) {
-        brand.textContent = profileData.name
+        brand.textContent = profileData.name;
+    }
+
+    if (logo && profileData) {
+        logo.textContent = profileData.name
             .split(' ')
             .map(part => part[0])
             .join('')
@@ -362,50 +272,7 @@ function renderNavigation(): void {
     }
 
     clearElement(nav);
-
-    siteData.navigation.forEach((item) => {
-        const anchor = createAnchor(item.label, `#${item.target}`, '');
-        nav.appendChild(anchor);
-    });
-}
-
-function setNavigationOpen(open: boolean): void {
-    const nav = selectElement<HTMLElement>(selectors.siteNav);
-    const toggle = selectElement<HTMLButtonElement>(selectors.menuToggle);
-
-    if (nav) {
-        nav.classList.toggle('is-open', open);
-    }
-
-    if (toggle) {
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
-    }
-}
-
-function initNavigationToggle(): void {
-    const nav = selectElement<HTMLElement>(selectors.siteNav);
-    const toggle = selectElement<HTMLButtonElement>(selectors.menuToggle);
-
-    setNavigationOpen(false);
-
-    if (!nav || !toggle || !bindOnce(toggle)) {
-        return;
-    }
-
-    toggle.addEventListener('click', () => {
-        setNavigationOpen(toggle.getAttribute('aria-expanded') !== 'true');
-    });
-    nav.addEventListener('click', event => {
-        if (event.target instanceof HTMLAnchorElement) {
-            setNavigationOpen(false);
-        }
-    });
-    document.addEventListener('keydown', event => {
-        if (event.key === 'Escape') {
-            setNavigationOpen(false);
-        }
-    });
+    siteData.navigation.forEach(item => nav.appendChild(createAnchor(item.label, `#${item.target}`, 'nav-link')));
 }
 
 function updateHeroSection(): void {
@@ -413,18 +280,17 @@ function updateHeroSection(): void {
         return;
     }
 
-    setOptionalText(selectors.heroGreeting, siteData.hero.eyebrow || '');
+    setOptionalText(selectors.heroGreeting, siteData.hero.eyebrow || profileData.greeting || '');
     setText(selectors.heroName, profileData.name);
     setText(selectors.heroSubtitle, profileData.subtitle || profileData.title);
-    setText(selectors.heroDescription, profileData.about[0] || '');
 
     const actions = selectElement<HTMLElement>(selectors.heroActions);
     if (actions) {
         clearElement(actions);
         siteData.hero.actions.forEach(action => {
             const href = resolveLinkUrl(action);
-            const anchor = createAnchor(action.label, href, `button-link ${action.variant === 'primary' ? 'primary' : ''}`.trim());
-            actions.appendChild(anchor);
+            const className = action.variant === 'primary' ? 'button-link primary' : 'button-link';
+            actions.appendChild(createAnchor(action.label, href, className));
         });
     }
 
@@ -438,32 +304,112 @@ function renderHeroTerminal(): void {
         return;
     }
 
-    const rows: Array<{ label: string; value: string; href?: string }> = [
-        { label: 'name', value: profileData.name },
-        { label: 'title', value: profileData.title },
-        { label: 'experience', value: '10+ years' },
-        { label: 'domain', value: siteData.canonicalDomain, href: profileData.contact.website },
-        { label: 'email', value: profileData.contact.email, href: `mailto:${profileData.contact.email}` },
-        { label: 'source', value: 'GitHub repository', href: siteData.sourceRepository }
-    ];
+    const currentRoles = experiencesData
+        .filter(experience => experience.end === 'Present')
+        .map(experience => experience.company)
+        .slice(0, 3);
+    const highlightedProjects = projectsData.slice(0, 3).map(project => project.title);
+    const skillBuckets = Object.values(skillsData?.skills || {});
+    const focusItems = skillBuckets.flat().filter(skill => [
+        'PHP',
+        'TypeScript',
+        'AWS',
+        'Docker',
+        'Kubernetes',
+        'GitHub Actions',
+        'n8n'
+    ].includes(skill));
 
     clearElement(terminal);
 
-    rows.forEach(({ label, value, href }) => {
-        const row = document.createElement('dl');
-        row.className = 'terminal-row';
-        appendTextElement(row, 'dt', '', label);
-
-        const description = document.createElement('dd');
-        if (href) {
-            description.appendChild(createAnchor(value, href, 'terminal-link'));
-        } else {
-            description.textContent = value;
-        }
-
-        row.appendChild(description);
-        terminal.appendChild(row);
+    const titlebar = document.createElement('div');
+    titlebar.className = 'tp-titlebar';
+    const dots = document.createElement('div');
+    dots.className = 'tp-dots';
+    ['close', 'min', 'max'].forEach(name => {
+        const dot = document.createElement('span');
+        dot.className = `tp-dot tp-dot-${name}`;
+        dots.appendChild(dot);
     });
+    appendTextElement(titlebar, 'span', 'tp-title', siteData.hero.terminalTitle || siteData.canonicalDomain);
+    titlebar.prepend(dots);
+    terminal.appendChild(titlebar);
+
+    const tabs = document.createElement('div');
+    tabs.className = 'tp-tabs';
+    ['profile', 'work', 'contact'].forEach((label, index) => {
+        const tab = document.createElement('button');
+        tab.className = index === 0 ? 'tp-tab active' : 'tp-tab';
+        tab.type = 'button';
+        tab.textContent = label;
+        tabs.appendChild(tab);
+    });
+    terminal.appendChild(tabs);
+
+    const screen = document.createElement('div');
+    screen.className = 'tp-screen';
+    const lines = document.createElement('div');
+    lines.className = 'tp-lines';
+    screen.appendChild(lines);
+    terminal.appendChild(screen);
+
+    let lineIndex = 0;
+    lineIndex = appendTerminalCommand(lines, `ssh ${siteData.canonicalDomain}`, lineIndex);
+    lineIndex = appendTerminalStatus(lines, `connected to ${profileData.name}`, lineIndex);
+    lineIndex = appendTerminalKeyValue(lines, 'role', profileData.title, lineIndex);
+    lineIndex = appendTerminalKeyValue(lines, 'experience', '10+ years', lineIndex);
+    lineIndex = appendTerminalKeyValue(lines, 'current', currentRoles.join(' / ') || 'Available for focused systems work', lineIndex);
+    lineIndex = appendTerminalKeyValue(lines, 'focus', focusItems.slice(0, 7).join(', ') || 'backend systems, infrastructure, automation', lineIndex);
+    lineIndex = appendTerminalKeyValue(lines, 'projects', highlightedProjects.join(' / ') || 'Selected work loading', lineIndex);
+    lineIndex = appendTerminalKeyValue(lines, 'email', profileData.contact.email, lineIndex);
+
+    const cursorLine = document.createElement('div');
+    cursorLine.className = 'tp-line tp-command-line tp-cursor-line';
+    cursorLine.style.setProperty('--delay', `${lineIndex * 160}ms`);
+    cursorLine.appendChild(createTerminalSpan('$ ', 'tp-prompt-text'));
+    cursorLine.appendChild(createTerminalSpan('', 'tp-cursor'));
+    lines.appendChild(cursorLine);
+}
+
+function appendTerminalCommand(parent: HTMLElement, command: string, index: number): number {
+    const line = document.createElement('div');
+    line.className = 'tp-line tp-command-line';
+    line.appendChild(createTerminalSpan('$ ', 'tp-prompt-text'));
+    line.appendChild(createTypingSpan(command, 'tp-cmd-text', index));
+    parent.appendChild(line);
+    return index + 1;
+}
+
+function appendTerminalStatus(parent: HTMLElement, text: string, index: number): number {
+    const line = document.createElement('div');
+    line.className = 'tp-line tp-status-line';
+    line.appendChild(createTypingSpan(text, 'tp-cmd-text tp-bold', index));
+    parent.appendChild(line);
+    return index + 1;
+}
+
+function appendTerminalKeyValue(parent: HTMLElement, key: string, value: string, index: number): number {
+    const line = document.createElement('div');
+    line.className = 'tp-line tp-kv-line';
+    line.appendChild(createTerminalSpan(key, 'tp-label'));
+    line.appendChild(createTypingSpan(value, 'tp-output-text', index));
+    parent.appendChild(line);
+    return index + 1;
+}
+
+function createTerminalSpan(text: string, className: string): HTMLSpanElement {
+    const span = document.createElement('span');
+    span.className = className;
+    span.textContent = text;
+    return span;
+}
+
+function createTypingSpan(text: string, className: string, index: number): HTMLSpanElement {
+    const span = createTerminalSpan(text, `${className} tp-type`);
+    span.style.setProperty('--chars', `${Math.max(text.length, 1)}`);
+    span.style.setProperty('--delay', `${index * 160}ms`);
+    span.style.setProperty('--duration', `${Math.min(Math.max(text.length * 24, 340), 1400)}ms`);
+    return span;
 }
 
 function updateSocialLinks(): void {
@@ -471,23 +417,22 @@ function updateSocialLinks(): void {
         return;
     }
 
-    const mobileSocial = selectElement<HTMLElement>(selectors.socialLinks);
-    const socialLinks = siteData.socialLinks;
+    const container = selectElement<HTMLElement>(selectors.socialLinks);
 
-    if (mobileSocial) {
-        clearElement(mobileSocial);
-        socialLinks.forEach(link => mobileSocial.appendChild(createIconAnchor(link)));
+    if (!container) {
+        return;
     }
+
+    clearElement(container);
+    siteData.socialLinks.forEach(link => container.appendChild(createAnchor(link.label, resolveLinkUrl(link), 'footer-link')));
 }
 
 function updateFooter(): void {
     const footer = selectElement<HTMLElement>(selectors.footerText);
 
-    if (!footer) {
-        return;
+    if (footer) {
+        clearElement(footer);
     }
-
-    clearElement(footer);
 }
 
 function renderAboutSection(): void {
@@ -495,10 +440,12 @@ function renderAboutSection(): void {
 
     renderSectionHeader(selectors.aboutHeader, siteData?.sections.about);
 
-    if (aboutContent && profileData) {
-        clearElement(aboutContent);
-        profileData.about.forEach(paragraph => appendTextElement(aboutContent, 'p', '', paragraph));
+    if (!aboutContent || !profileData) {
+        return;
     }
+
+    clearElement(aboutContent);
+    profileData.about.forEach(paragraph => appendTextElement(aboutContent, 'p', '', paragraph));
 }
 
 function renderExperienceSection(): void {
@@ -511,41 +458,31 @@ function renderExperienceSection(): void {
     }
 
     clearElement(container);
-
     experiencesData.forEach(experience => {
         const item = document.createElement('article');
-        item.className = 'timeline-item';
+        item.className = 'timeline-item content-card';
 
-        const meta = document.createElement('div');
-        meta.className = 'timeline-meta';
-        meta.appendChild(createMetaChip('calendar', `${experience.start} - ${experience.end || 'Present'}`));
+        const heading = document.createElement('div');
+        heading.className = 'item-heading';
+        appendTextElement(heading, 'h3', '', experience.position);
+        appendTextElement(heading, 'p', 'item-date', `${experience.start} - ${experience.end || 'Present'}`);
+        item.appendChild(heading);
 
-        const content = document.createElement('div');
-        content.className = 'timeline-content';
+        const meta = document.createElement('p');
+        meta.className = 'item-meta';
+        meta.appendChild(createAnchor(experience.company, experience.url || '#', 'inline-link'));
+        meta.append(` / ${experience.location} / ${experience.workType}`);
+        item.appendChild(meta);
 
-        appendTextElement(content, 'h3', '', experience.position);
-
-        const metaList = document.createElement('div');
-        metaList.className = 'meta-list';
-        metaList.appendChild(createMetaChip('briefcase', experience.company, experience.url));
-        if (experience.location) {
-            metaList.appendChild(createMetaChip('location', experience.location));
-        }
-        if (experience.workType) {
-            metaList.appendChild(createMetaChip('remote', experience.workType));
-        }
-        content.appendChild(metaList);
-
-        appendTextElement(content, 'p', 'timeline-description', experience.description);
+        appendTextElement(item, 'p', 'item-description', experience.description);
 
         if (experience.responsibilities.length > 0) {
             const list = document.createElement('ul');
             list.className = 'bullet-list';
             experience.responsibilities.forEach(responsibility => appendTextElement(list, 'li', '', responsibility));
-            content.appendChild(list);
+            item.appendChild(list);
         }
 
-        item.append(meta, content);
         container.appendChild(item);
     });
 }
@@ -554,23 +491,17 @@ function renderEducationSection(): void {
     const container = selectElement<HTMLElement>(selectors.educationContainer);
 
     renderSectionHeader(selectors.educationHeader, siteData?.sections.education);
-
     if (!container) {
         return;
     }
 
     clearElement(container);
-
     educationData.forEach(education => {
         const card = document.createElement('article');
-        card.className = 'info-card';
-        const heading = document.createElement('div');
-        heading.className = 'card-heading';
-        heading.appendChild(createUiIcon('school'));
-        appendTextElement(heading, 'h3', '', education.institution);
-        card.appendChild(heading);
-        appendTextElement(card, 'p', 'info-meta', `${education.degree} / ${education.field}`);
-        appendTextElement(card, 'p', 'timeline-description', `${education.start} - ${education.end} / ${education.location}`);
+        card.className = 'content-card info-card';
+        appendTextElement(card, 'h3', '', education.institution);
+        appendTextElement(card, 'p', 'item-meta', `${education.degree} / ${education.field}`);
+        appendTextElement(card, 'p', 'item-description', `${education.start} - ${education.end} / ${education.location}`);
         container.appendChild(card);
     });
 }
@@ -579,7 +510,6 @@ function renderSkillsSection(): void {
     const container = selectElement<HTMLElement>(selectors.skillsContainer);
 
     renderSectionHeader(selectors.skillsHeader, siteData?.sections.skills);
-
     if (!container) {
         return;
     }
@@ -587,16 +517,11 @@ function renderSkillsSection(): void {
     clearElement(container);
 
     const skillBuckets = skillsData?.skills || {};
-
     Object.entries(skillBuckets).forEach(([category, skills]) => {
         const card = document.createElement('article');
-        card.className = 'skill-card';
+        card.className = 'content-card skill-card';
         appendTextElement(card, 'h3', '', category);
-
-        const list = document.createElement('ul');
-        list.className = 'tag-list';
-        skills.forEach(skill => appendTextElement(list, 'li', 'tag-pill', skill));
-        card.appendChild(list);
+        card.appendChild(createTagList(skills));
         container.appendChild(card);
     });
 
@@ -609,7 +534,6 @@ function renderProjectsSection(): void {
     const container = selectElement<HTMLElement>(selectors.projectsContainer);
 
     renderSectionHeader(selectors.projectsHeader, siteData?.sections.projects);
-
     if (!container) {
         return;
     }
@@ -618,27 +542,23 @@ function renderProjectsSection(): void {
 
     if (projectsData.length === 0) {
         const card = document.createElement('div');
-        card.className = 'coming-soon-card';
-        appendTextElement(card, 'p', 'coming-soon-title', 'Coming soon..');
+        card.className = 'coming-soon-card content-card';
+        appendTextElement(card, 'p', 'coming-soon-title', 'Coming soon.');
         container.appendChild(card);
         return;
     }
 
     projectsData.forEach(project => {
         const card = document.createElement('article');
-        card.className = 'project-card';
+        card.className = 'project-card content-card';
         appendTextElement(card, 'p', 'project-status', project.status || 'Project');
         appendTextElement(card, 'h3', '', project.title);
         appendTextElement(card, 'p', 'project-description', project.description);
-
-        const tags = document.createElement('ul');
-        tags.className = 'tag-list';
-        project.technologies.forEach(technology => appendTextElement(tags, 'li', 'tag-pill', technology));
-        card.appendChild(tags);
+        card.appendChild(createTagList(project.technologies));
 
         if (project.links && project.links.length > 0) {
             const links = document.createElement('div');
-            links.className = 'hero-actions';
+            links.className = 'card-actions';
             project.links.forEach(link => links.appendChild(createAnchor(link.label, link.href, 'button-link')));
             card.appendChild(links);
         }
@@ -647,11 +567,17 @@ function renderProjectsSection(): void {
     });
 }
 
+function createTagList(items: string[]): HTMLUListElement {
+    const tags = document.createElement('ul');
+    tags.className = 'tag-list';
+    items.forEach(item => appendTextElement(tags, 'li', 'tag-pill', item));
+    return tags;
+}
+
 function renderGitHubActivities(): void {
     const container = selectElement<HTMLElement>(selectors.githubContainer);
 
     renderSectionHeader(selectors.githubHeader, siteData?.sections.github);
-
     if (!container) {
         return;
     }
@@ -669,12 +595,8 @@ function renderGitHubActivities(): void {
 
     const summary = document.createElement('div');
     summary.className = 'github-summary';
-
-    const summaryCopy = document.createElement('div');
-    appendTextElement(summaryCopy, 'div', 'github-total', totalContributions.toLocaleString());
-    appendTextElement(summaryCopy, 'div', 'github-caption', 'contributions in the last year');
-    appendTextElement(summary, 'div', 'github-updated', `Updated ${latestDate}`);
-    summary.prepend(summaryCopy);
+    appendTextElement(summary, 'div', 'github-total', totalContributions.toLocaleString());
+    appendTextElement(summary, 'div', 'github-caption', `contributions in the last year / updated ${latestDate}`);
     container.appendChild(summary);
 
     const scroll = document.createElement('div');
@@ -698,11 +620,9 @@ function renderGitHubActivities(): void {
 
     const grid = document.createElement('div');
     grid.className = 'calendar-grid';
-
     weeks.forEach((week: ContributionWeek) => {
         const column = document.createElement('div');
         column.className = 'week-column';
-
         week.contributionDays.forEach((day: ContributionDay) => column.appendChild(createContributionCell(day)));
         grid.appendChild(column);
     });
@@ -774,7 +694,6 @@ function renderContactSection(): void {
     setText(selectors.contactBody, siteData.contact.body);
 
     const actions = selectElement<HTMLElement>(selectors.contactActions);
-
     if (!actions) {
         return;
     }
@@ -782,308 +701,17 @@ function renderContactSection(): void {
     clearElement(actions);
     siteData.contact.actions.forEach(action => {
         const href = resolveLinkUrl(action);
-        const anchor = createAnchor(action.label, href, `button-link ${action.variant === 'primary' ? 'primary' : ''}`.trim());
-        actions.appendChild(anchor);
+        const className = action.variant === 'primary' ? 'button-link primary' : 'button-link';
+        actions.appendChild(createAnchor(action.label, href, className));
     });
 }
 
 function initPointerEffects(): void {
-    if (!isCursorEffectSupported()) {
-        stopPointerEffects();
-        return;
-    }
-
-    cursorTrailCleanup?.();
-    cursorTrailCleanup = null;
-    void initChromaFlowTrail();
-}
-
-function stopPointerEffects(): void {
-    cursorTrailCleanup?.();
-    cursorTrailCleanup = null;
-
-    const canvas = selectElement<HTMLCanvasElement>(selectors.cursorTrail);
-
-    if (canvas) {
-        canvas.hidden = true;
-    }
-}
-
-function isCursorEffectSupported(): boolean {
-    const isReducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent) || window.innerWidth < 768;
-    const hasWebGPU = 'gpu' in navigator;
-    const deviceMemory = 'deviceMemory' in navigator ? Number(navigator.deviceMemory) : undefined;
-    const isLowMemory = deviceMemory !== undefined && deviceMemory < 4;
-    const isLowCore = navigator.hardwareConcurrency !== undefined && navigator.hardwareConcurrency < 4;
-
-    return hasWebGPU && !isReducedMotion && !isMobile && !isLowMemory && !isLowCore;
-}
-
-async function initChromaFlowTrail(): Promise<void> {
-    const existingCanvas = selectElement<HTMLCanvasElement>(selectors.cursorTrail);
-
-    if (!existingCanvas) {
-        return;
-    }
-
-    if (!isCursorEffectSupported()) {
-        existingCanvas.hidden = true;
-        return;
-    }
-
-    const canvas = existingCanvas.cloneNode(false) as HTMLCanvasElement;
-    canvas.hidden = false;
-    existingCanvas.replaceWith(canvas);
-
-    try {
-        const { createShader } = await import('shaders/js');
-        const shader = await createShader(canvas, {
-            components: [
-                {
-                    type: 'ChromaFlow',
-                    id: 'cursorChromaFlow',
-                    props: {
-                        ...getCursorTrailColors(),
-                        opacity: 0.5,
-                        intensity: 0.7
-                    }
-                }
-            ]
-        }, {
-            colorSpace: 'p3-linear',
-            disableTelemetry: true,
-            enablePerformanceTracking: false
-        });
-
-        cursorTrailCleanup = () => {
-            shader.destroy();
-            cursorTrailCleanup = null;
-        };
-
-        window.addEventListener('pagehide', () => {
-            cursorTrailCleanup?.();
-        }, { once: true });
-    } catch (error) {
-        console.error('Failed to initialize ChromaFlow cursor effect.', error);
-        canvas.hidden = true;
-    }
-}
-
-function getCursorTrailColors(): { baseColor: string; upColor: string; downColor: string; rightColor: string; leftColor: string } {
-    if (document.documentElement.dataset.theme === 'light') {
-        return {
-            baseColor: '#2563eb',
-            upColor: '#60a5fa',
-            downColor: '#1d4ed8',
-            rightColor: '#2563eb',
-            leftColor: '#1e40af'
-        };
-    }
-
-    return {
-        baseColor: '#b91c1c',
-        upColor: '#dc2626',
-        downColor: '#7f1d1d',
-        rightColor: '#991b1b',
-        leftColor: '#ef4444'
-    };
-}
-
-function getPreferredEffectsEnabled(): boolean {
-    try {
-        const storage = window.localStorage;
-        return typeof storage?.getItem === 'function' && storage.getItem('cursorEffects') === 'enabled';
-    } catch {
-        return false;
-    }
-}
-
-function updateEffectsToggle(enabled: boolean, supported = isCursorEffectSupported()): void {
-    const toggle = selectElement<HTMLButtonElement>(selectors.effectsToggle);
-    const label = selectElement<HTMLElement>(selectors.effectsLabel);
-    const icon = selectElement<HTMLElement>(selectors.effectsIcon);
-
-    if (!toggle) {
-        return;
-    }
-
-    toggle.disabled = !supported;
-    toggle.hidden = !supported;
-    toggle.setAttribute('aria-pressed', enabled && supported ? 'true' : 'false');
-    toggle.setAttribute('aria-label', `${enabled && supported ? 'Disable' : 'Enable'} cursor effects`);
-    toggle.dataset.tooltip = 'Enabling this loads a WebGL/WebGPU shader library for the cursor trail. It is heavier than the static site and may affect battery life or performance.';
-    toggle.title = supported ? toggle.dataset.tooltip : 'Cursor effects require WebGPU on a desktop browser.';
-
-    if (label) {
-        label.textContent = enabled && supported ? 'Effects On' : 'Effects Off';
-    }
-
-    if (icon) {
-        icon.innerHTML = uiIconMap.waves;
-    }
-}
-
-function setEffectsEnabled(enabled: boolean): void {
-    const supported = isCursorEffectSupported();
-
-    try {
-        const storage = window.localStorage;
-        if (typeof storage?.setItem === 'function') {
-            storage.setItem('cursorEffects', enabled ? 'enabled' : 'disabled');
-        }
-    } catch {
-        // The toggle still works for the current page load if storage is unavailable.
-    }
-
-    if (enabled && supported) {
-        initPointerEffects();
-    } else {
-        stopPointerEffects();
-    }
-
-    updateEffectsToggle(enabled, supported);
-}
-
-function initEffectsToggle(): void {
-    const toggle = selectElement<HTMLButtonElement>(selectors.effectsToggle);
-    const enabled = getPreferredEffectsEnabled();
-
-    setEffectsEnabled(enabled);
-
-    if (!toggle || !bindOnce(toggle)) {
-        return;
-    }
-
-    toggle.addEventListener('click', () => {
-        const nextEnabled = toggle.getAttribute('aria-pressed') !== 'true';
-        setEffectsEnabled(nextEnabled);
-    });
-}
-
-function getPreferredTheme(): 'dark' | 'light' {
-    try {
-        const storage = window.localStorage;
-        const storedTheme = typeof storage?.getItem === 'function' ? storage.getItem('theme') : null;
-        return storedTheme === 'light' ? 'light' : 'dark';
-    } catch {
-        return 'dark';
-    }
-}
-
-function updateThemeToggle(theme: 'dark' | 'light'): void {
-    const toggle = selectElement<HTMLButtonElement>(selectors.themeToggle);
-    const label = selectElement<HTMLElement>(selectors.themeLabel);
-    const icon = selectElement<HTMLElement>(selectors.themeIcon);
-
-    if (!toggle) {
-        return;
-    }
-
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    toggle.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
-    toggle.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
-
-    if (label) {
-        label.textContent = theme === 'dark' ? 'Dark' : 'Light';
-    }
-
-    if (icon) {
-        icon.innerHTML = uiIconMap[theme === 'dark' ? 'moon' : 'sun'];
-    }
-}
-
-function applyTheme(theme: 'dark' | 'light'): void {
-    document.documentElement.dataset.theme = theme;
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#09101E' : '#f7f9fc');
-    try {
-        const storage = window.localStorage;
-        if (typeof storage?.setItem === 'function') {
-            storage.setItem('theme', theme);
-        }
-    } catch {
-        document.documentElement.dataset.theme = theme;
-    }
-    updateThemeToggle(theme);
-
-    if (cursorTrailCleanup) {
-        initPointerEffects();
-    }
-}
-
-function initThemeToggle(): void {
-    const toggle = selectElement<HTMLButtonElement>(selectors.themeToggle);
-    applyTheme(getPreferredTheme());
-
-    if (!toggle || !bindOnce(toggle)) {
-        return;
-    }
-
-    toggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
-        applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
+    return;
 }
 
 function initScrollEffects(): void {
-    const revealElements = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
-
-    if (!('IntersectionObserver' in window)) {
-        revealElements.forEach(element => element.classList.add('is-visible'));
-        return;
-    }
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                return;
-            }
-
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-        });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
-
-    revealElements.forEach(element => observer.observe(element));
-}
-
-function initScrollToTopButton(): void {
-    const button = selectElement<HTMLButtonElement>(selectors.scrollTop);
-
-    if (!button) {
-        return;
-    }
-
-    const updateVisibility = (): void => {
-        const isVisible = window.scrollY > 480;
-        button.classList.toggle('is-visible', isVisible);
-        button.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
-        button.tabIndex = isVisible ? 0 : -1;
-    };
-
-    updateVisibility();
-
-    if (!bindOnce(button)) {
-        return;
-    }
-
-    let frame = 0;
-    const onScroll = (): void => {
-        if (frame) {
-            return;
-        }
-
-        frame = window.requestAnimationFrame(() => {
-            frame = 0;
-            updateVisibility();
-        });
-    };
-
-    button.addEventListener('click', () => {
-        const reducedMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
-    });
-    window.addEventListener('scroll', onScroll, { passive: true });
+    return;
 }
 
 function renderPortfolio(): void {
@@ -1099,10 +727,6 @@ function renderPortfolio(): void {
     renderGitHubActivities();
     renderContactSection();
     updateFooter();
-    initNavigationToggle();
-    initThemeToggle();
-    initEffectsToggle();
-    initScrollToTopButton();
 }
 
 async function initPortfolio(): Promise<void> {
