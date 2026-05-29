@@ -1,15 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-    <defs>
-        <linearGradient id="bg" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#FF637E" stop-opacity="0.28"/>
-            <stop offset="1" stop-color="#171717" stop-opacity="0.36"/>
-        </linearGradient>
-        <linearGradient id="stroke" x1="10" y1="12" x2="54" y2="52" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#FF637E"/>
-            <stop offset="1" stop-color="#09101E"/>
-        </linearGradient>
-    </defs>
-    <rect x="4" y="4" width="56" height="56" rx="18" fill="#09101E"/>
-    <rect x="5" y="5" width="54" height="54" rx="17" fill="url(#bg)" stroke="url(#stroke)" stroke-width="2"/>
-    <text x="32" y="39" text-anchor="middle" fill="#f8fafc" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="800" letter-spacing="-2">SY</text>
+    <style>
+        rect { fill: #ffffff; stroke: #111111; }
+        text { fill: #111111; }
+        @media (prefers-color-scheme: dark) {
+            rect { fill: #111111; stroke: #f3f4f6; }
+            text { fill: #f3f4f6; }
+        }
+    </style>
+    <rect x="8" y="8" width="48" height="48" rx="8" stroke-width="3"/>
+    <text x="32" y="38" text-anchor="middle" font-family="JetBrains Mono, SFMono-Regular, Menlo, Consolas, monospace" font-size="18" font-weight="700" letter-spacing="-1">SY</text>
 </svg>
